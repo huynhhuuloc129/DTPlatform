@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import swal from "sweetalert";
 import { Button, TextField, Link } from "@material-ui/core";
 import { withRouter } from "./utils";
@@ -74,7 +74,7 @@ class Login extends React.Component {
             variant="contained"
             color="primary"
             size="small"
-            disabled={this.state.username == '' && this.state.password == ''}
+            disabled={this.state.username === '' && this.state.password === ''}
             onClick={this.login}
           >
             Login
