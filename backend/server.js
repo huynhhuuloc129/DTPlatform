@@ -1,5 +1,12 @@
 var express = require("express");
 var app = express();
+
+const dotenv = require('dotenv');
+
+
+  const env = dotenv.config().parsed;
+
+  
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var cors = require('cors');
@@ -7,7 +14,7 @@ var multer = require('multer'),
   bodyParser = require('body-parser'),
   path = require('path');
 var mongoose = require("mongoose");
-mongoose.connect("mongodb+srv://geotb:@cluster0.7tk4r.mongodb.net/test");
+mongoose.connect(process.env.REACT_APP_MONGODB);
 var fs = require('fs');
 var product = require("./model/product.js");
 var user = require("./model/user.js");
