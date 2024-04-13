@@ -9,7 +9,7 @@ import swal from 'sweetalert';
 import { withRouter } from './utils';
 const axios = require('axios');
 
-class Dashboard extends Component {
+class Product extends Component {
   constructor() {
     super();
     this.state = {
@@ -61,8 +61,7 @@ class Dashboard extends Component {
     }).catch((err) => {
       swal({
         text: err.response.data.errorMessage,
-        icon: "error",
-        type: "error"
+        icon: "error"
       });
       this.setState({ loading: false, products: [], pages: 0 },()=>{});
     });
@@ -80,8 +79,7 @@ class Dashboard extends Component {
 
       swal({
         text: res.data.title,
-        icon: "success",
-        type: "success"
+        icon: "success"
       });
 
       this.setState({ page: 1 }, () => {
@@ -90,8 +88,7 @@ class Dashboard extends Component {
     }).catch((err) => {
       swal({
         text: err.response.data.errorMessage,
-        icon: "error",
-        type: "error"
+        icon: "error"
       });
     });
   }
@@ -138,8 +135,7 @@ class Dashboard extends Component {
 
       swal({
         text: res.data.title,
-        icon: "success",
-        type: "success"
+        icon: "success"
       });
 
       this.handleProductClose();
@@ -149,8 +145,7 @@ class Dashboard extends Component {
     }).catch((err) => {
       swal({
         text: err.response.data.errorMessage,
-        icon: "error",
-        type: "error"
+        icon: "error"
       });
       this.handleProductClose();
     });
@@ -176,8 +171,7 @@ class Dashboard extends Component {
 
       swal({
         text: res.data.title,
-        icon: "success",
-        type: "success"
+        icon: "success"
       });
 
       this.handleProductEditClose();
@@ -187,8 +181,7 @@ class Dashboard extends Component {
     }).catch((err) => {
       swal({
         text: err.response.data.errorMessage,
-        icon: "error",
-        type: "error"
+        icon: "error"
       });
       this.handleProductEditClose();
     });
@@ -227,12 +220,28 @@ class Dashboard extends Component {
     this.setState({ openProductEditModal: false });
   };
 
+  navDashboard = () => { 
+    this.props.navigate("/dashboard");
+  }
+  
+  navProduct = () => { 
+    this.props.navigate("/product");
+  }
   render() {
     return (
       <div>
         {this.state.loading && <LinearProgress size={40} />}
         <div>
           <h2>Dashboard</h2>
+          <Button
+            className="button_style"
+            variant="contained"
+            color="primary"
+            size="small" 
+            onClick={this.navDashboard}
+          >
+            Dashboard
+          </Button> 
           <Button
             className="button_style"
             variant="contained"
@@ -478,4 +487,4 @@ class Dashboard extends Component {
   }
 }
 
-export default withRouter(Dashboard);
+export default withRouter(Product);

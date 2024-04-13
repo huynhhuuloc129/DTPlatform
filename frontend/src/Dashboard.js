@@ -39,6 +39,14 @@ class Dashboard extends Component {
   } 
  
   
+  navDashboard = () => { 
+    this.props.navigate("/dashboard");
+  }
+  
+  navProduct = () => { 
+    this.props.navigate("/product");
+  }
+
   logOut = () => {
     localStorage.setItem('token', null);
     // this.props.history.push('/');
@@ -64,6 +72,25 @@ class Dashboard extends Component {
         {this.state.loading && <LinearProgress size={40} />}
         <div>
           <h2>Dashboard</h2>
+          <Button
+            className="button_style"
+            variant="contained"
+            color="primary"
+            size="small" 
+            onClick={this.navDashboard}
+          >
+            Dashboard
+          </Button>
+          <Button
+            className="button_style"
+            variant="contained"
+            color="primary"
+            size="small" 
+            onClick={this.navProduct}
+          >
+            Show Product
+          </Button>
+          
           <Button
             className="button_style"
             variant="contained"

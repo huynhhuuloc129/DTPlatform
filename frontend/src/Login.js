@@ -29,11 +29,15 @@ class Login extends React.Component {
       // this.props.history.push('/dashboard');
       this.props.navigate("/dashboard");
     }).catch((err) => {
-      if (err.response && err.response.data && err.response.data.errorMessage) {
+      if (!err.response) {
+        swal({
+          text: "Error: Network Error",
+          icon: "error"
+        });
+      } else if (err.response && err.response.data && err.response.data.errorMessage) {
         swal({
           text: err.response.data.errorMessage,
-          icon: "error",
-          type: "error"
+          icon: "error"
         });
       }
     });

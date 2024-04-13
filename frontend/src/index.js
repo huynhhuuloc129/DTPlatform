@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import Dashboard from "./Dashboard";
+import Product from "./Product";
 import "./Login.css";
 
 ReactDOM.render(
@@ -14,6 +15,7 @@ ReactDOM.render(
       <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/product" element={<Product />} />
     </Routes>
   </BrowserRouter>,
   document.getElementById("root")
