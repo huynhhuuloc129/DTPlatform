@@ -28,12 +28,11 @@ class Register extends React.Component {
         type: "success"
       });
       // this.props.history.push('/');
-      this.props.navigate("/");
+      this.props.navigate("/login");
     }).catch((err) => {
       swal({
         text: err.response.data.errorMessage,
-        icon: "error",
-        type: "error"
+        icon: "error"
       });
     });
   }
@@ -94,7 +93,7 @@ class Register extends React.Component {
             component="button"
             style={{ fontFamily: "inherit", fontSize: "inherit" }}
             onClick={() => {
-              this.props.navigate("/");
+              this.props.navigate("/dashboard");
             }}
           >
             Login
