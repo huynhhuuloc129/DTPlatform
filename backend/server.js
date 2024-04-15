@@ -4,9 +4,9 @@ var app = express();
 const dotenv = require('dotenv');
 
 
-  const env = dotenv.config().parsed;
+const env = dotenv.config().parsed;
 
-  
+
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var cors = require('cors');
@@ -17,6 +17,7 @@ var mongoose = require("mongoose");
 mongoose.connect(process.env.REACT_APP_MONGODB);
 var fs = require('fs');
 var product = require("./model/product.js");
+var road = require("./model/road.js");
 var user = require("./model/user.js");
 
 var dir = './uploads';
@@ -371,6 +372,35 @@ app.get("/get-product", (req, res) => {
       status: false
     });
   }
+
+});
+
+/*Api to get road*/
+app.get("/get-road", (req, res) => {
+  // road.find(query, { date: 1, name: 1, id: 1, desc: 1, price: 1, discount: 1, image: 1 })
+  road.findOne()
+    .then((data) => {
+
+      console.log(data);
+      if (data) {
+        res.status(200).json({
+          status: true,
+          title: 'ROAD retrived.',
+          roads: data
+        });
+      } else {
+        res.status(400).json({
+          errorMessage: 'There is no road!',
+          status: false
+        });
+      }
+
+    }).catch(err => {
+      res.status(400).json({
+        errorMessage: err.message || err,
+        status: false
+      });
+    });
 
 });
 
