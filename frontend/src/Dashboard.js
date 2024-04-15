@@ -26,7 +26,10 @@ class Dashboard extends Component {
       fileName: '',
       page: 1,
       search: '',
-      roads: [],
+      roads: {
+        "type": "FeatureCollection",
+        "features": []
+      },
       pages: 0,
       loading: false
     };
@@ -84,11 +87,11 @@ class Dashboard extends Component {
       this.setState({
         loading: false, roads: {
           "type": "FeatureCollection",
-          "features": 
+          "features":
             res.data.roads
         }
       });
-      console.log(res.data.roads);
+      // console.log(res.data.roads);
     }).catch((err) => {
       swal({
         text: err.response.data.errorMessage,
