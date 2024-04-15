@@ -378,10 +378,10 @@ app.get("/get-product", (req, res) => {
 /*Api to get road*/
 app.get("/get-road", (req, res) => {
   // road.find(query, { date: 1, name: 1, id: 1, desc: 1, price: 1, discount: 1, image: 1 })
-  road.findOne()
+  road.find()
     .then((data) => {
 
-      console.log(data);
+      // console.log(data);
       if (data) {
         res.status(200).json({
           status: true,

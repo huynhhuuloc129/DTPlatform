@@ -84,8 +84,8 @@ class Dashboard extends Component {
       this.setState({
         loading: false, roads: {
           "type": "FeatureCollection",
-          "features": [
-            res.data.roads]
+          "features": 
+            res.data.roads
         }
       });
       console.log(res.data.roads);
@@ -167,7 +167,7 @@ class Dashboard extends Component {
           initialViewState={{
             latitude: 21.032610238914277,
             longitude: 105.84713300000003,
-            zoom: 12,
+            zoom: 10,
           }}
           mapStyle="mapbox://styles/mapbox/light-v11"
           mapboxAccessToken={MAPBOX_TOKEN}
