@@ -6,8 +6,9 @@ import {
 } from '@material-ui/core';
 import swal from 'sweetalert';
 import { withRouter } from './utils';
-// import PathFinder, { pathToGeoJSON } from "geojson-path-finder";
+import PathFinder, { pathToGeoJSON } from "geojson-path-finder"; 
 
+import GeocoderControl from "./geocoder-control.tsx";
 
 const axios = require('axios');
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN; // Set your mapbox token here
@@ -16,7 +17,7 @@ const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN; // Set your mapbox toke
 class Dashboard extends Component {
   constructor() {
     super();
-    this.mapRef = React.createRef()
+    this.mapRef = React.createRef();
     this.handleOnpress = this.handleOnpress.bind(this);
 
     this.state = {
@@ -36,6 +37,15 @@ class Dashboard extends Component {
         "type": "FeatureCollection",
         "features": []
       },
+      pathFinder: new PathFinder({
+        "type": "FeatureCollection",
+        "features": []
+      }),
+      pathLineString: {
+        "type": "FeatureCollection",
+        "features": []
+      },// pathToGeoJSON(pathFinder.findPath(start, finish));
+
       pages: 0,
       loading: false
     };
@@ -91,7 +101,7 @@ class Dashboard extends Component {
     data = `${data}`;
 
     if (this.mapRef.current !== null) {
-      let p=this.mapRef.current.getBounds().toArray();
+      let p = this.mapRef.current.getBounds().toArray();
       // console.log(p);
       data = `${data}&search=${p[0]},${p[1]}`;
     }
@@ -119,7 +129,7 @@ class Dashboard extends Component {
   }
 
   handleOnpress(event) {
-  
+
     this.getRoad();
   }
 
@@ -196,6 +206,7 @@ class Dashboard extends Component {
           <Source type="geojson" data={this.state.roads}>
             <Layer {...dataLayer} />
           </Source>
+          <GeocoderControl mapboxAccessToken={MAPBOX_TOKEN} position="top-left" />
 
         </ReactMapGL>
       </div>
