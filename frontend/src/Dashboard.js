@@ -6,9 +6,10 @@ import {
 } from '@material-ui/core';
 import swal from 'sweetalert';
 import { withRouter } from './utils';
-import PathFinder, { pathToGeoJSON } from "geojson-path-finder"; 
+// import PathFinder, { pathToGeoJSON } from "geojson-path-finder"; 
+// import Geocoder from 'react-mapbox-gl-geocoder'
 
-import GeocoderControl from "./geocoder-control.tsx";
+// import GeocoderControl from "./geocoder-control.tsx";
 
 const axios = require('axios');
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN; // Set your mapbox token here
@@ -29,7 +30,9 @@ class Dashboard extends Component {
       desc: '',
       price: '',
       discount: '',
-      file: '',
+      file: '',        
+      viewport: {},
+
       fileName: '',
       page: 1,
       search: '',
@@ -37,10 +40,10 @@ class Dashboard extends Component {
         "type": "FeatureCollection",
         "features": []
       },
-      pathFinder: new PathFinder({
-        "type": "FeatureCollection",
-        "features": []
-      }),
+      // pathFinder: new PathFinder({
+      //   "type": "FeatureCollection",
+      //   "features": []
+      // }),
       pathLineString: {
         "type": "FeatureCollection",
         "features": []
@@ -206,7 +209,7 @@ class Dashboard extends Component {
           <Source type="geojson" data={this.state.roads}>
             <Layer {...dataLayer} />
           </Source>
-          <GeocoderControl mapboxAccessToken={MAPBOX_TOKEN} position="top-left" />
+          {/* <GeocoderControl mapboxAccessToken={MAPBOX_TOKEN} position="top-left" /> */}
 
         </ReactMapGL>
       </div>
