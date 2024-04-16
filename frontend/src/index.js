@@ -8,6 +8,8 @@ import Register from "./Register";
 import Dashboard from "./Dashboard";
 import Product from "./Product";
 import "./Login.css";
+import * as serviceWorker from './serviceWorker';
+
 
 ReactDOM.render(
   <BrowserRouter>
@@ -20,3 +22,4 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById("root")
 );
+serviceWorker.register();

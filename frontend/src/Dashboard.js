@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import ReactMapGL from 'react-map-gl';
 import { Source, Layer } from 'react-map-gl';
-
 import {
   Button, LinearProgress
 } from '@material-ui/core';
 import swal from 'sweetalert';
 import { withRouter } from './utils';
+
 const axios = require('axios');
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN; // Set your mapbox token here
+
 
 class Dashboard extends Component {
   constructor() {
     super();
+    this.mapRef = React.createRef()
+    this.handleOnpress = this.handleOnpress.bind(this);
+
     this.state = {
       token: '',
       openProductModal: false,
@@ -33,7 +37,9 @@ class Dashboard extends Component {
       pages: 0,
       loading: false
     };
+
   }
+
 
   componentDidMount = () => {
     let token = localStorage.getItem('token');
@@ -69,7 +75,7 @@ class Dashboard extends Component {
     this.setState({ [e.target.name]: e.target.value }, () => { });
     if (e.target.name === 'search') {
       this.setState({ page: 1 }, () => {
-        this.getProduct();
+        this.getRoad();
       });
     }
   };
@@ -79,7 +85,16 @@ class Dashboard extends Component {
 
     this.setState({ loading: true });
 
-    axios.get(`http://localhost:2000/get-road`, {
+    let data = '?';
+    data = `${data}`;
+
+    if (this.mapRef.current !== null) {
+      let p=this.mapRef.current.getBounds().toArray();
+      // console.log(p);
+      data = `${data}&search=${p[0]},${p[1]}`;
+    }
+
+    axios.get(`http://localhost:2000/get-road${data}`, {
       headers: {
         'token': this.state.token
       }
@@ -101,26 +116,23 @@ class Dashboard extends Component {
     });
   }
 
+  handleOnpress(event) {
+  
+    this.getRoad();
+  }
+
   render() {
     const dataLayer = {
       id: 'data',
-      type: 'fill',
-      paint: {
-        'fill-color': {
-          property: 'percentile',
-          stops: [
-            [0, '#3288bd'],
-            [1, '#66c2a5'],
-            [2, '#abdda4'],
-            [3, '#e6f598'],
-            [4, '#ffffbf'],
-            [5, '#fee08b'],
-            [6, '#fdae61'],
-            [7, '#f46d43'],
-            [8, '#d53e4f']
-          ]
-        },
-        'fill-opacity': 0.8
+      'type': 'line',
+      'layout': {
+        'line-join': 'round',
+        'line-cap': 'round'
+      },
+      'paint': {
+        'line-color': '#888',
+        'line-width': 1
+
       }
     };
     return (
@@ -163,14 +175,17 @@ class Dashboard extends Component {
 
 
         <ReactMapGL
+          ref={this.mapRef}
           style={{
             height: `80vh`,
             width: `100vw`
           }}
+
+          onDrag={this.handleOnpress}
           initialViewState={{
             latitude: 21.032610238914277,
             longitude: 105.84713300000003,
-            zoom: 10,
+            zoom: 15,
           }}
           mapStyle="mapbox://styles/mapbox/light-v11"
           mapboxAccessToken={MAPBOX_TOKEN}
