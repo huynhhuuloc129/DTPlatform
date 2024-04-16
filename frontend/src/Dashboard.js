@@ -6,6 +6,8 @@ import {
 } from '@material-ui/core';
 import swal from 'sweetalert';
 import { withRouter } from './utils';
+// import PathFinder, { pathToGeoJSON } from "geojson-path-finder";
+
 
 const axios = require('axios');
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN; // Set your mapbox token here
@@ -181,7 +183,8 @@ class Dashboard extends Component {
             width: `100vw`
           }}
 
-          onDrag={this.handleOnpress}
+          // onDrag={this.handleOnpress}
+          // onZoom={this.handleOnpress}
           initialViewState={{
             latitude: 21.032610238914277,
             longitude: 105.84713300000003,

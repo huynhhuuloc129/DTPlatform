@@ -377,39 +377,33 @@ app.get("/get-product", (req, res) => {
 
 /*Api to get road*/
 app.get("/get-road", (req, res) => {
+  /*
   var query = {};
   query["$and"] = [];
-  let x1=105.83365758174284;
-  let y1=21.024622888117804;
-  let x2=105.86073716395765;
-  let y2=21.040597161724193;
+  let x1 = 105.83365758174284;
+  let y1 = 21.024622888117804;
+  let x2 = 105.86073716395765;
+  let y2 = 21.040597161724193;
   if (req.query && req.query.search) {
     query["$and"].push({ coordinates: { $geoWithin: { $geometry: req.query.search } } });
-    let p=req.query.search.split(",");
-    x1=parseFloat(p[0]);
-    y1=parseFloat(p[1]);
-    x2=parseFloat(p[2]);
-    y2=parseFloat(p[3]);
+    let p = req.query.search.split(",");
+    x1 = parseFloat(p[0]);
+    y1 = parseFloat(p[1]);
+    x2 = parseFloat(p[2]);
+    y2 = parseFloat(p[3]);
   }
-  // road.find(query, { date: 1, name: 1, id: 1, desc: 1, price: 1, discount: 1, image: 1 })
-  // var neighborhood = db.neighborhoods.findOne( { geometry: { $geoIntersects: { $geometry: { type: "Point", coordinates: [ -73.93414657, 40.82302903 ] } } } } )
   road.find({
     geometry: {
       $geoWithin: {
         $geometry: {
           type: "Polygon",
-          coordinates: [[[x1,y1], [x1,y2], [x2,y2], [x2,y1],[x1,y1]]]
+          coordinates: [[[x1, y1], [x1, y2], [x2, y2], [x2, y1], [x1, y1]]]
         }
       }
     }
   })
-    /*
-    $geometry: {
-              type: "Polygon",
-              coordinates: [[105.83365758174284, 21.024622888117804], [105.83365758174284, 21.040597161724193], [105.83365758174284, 21.040597161724193], [105.86073716395765, 21.040597161724193]]
-           }
-    */
-    // road.find()
+  */
+  road.find()
     .then((data) => {
 
       // console.log(data);
