@@ -7,12 +7,12 @@ import {
 import swal from 'sweetalert';
 import { withRouter } from './utils';
 // import PathFinder, { pathToGeoJSON } from "geojson-path-finder"; 
-// import Geocoder from 'react-mapbox-gl-geocoder'
+import Geocoder from 'react-map-gl-geocoder'
 
 // import GeocoderControl from "./geocoder-control.tsx";
 
 const axios = require('axios');
-const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN; // Set your mapbox token here
+const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN; // Set your mapbox token here 
 
 
 class Dashboard extends Component {
@@ -23,18 +23,13 @@ class Dashboard extends Component {
 
     this.state = {
       token: '',
-      openProductModal: false,
-      openProductEditModal: false,
       id: '',
-      name: '',
-      desc: '',
-      price: '',
-      discount: '',
-      file: '',        
-      viewport: {},
+      viewport: {
+        latitude: 21.032610238914277,
+        longitude: 105.84713300000003,
+        zoom: 15,
+      },
 
-      fileName: '',
-      page: 1,
       search: '',
       roads: {
         "type": "FeatureCollection",
@@ -49,7 +44,6 @@ class Dashboard extends Component {
         "features": []
       },// pathToGeoJSON(pathFinder.findPath(start, finish));
 
-      pages: 0,
       loading: false
     };
 
@@ -58,17 +52,77 @@ class Dashboard extends Component {
 
   componentDidMount = () => {
     let token = localStorage.getItem('token');
-    if (!token) {
+    // console.log(token);
+    if (!token || token === "null") {
       // this.props.history.push('/login');
       this.props.navigate("/login");
     } else {
-      this.setState({ token: token }, () => {
-        this.getRoad();
-      });
+      this.setState({ token: token });
     }
+
+    window.addEventListener("resize", this.resize);
+    this.resize();
   }
 
 
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.resize);
+  }
+
+  resize = () => {
+    this.handleViewportChange({
+      width: window.innerWidth,
+      height: window.innerHeight
+    });
+  };
+
+  handleViewportChange = viewport => {
+    this.setState({
+      viewport: { ...this.state.viewport, ...viewport }
+    }, () => {
+      // this.getRoad();
+
+      let token = localStorage.getItem('token');
+      if (!token || token === "null") {
+        // this.props.history.push('/login');
+        this.props.navigate("/login");
+        return;
+      }
+    });
+  };
+
+  // if you are happy with Geocoder default settings, you can just use handleViewportChange directly
+  handleGeocoderViewportChange = viewport => {
+    const geocoderDefaultOverrides = { transitionDuration: 1000 };
+    // console.log(viewport);
+    this.getRoad();
+    return this.handleViewportChange({
+      ...viewport,
+      ...geocoderDefaultOverrides
+    });
+  };
+  // if you are happy with Geocoder default settings, you can just use handleViewportChange directly
+  handleGeocoderViewportChange2 = viewport => {
+    const geocoderDefaultOverrides = { transitionDuration: 1000 };
+    console.log(viewport);
+    return this.handleViewportChange({
+      ...viewport,
+      ...geocoderDefaultOverrides
+    });
+  };
+
+  handleOnResult = event => {
+    // this.setState({
+    //   searchResultLayer: new GeoJsonLayer({
+    //     id: "search-result",
+    //     data: event.result.geometry,
+    //     getFillColor: [255, 0, 0, 128],
+    //     getRadius: 1000,
+    //     pointRadiusMinPixels: 10,
+    //     pointRadiusMaxPixels: 10
+    //   })
+    // });
+  };
   navDashboard = () => {
     this.props.navigate("/dashboard");
   }
@@ -104,8 +158,8 @@ class Dashboard extends Component {
     data = `${data}`;
 
     if (this.mapRef.current !== null) {
-      let p = this.mapRef.current.getBounds().toArray();
-      // console.log(p);
+      // console.log( this.mapRef.current.getMap().getBounds());
+      let p = this.mapRef.current.getMap().getBounds().toArray();
       data = `${data}&search=${p[0]},${p[1]}`;
     }
 
@@ -130,9 +184,14 @@ class Dashboard extends Component {
       this.setState({ loading: false, roads: [] }, () => { });
     });
   }
+  onSelected = (v, item) => {
+    this.setState({ viewport: v });
+    console.log('Selected: ', item)
+  }
+
 
   handleOnpress(event) {
-
+    console.log(event);
     this.getRoad();
   }
 
@@ -150,6 +209,8 @@ class Dashboard extends Component {
 
       }
     };
+
+    const viewport = this.state.viewport;
     return (
       <div>
         {this.state.loading && <LinearProgress size={40} />}
@@ -189,29 +250,49 @@ class Dashboard extends Component {
         <br />
 
 
-        <ReactMapGL
-          ref={this.mapRef}
-          style={{
-            height: `80vh`,
-            width: `100vw`
-          }}
+        <div style={{ height: "100vh" }}>
+          <ReactMapGL
+            ref={this.mapRef}
 
-          // onDrag={this.handleOnpress}
-          // onZoom={this.handleOnpress}
-          initialViewState={{
-            latitude: 21.032610238914277,
-            longitude: 105.84713300000003,
-            zoom: 15,
-          }}
-          mapStyle="mapbox://styles/mapbox/light-v11"
-          mapboxAccessToken={MAPBOX_TOKEN}
-        >
-          <Source type="geojson" data={this.state.roads}>
-            <Layer {...dataLayer} />
-          </Source>
-          {/* <GeocoderControl mapboxAccessToken={MAPBOX_TOKEN} position="top-left" /> */}
+            width="100%"
+            height="100%"
+            // onViewportChange={this.handleViewportChange}
+            onLoad={this.getRoad}
+            onDrag={this.handleOnpress}
+            // onZoom={this.handleOnpress}
+            // {...{
+            //   latitude: 21.032610238914277,
+            //   longitude: 105.84713300000003,
+            //   zoom: 15,
+            // }}            
+            {...viewport}
+            onViewportChange={(newViewport) => this.setState({ viewport: newViewport })}
 
-        </ReactMapGL>
+            mapStyle="mapbox://styles/mapbox/light-v11"
+            mapboxApiAccessToken={MAPBOX_TOKEN}
+          >
+            <Source type="geojson" data={this.state.roads}>
+              <Layer {...dataLayer} />
+            </Source>
+
+          </ReactMapGL>
+          <Geocoder
+            mapRef={this.mapRef}
+            mapboxApiAccessToken={MAPBOX_TOKEN} onSelected={this.onSelected}
+
+            onViewportChange={this.handleGeocoderViewportChange}
+            position="top-left"
+          />
+          <Geocoder
+            mapRef={this.mapRef}
+            mapboxApiAccessToken={MAPBOX_TOKEN} onSelected={this.onSelected}
+
+            onViewportChange={this.handleGeocoderViewportChange2}
+            position="top-left"
+          />
+
+
+        </div>
       </div>
     );
   }

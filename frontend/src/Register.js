@@ -28,10 +28,10 @@ class Register extends React.Component {
         type: "success"
       });
       // this.props.history.push('/');
-      this.props.navigate("/login");
+      this.props.navigate("/");
     }).catch((err) => {
       swal({
-        text: err.response.data.errorMessage,
+        text: err,
         icon: "error"
       });
     });
@@ -46,7 +46,7 @@ class Register extends React.Component {
 
         <div>
           <TextField
-            id="standard-basic"
+            id="standard-basic1"
             type="text"
             autoComplete="off"
             name="username"
@@ -57,7 +57,7 @@ class Register extends React.Component {
           />
           <br /><br />
           <TextField
-            id="standard-basic"
+            id="standard-basic2"
             type="password"
             autoComplete="off"
             name="password"
@@ -68,7 +68,7 @@ class Register extends React.Component {
           />
           <br /><br />
           <TextField
-            id="standard-basic"
+            id="standard-basic3"
             type="password"
             autoComplete="off"
             name="confirm_password"
@@ -93,7 +93,7 @@ class Register extends React.Component {
             component="button"
             style={{ fontFamily: "inherit", fontSize: "inherit" }}
             onClick={() => {
-              this.props.navigate("/dashboard");
+              this.props.navigate("/");
             }}
           >
             Login
