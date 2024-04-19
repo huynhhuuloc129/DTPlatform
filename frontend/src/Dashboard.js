@@ -6,7 +6,7 @@ import {
 } from '@material-ui/core';
 import swal from 'sweetalert';
 import { withRouter } from './utils';
-// import PathFinder, { pathToGeoJSON } from "geojson-path-finder"; 
+import PathFinder, { pathToGeoJSON } from "geojson-path-finder";
 import Geocoder from 'react-map-gl-geocoder'
 
 // import GeocoderControl from "./geocoder-control.tsx";
@@ -29,16 +29,14 @@ class Dashboard extends Component {
         longitude: 105.84713300000003,
         zoom: 15,
       },
-
+      start: {},
+      finish: {},
       search: '',
       roads: {
         "type": "FeatureCollection",
         "features": []
       },
-      // pathFinder: new PathFinder({
-      //   "type": "FeatureCollection",
-      //   "features": []
-      // }),
+      pathFinder: {},
       pathLineString: {
         "type": "FeatureCollection",
         "features": []
@@ -95,7 +93,23 @@ class Dashboard extends Component {
   handleGeocoderViewportChange = viewport => {
     const geocoderDefaultOverrides = { transitionDuration: 1000 };
     // console.log(viewport);
-    this.getRoad();
+    // this.getRoad();
+    console.log(this.state.roads);
+    const pF = new PathFinder(this.state.roads, { tolerance: 1e-3 });
+    this.setState({
+      start: 
+      {
+        'type': 'Feature',
+        'geometry': {
+          'type': 'Point',
+          'coordinates': [viewport.longitude, viewport.latitude]
+        },
+        'properties': {
+          'title': 'Finish'
+        }
+      },
+      pathFinder: pF
+    });
     return this.handleViewportChange({
       ...viewport,
       ...geocoderDefaultOverrides
@@ -105,6 +119,22 @@ class Dashboard extends Component {
   handleGeocoderViewportChange2 = viewport => {
     const geocoderDefaultOverrides = { transitionDuration: 1000 };
     console.log(viewport);
+    this.setState({
+      finish:
+      {
+        'type': 'Feature',
+        'geometry': {
+          'type': 'Point',
+          'coordinates': [viewport.longitude, viewport.latitude]
+        },
+        'properties': {
+          'title': 'Finish'
+        }
+      }
+    });
+    const p = pathToGeoJSON(this.state.pathFinder.findPath(this.state.start, this.state.finish));
+    console.log(this.state.pathFinder.findPath(this.state.start, this.state.finish));
+    this.setState({ pathLineString: p });
     return this.handleViewportChange({
       ...viewport,
       ...geocoderDefaultOverrides
@@ -169,16 +199,16 @@ class Dashboard extends Component {
       }
     }).then((res) => {
       this.setState({
-        loading: false, roads: {
+        loading: false,
+        roads: {
           "type": "FeatureCollection",
           "features":
             res.data.roads
         }
       });
-      // console.log(res.data.roads);
     }).catch((err) => {
       swal({
-        text: err.response.data.errorMessage,
+        text: "" + err,
         icon: "error"
       });
       this.setState({ loading: false, roads: [] }, () => { });
