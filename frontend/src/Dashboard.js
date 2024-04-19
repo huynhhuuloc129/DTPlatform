@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactMapGL from 'react-map-gl';
+import ReactMapGL, { Marker } from 'react-map-gl';
 import { Source, Layer } from 'react-map-gl';
 import {
   Button, LinearProgress
@@ -13,6 +13,43 @@ import Geocoder from 'react-map-gl-geocoder'
 
 const axios = require('axios');
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN; // Set your mapbox token here 
+
+const dataLayerPath = {
+  id: 'path',
+  'type': 'line',
+  'layout': {
+    'line-join': 'round',
+    'line-cap': 'round'
+  },
+  'paint': {
+    'line-color': '#888',
+    'line-width': 5
+
+  }
+};
+
+const dataLayer = {
+  id: 'roads',
+  'type': 'line',
+  'layout': {
+    'line-join': 'round',
+    'line-cap': 'round'
+  },
+  'paint': {
+    'line-color': '#888',
+    'line-width': 1
+
+  }
+};
+
+const ICON = `M20.2,15.7L20.2,15.7c1.1-1.6,1.8-3.6,1.8-5.7c0-5.6-4.5-10-10-10S2,4.5,2,10c0,2,0.6,3.9,1.6,5.4c0,0.1,0.1,0.2,0.2,0.3
+  c0,0,0.1,0.1,0.1,0.2c0.2,0.3,0.4,0.6,0.7,0.9c2.6,3.1,7.4,7.6,7.4,7.6s4.8-4.5,7.4-7.5c0.2-0.3,0.5-0.6,0.7-0.9
+  C20.1,15.8,20.2,15.8,20.2,15.7z`;
+
+const pinStyle = {
+  fill: '#d00',
+  stroke: 'none'
+};
 
 
 class Dashboard extends Component {
@@ -39,7 +76,8 @@ class Dashboard extends Component {
       pathFinder: {},
       pathLineString: {
         "type": "FeatureCollection",
-        "features": []
+        "features": [
+        ]
       },// pathToGeoJSON(pathFinder.findPath(start, finish));
 
       loading: false
@@ -95,14 +133,38 @@ class Dashboard extends Component {
     // console.log(viewport);
     // this.getRoad();
     console.log(this.state.roads);
-    const pF = new PathFinder(this.state.roads, { tolerance: 1e-3 });
+    const pF = new PathFinder(this.state.roads, {
+      tolerance: 1e-9,
+    });
+
+    // const p = pathToGeoJSON(pF.findPath({
+    //   'type': 'Feature',
+    //   'geometry': {
+    //     'type': 'Point',
+    //     'coordinates': [105.82252385726262, 21.00586053368121]
+    //   },
+    //   'properties': {
+    //     'title': 'Finish'
+    //   }
+    // }, {
+    //   'type': 'Feature',
+    //   'geometry': {
+    //     'type': 'Point',
+    //     'coordinates': [105.86137452866406, 21.09300986395991]
+    //   },
+    //   'properties': {
+    //     'title': 'Finish'
+    //   }
+    // }));
+    // console.log(p);
     this.setState({
-      start: 
+      start:
       {
         'type': 'Feature',
         'geometry': {
           'type': 'Point',
           'coordinates': [viewport.longitude, viewport.latitude]
+          // 'coordinates': [105.84368150000002, 21.046629699999983]
         },
         'properties': {
           'title': 'Finish'
@@ -126,14 +188,36 @@ class Dashboard extends Component {
         'geometry': {
           'type': 'Point',
           'coordinates': [viewport.longitude, viewport.latitude]
+          // 'coordinates': [105.86137452866406, 21.09300986395991]
         },
         'properties': {
           'title': 'Finish'
         }
       }
     });
-    const p = pathToGeoJSON(this.state.pathFinder.findPath(this.state.start, this.state.finish));
+    // const p = pathToGeoJSON(this.state.pathFinder.findPath({
+    //   'type': 'Feature',
+    //   'geometry': {
+    //     'type': 'Point',
+    //     // 'coordinates': [viewport.longitude, viewport.latitude]
+    //     'coordinates': [105.84368150000002, 21.046629699999983]
+    //   },
+    //   'properties': {
+    //     'title': 'Finish'
+    //   }
+    // }, {
+    //   'type': 'Feature',
+    //   'geometry': {
+    //     'type': 'Point',
+    //     // 'coordinates': [viewport.longitude, viewport.latitude]
+    //     'coordinates': [105.86137452866406, 21.09300986395991]
+    //   },
+    //   'properties': {
+    //     'title': 'Finish'
+    //   }
+    // }));
     console.log(this.state.pathFinder.findPath(this.state.start, this.state.finish));
+    const p = pathToGeoJSON(this.state.pathFinder.findPath(this.state.start, this.state.finish));
     this.setState({ pathLineString: p });
     return this.handleViewportChange({
       ...viewport,
@@ -226,20 +310,6 @@ class Dashboard extends Component {
   }
 
   render() {
-    const dataLayer = {
-      id: 'data',
-      'type': 'line',
-      'layout': {
-        'line-join': 'round',
-        'line-cap': 'round'
-      },
-      'paint': {
-        'line-color': '#888',
-        'line-width': 1
-
-      }
-    };
-
     const viewport = this.state.viewport;
     return (
       <div>
@@ -301,10 +371,18 @@ class Dashboard extends Component {
             mapStyle="mapbox://styles/mapbox/light-v11"
             mapboxApiAccessToken={MAPBOX_TOKEN}
           >
+            <Source type="geojson" data={this.state.pathLineString}>
+              <Layer {...dataLayerPath} />
+            </Source>
             <Source type="geojson" data={this.state.roads}>
               <Layer {...dataLayer} />
             </Source>
 
+            <Marker longitude={105.84713300000003} latitude={21.032610238914277} >
+              <svg height={20} viewBox="0 0 24 24" style={pinStyle}>
+                <path d={ICON} />
+              </svg>
+            </Marker>
           </ReactMapGL>
           <Geocoder
             mapRef={this.mapRef}
