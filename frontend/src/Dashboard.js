@@ -29,7 +29,10 @@ const dataLayerPath = {
 
   }
 };
-
+/*
+Hàng Đào, 11000, Quan Hoan Kiem, Hanoi, Vietnam
+Phở Thìn 13 Lò Đúc, 13 Lò Đúc, Hanoi, 11600, Vietnam
+*/
 // const dataLayer = {
 //   id: 'roads',
 //   'type': 'line',
@@ -127,7 +130,11 @@ class Dashboard extends Component {
     // this.getRoad();
     // console.log(this.state.roads);
     const pF = new PathFinder(this.state.roads, {
-      tolerance: 1e-9,
+      weight: function (a, b, props) {
+        const dx = a[0] - b[0];
+        const dy = a[1] - b[1];
+        return Math.sqrt(dx * dx + dy * dy);//*Math.random()*10;
+      }, tolerance: 1e-9,
     });
 
     // const p = pathToGeoJSON(pF.findPath({
