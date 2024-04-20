@@ -377,7 +377,34 @@ app.get("/get-product", (req, res) => {
 
 /*Api to get road*/
 app.get("/get-road", (req, res) => {
-  /*
+  road.find()
+    .then((data) => {
+
+      // console.log(data);
+      if (data) {
+        res.status(200).json({
+          status: true,
+          title: 'ROAD retrived.',
+          roads: data
+        });
+      } else {
+        res.status(400).json({
+          errorMessage: 'There is no road!',
+          status: false
+        });
+      }
+
+    }).catch(err => {
+      res.status(400).json({
+        errorMessage: err.message || err,
+        status: false
+      });
+    });
+
+});
+
+/*Api to get road inside boundary*/
+app.get("/get-road-inside", (req, res) => {
   var query = {};
   query["$and"] = [];
   let x1 = 105.83365758174284;
@@ -402,8 +429,6 @@ app.get("/get-road", (req, res) => {
       }
     }
   })
-  */
-  road.find()
     .then((data) => {
 
       // console.log(data);
@@ -421,6 +446,67 @@ app.get("/get-road", (req, res) => {
       }
 
     }).catch(err => {
+      res.status(400).json({
+        errorMessage: err.message || err,
+        status: false
+      });
+    });
+
+});
+
+/*Api to get road nearest to point*/
+app.get("/get-road-near", (req, res) => {
+  // var query = {};
+  // query["$and"] = [];
+  let x1 = 105.83365758174284;
+  let y1 = 21.024622888117804;
+  let minD=1;
+  let maxD=5;
+  if (req.query && req.query.search) {
+    // query["$and"].push({ coordinates: { $geoWithin: { $geometry: req.query.search } } });
+    let p = req.query.search.split(",");
+    x1 = parseFloat(p[0]);
+    y1 = parseFloat(p[1]);
+    minD=parseFloat(p[2]);
+    maxD=parseFloat(p[3]);
+    
+    // console.log(x1 + " " + y1);
+  }
+  
+  road.find(
+    {
+      geometry:
+      {
+        $nearSphere: {
+           $geometry: {
+              type : "Point",
+              coordinates : [ x1,y1]
+           },
+           $minDistance: minD,
+           $maxDistance: maxD
+        }
+      }
+    }
+  )
+    .then((data) => {
+
+      // console.log(data);
+      if (data) {
+        res.status(200).json({
+          status: true,
+          title: 'ROAD retrived.',
+          roads: data
+        });
+      } else {
+        res.status(400).json({
+          errorMessage: 'There is no road!',
+          status: false
+        });
+      }
+
+    }).catch(err => {
+
+      console.log(err);
       res.status(400).json({
         errorMessage: err.message || err,
         status: false

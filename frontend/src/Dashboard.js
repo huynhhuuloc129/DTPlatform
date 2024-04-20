@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import ReactMapGL, { Marker } from 'react-map-gl';
+import ReactMapGL from 'react-map-gl';
 import { Source, Layer } from 'react-map-gl';
 import {
   Button, LinearProgress
 } from '@material-ui/core';
+
+import * as turf from "@turf/turf";
 import swal from 'sweetalert';
 import { withRouter } from './utils';
 import PathFinder, { pathToGeoJSON } from "geojson-path-finder";
@@ -40,15 +42,6 @@ const dataLayer = {
     'line-width': 1
 
   }
-};
-
-const ICON = `M20.2,15.7L20.2,15.7c1.1-1.6,1.8-3.6,1.8-5.7c0-5.6-4.5-10-10-10S2,4.5,2,10c0,2,0.6,3.9,1.6,5.4c0,0.1,0.1,0.2,0.2,0.3
-  c0,0,0.1,0.1,0.1,0.2c0.2,0.3,0.4,0.6,0.7,0.9c2.6,3.1,7.4,7.6,7.4,7.6s4.8-4.5,7.4-7.5c0.2-0.3,0.5-0.6,0.7-0.9
-  C20.1,15.8,20.2,15.8,20.2,15.7z`;
-
-const pinStyle = {
-  fill: '#d00',
-  stroke: 'none'
 };
 
 
@@ -132,7 +125,7 @@ class Dashboard extends Component {
     const geocoderDefaultOverrides = { transitionDuration: 1000 };
     // console.log(viewport);
     // this.getRoad();
-    console.log(this.state.roads);
+    // console.log(this.state.roads);
     const pF = new PathFinder(this.state.roads, {
       tolerance: 1e-9,
     });
@@ -157,19 +150,8 @@ class Dashboard extends Component {
     //   }
     // }));
     // console.log(p);
+    this.getRoadNear(viewport.longitude, viewport.latitude, 0);
     this.setState({
-      start:
-      {
-        'type': 'Feature',
-        'geometry': {
-          'type': 'Point',
-          'coordinates': [viewport.longitude, viewport.latitude]
-          // 'coordinates': [105.84368150000002, 21.046629699999983]
-        },
-        'properties': {
-          'title': 'Finish'
-        }
-      },
       pathFinder: pF
     });
     return this.handleViewportChange({
@@ -180,21 +162,8 @@ class Dashboard extends Component {
   // if you are happy with Geocoder default settings, you can just use handleViewportChange directly
   handleGeocoderViewportChange2 = viewport => {
     const geocoderDefaultOverrides = { transitionDuration: 1000 };
-    console.log(viewport);
-    this.setState({
-      finish:
-      {
-        'type': 'Feature',
-        'geometry': {
-          'type': 'Point',
-          'coordinates': [viewport.longitude, viewport.latitude]
-          // 'coordinates': [105.86137452866406, 21.09300986395991]
-        },
-        'properties': {
-          'title': 'Finish'
-        }
-      }
-    });
+
+    this.getRoadNear(viewport.longitude, viewport.latitude, 1);
     // const p = pathToGeoJSON(this.state.pathFinder.findPath({
     //   'type': 'Feature',
     //   'geometry': {
@@ -216,9 +185,6 @@ class Dashboard extends Component {
     //     'title': 'Finish'
     //   }
     // }));
-    console.log(this.state.pathFinder.findPath(this.state.start, this.state.finish));
-    const p = pathToGeoJSON(this.state.pathFinder.findPath(this.state.start, this.state.finish));
-    this.setState({ pathLineString: p });
     return this.handleViewportChange({
       ...viewport,
       ...geocoderDefaultOverrides
@@ -250,19 +216,6 @@ class Dashboard extends Component {
     // this.props.history.push('/');
     this.props.navigate("/");
   }
-
-  onChange = (e) => {
-    if (e.target.files && e.target.files[0] && e.target.files[0].name) {
-      this.setState({ fileName: e.target.files[0].name }, () => { });
-    }
-    this.setState({ [e.target.name]: e.target.value }, () => { });
-    if (e.target.name === 'search') {
-      this.setState({ page: 1 }, () => {
-        this.getRoad();
-      });
-    }
-  };
-
 
   getRoad = () => {
 
@@ -298,6 +251,78 @@ class Dashboard extends Component {
       this.setState({ loading: false, roads: [] }, () => { });
     });
   }
+
+  getRoadNear = (x, y, type) => {
+
+    this.setState({ loading: true });
+
+    let data = '?';
+    data = `${data}`;
+    data = `${data}&search=${x},${y},1,100`;
+
+    axios.get(`http://localhost:2000/get-road-near${data}`, {
+      headers: {
+        'token': this.state.token
+      }
+    }).then((res) => {
+      let nr = res.data.roads[0];
+      // console.log(nr.geometry.coordinates);
+      var line = turf.lineString(nr.geometry.coordinates);
+      var pt = turf.point([-77.037076, 38.884017]);
+
+      var snapped = turf.nearestPointOnLine(line, pt, { units: 'miles' });
+
+
+      if (type === 0) {
+
+        this.setState({
+          loading: false,
+          start:
+          {
+            'type': 'Feature',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [snapped.geometry.coordinates[0], snapped.geometry.coordinates[1]]
+              // 'coordinates': [105.84368150000002, 21.046629699999983]
+            },
+            'properties': {
+              'title': 'Start'
+            }
+          },
+        });
+      } else
+        if (type === 1) {
+
+          this.setState({
+            loading: false,
+            finish:
+            {
+              'type': 'Feature',
+              'geometry': {
+                'type': 'Point',
+                'coordinates': [snapped.geometry.coordinates[0], snapped.geometry.coordinates[1]]
+                // 'coordinates': [105.84368150000002, 21.046629699999983]
+              },
+              'properties': {
+                'title': 'Finish'
+              }
+            },
+          });
+
+          // console.log(this.state.pathFinder.findPath(this.state.start, this.state.finish));
+          const p = pathToGeoJSON(this.state.pathFinder.findPath(this.state.start, this.state.finish));
+          this.setState({ pathLineString: p });
+        }
+    }).catch((err) => {
+      swal({
+        text: "" + err,
+        icon: "error"
+      });
+      this.setState({ loading: false }, () => { });
+    });
+  }
+
+
   onSelected = (v, item) => {
     this.setState({ viewport: v });
     console.log('Selected: ', item)
@@ -377,12 +402,6 @@ class Dashboard extends Component {
             <Source type="geojson" data={this.state.roads}>
               <Layer {...dataLayer} />
             </Source>
-
-            <Marker longitude={105.84713300000003} latitude={21.032610238914277} >
-              <svg height={20} viewBox="0 0 24 24" style={pinStyle}>
-                <path d={ICON} />
-              </svg>
-            </Marker>
           </ReactMapGL>
           <Geocoder
             mapRef={this.mapRef}
