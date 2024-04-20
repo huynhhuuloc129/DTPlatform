@@ -30,19 +30,19 @@ const dataLayerPath = {
   }
 };
 
-const dataLayer = {
-  id: 'roads',
-  'type': 'line',
-  'layout': {
-    'line-join': 'round',
-    'line-cap': 'round'
-  },
-  'paint': {
-    'line-color': '#888',
-    'line-width': 1
+// const dataLayer = {
+//   id: 'roads',
+//   'type': 'line',
+//   'layout': {
+//     'line-join': 'round',
+//     'line-cap': 'round'
+//   },
+//   'paint': {
+//     'line-color': '#888',
+//     'line-width': 1
 
-  }
-};
+//   }
+// };
 
 
 class Dashboard extends Component {
@@ -383,7 +383,7 @@ class Dashboard extends Component {
             height="100%"
             // onViewportChange={this.handleViewportChange}
             onLoad={this.getRoad}
-            onDrag={this.handleOnpress}
+            // onDrag={this.handleOnpress}
             // onZoom={this.handleOnpress}
             // {...{
             //   latitude: 21.032610238914277,
@@ -399,9 +399,9 @@ class Dashboard extends Component {
             <Source type="geojson" data={this.state.pathLineString}>
               <Layer {...dataLayerPath} />
             </Source>
-            <Source type="geojson" data={this.state.roads}>
+            {/* <Source type="geojson" data={this.state.roads}>
               <Layer {...dataLayer} />
-            </Source>
+            </Source> */}
           </ReactMapGL>
           <Geocoder
             mapRef={this.mapRef}
