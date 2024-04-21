@@ -86,7 +86,7 @@ app.get("/", (req, res) => {
 app.post("/login", (req, res) => {
   try {
     if (req.body && req.body.username && req.body.password) {
-      user.find({ username: req.body.username }, (err, data) => {
+      user.find({ username: req.body.username }).then((data) => {
         if (data.length > 0) {
 
           if (bcrypt.compareSync(data[0].password, req.body.password)) {
@@ -99,13 +99,14 @@ app.post("/login", (req, res) => {
             });
           }
 
+
         } else {
           res.status(400).json({
             errorMessage: 'Username or password is incorrect!',
             status: false
           });
         }
-      })
+      });
     } else {
       res.status(400).json({
         errorMessage: 'Add proper parameter first!',
@@ -113,6 +114,7 @@ app.post("/login", (req, res) => {
       });
     }
   } catch (e) {
+    console.log(e);
     res.status(400).json({
       errorMessage: 'Something went wrong!',
       status: false
@@ -126,7 +128,7 @@ app.post("/register", (req, res) => {
   try {
     if (req.body && req.body.username && req.body.password) {
 
-      user.find({ username: req.body.username }, (err, data) => {
+      user.find({ username: req.body.username }).then((data) => {
 
         if (data.length == 0) {
 
@@ -134,21 +136,21 @@ app.post("/register", (req, res) => {
             username: req.body.username,
             password: req.body.password
           });
-          User.save((err, data) => {
-            if (err) {
-              res.status(400).json({
-                errorMessage: err,
-                status: false
-              });
-            } else {
-              res.status(200).json({
-                status: true,
-                title: 'Registered Successfully.'
-              });
-            }
+          User.save().then(() => {
+            res.status(200).json({
+              status: true,
+              title: 'Registered Successfully.'
+            });
+          }).catch((err) => {
+            console.log(err);
+            res.status(400).json({
+              errorMessage: err.message || err,
+              status: false
+            });
           });
 
         } else {
+          // console.log(`UserName ${req.body.username} Already Exist!`);
           res.status(400).json({
             errorMessage: `UserName ${req.body.username} Already Exist!`,
             status: false
@@ -460,30 +462,30 @@ app.get("/get-road-near", (req, res) => {
   // query["$and"] = [];
   let x1 = 105.83365758174284;
   let y1 = 21.024622888117804;
-  let minD=1;
-  let maxD=5;
+  let minD = 1;
+  let maxD = 5;
   if (req.query && req.query.search) {
     // query["$and"].push({ coordinates: { $geoWithin: { $geometry: req.query.search } } });
     let p = req.query.search.split(",");
     x1 = parseFloat(p[0]);
     y1 = parseFloat(p[1]);
-    minD=parseFloat(p[2]);
-    maxD=parseFloat(p[3]);
-    
+    minD = parseFloat(p[2]);
+    maxD = parseFloat(p[3]);
+
     // console.log(x1 + " " + y1);
   }
-  
+
   road.find(
     {
       geometry:
       {
         $nearSphere: {
-           $geometry: {
-              type : "Point",
-              coordinates : [ x1,y1]
-           },
-           $minDistance: minD,
-           $maxDistance: maxD
+          $geometry: {
+            type: "Point",
+            coordinates: [x1, y1]
+          },
+          $minDistance: minD,
+          $maxDistance: maxD
         }
       }
     }

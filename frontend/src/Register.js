@@ -22,18 +22,26 @@ class Register extends React.Component {
       username: this.state.username,
       password: this.state.password,
     }).then((res) => {
+      // console.log(res);
       swal({
         text: res.data.title,
-        icon: "success",
-        type: "success"
+        icon: "success"
       });
       // this.props.history.push('/');
       this.props.navigate("/");
     }).catch((err) => {
-      swal({
-        text: err,
-        icon: "error"
-      });
+
+      if (!err.response) {
+        swal({
+          text: "Error: Network Error",
+          icon: "error"
+        });
+      } else if (err.response && err.response.data && err.response.data.errorMessage) {
+        swal({
+          text: err.response.data.errorMessage,
+          icon: "error"
+        });
+      }
     });
   }
 

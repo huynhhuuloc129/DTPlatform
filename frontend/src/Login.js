@@ -28,7 +28,7 @@ class Login extends React.Component {
       localStorage.setItem('user_id', res.data.id);
       // this.props.history.push('/dashboard');
       this.props.navigate("/dashboard");
-    }).catch((err) => {
+    }).catch((err) => { 
       if (!err.response) {
         swal({
           text: "Error: Network Error",
