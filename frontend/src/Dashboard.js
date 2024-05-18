@@ -87,7 +87,7 @@ class Dashboard extends Component {
     // console.log(token);
     if (!token || token === "null") {
       // this.props.history.push('/login');
-      this.props.navigate("/login");
+      this.props.navigate("/user/login");
     } else {
       this.setState({ token: token });
     }
@@ -117,7 +117,7 @@ class Dashboard extends Component {
       let token = localStorage.getItem('token');
       if (!token || token === "null") {
         // this.props.history.push('/login');
-        this.props.navigate("/login");
+        this.props.navigate("/user/login");
         return;
       }
     });
@@ -237,7 +237,7 @@ class Dashboard extends Component {
       data = `${data}&search=${p[0]},${p[1]}`;
     }
 
-    axios.get(`http://localhost:2000/get-road${data}`, {
+    axios.get(`http://localhost:2000/road/get-road${data}`, {
       headers: {
         'token': this.state.token
       }
@@ -267,7 +267,7 @@ class Dashboard extends Component {
     data = `${data}`;
     data = `${data}&search=${x},${y},1,100`;
 
-    axios.get(`http://localhost:2000/get-road-near${data}`, {
+    axios.get(`http://localhost:2000/road/get-road-near${data}`, {
       headers: {
         'token': this.state.token
       }

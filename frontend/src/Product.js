@@ -35,7 +35,7 @@ class Product extends Component {
     let token = localStorage.getItem('token');
     if (!token) {
       // this.props.history.push('/login');
-      this.props.navigate("/login");
+      this.props.navigate("/user/login");
     } else {
       this.setState({ token: token }, () => {
         this.getProduct();
@@ -52,7 +52,7 @@ class Product extends Component {
     if (this.state.search) {
       data = `${data}&search=${this.state.search}`;
     }
-    axios.get(`http://localhost:2000/get-product${data}`, {
+    axios.get(`http://localhost:2000/product/get-product${data}`, {
       headers: {
         'token': this.state.token
       }
