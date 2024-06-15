@@ -122,5 +122,31 @@ function checkUserAndGenerateToken(data, req, res) {
     });
 }
 
+userRouter.get("/", (req, res) => {
+    user.find()
+      .then((data) => {
+  
+        // console.log(data);
+        if (data) {
+          res.status(200).json({
+            status: true,
+            title: 'Users retrived.',
+            users: data
+          });
+        } else {
+          res.status(400).json({
+            errorMessage: 'There is no user!',
+            status: false
+          });
+        }
+  
+      }).catch(err => {
+        res.status(400).json({
+          errorMessage: err.message || err,
+          status: false
+        });
+      });
+  
+  });
 
 module.exports = userRouter;

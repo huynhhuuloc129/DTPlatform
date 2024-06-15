@@ -21,6 +21,7 @@ var fs = require('fs');
 const productsRouter = require('./routes/products-router');
 const usersRouter = require('./routes/users-router');
 const roadsRouter = require('./routes/roads-router.js');  
+const csvRouter = require("./routes/csv-router.js");
 // var road = require("./model/road.js");
 // var lecturer = require("./model/lecturer.js");
 // var user = require("./model/user.js");
@@ -71,7 +72,7 @@ app.get("/", (req, res) => {
 app.use('/user', usersRouter);
 app.use('/product', productsRouter);
 app.use('/road', roadsRouter);
-
+app.use('/csv',csvRouter)
 
 app.listen(2000, () => {
   console.log("Server is Runing On port 2000");

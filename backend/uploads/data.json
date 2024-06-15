@@ -1,0 +1,1992 @@
+[
+  {
+    "Category": "Passenger car",
+    "Size class": "1- <1400cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "7.29",
+    "CO2 emission factor": "166",
+    "CH4 emission factor": "17.00",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "1- <1400cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "7.29",
+    "CO2 emission factor": "166",
+    "CH4 emission factor": "3.00",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "1- <1400cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "7.29",
+    "CO2 emission factor": "166",
+    "CH4 emission factor": "2.87",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "1- <1400cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "7.29",
+    "CO2 emission factor": "166",
+    "CH4 emission factor": "2.87",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "1- <1400cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "7.29",
+    "CO2 emission factor": "166",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "1- <1400cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "4.44",
+    "CO2 emission factor": "119",
+    "CH4 emission factor": "7.00",
+    "N2O emission factor": "5.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "1- <1400cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "4.44",
+    "CO2 emission factor": "119",
+    "CH4 emission factor": "3.00",
+    "N2O emission factor": "3.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "1- <1400cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "4.44",
+    "CO2 emission factor": "119",
+    "CH4 emission factor": "1.10",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "1- <1400cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "4.44",
+    "CO2 emission factor": "119",
+    "CH4 emission factor": "0.08",
+    "N2O emission factor": "15.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "1- <1400cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "4.44",
+    "CO2 emission factor": "119",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": "18.50"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "1- <1400cm3",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "18.00",
+    "CO2 emission factor": "13.00",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "1- <1400cm3",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "18.00",
+    "CO2 emission factor": "13.00",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "1- <1400cm3",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "18.00",
+    "CO2 emission factor": "13.00",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "2- 1400-2000cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "8.60",
+    "CO2 emission factor": "196",
+    "CH4 emission factor": "17",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "2- 1400-2000cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "8.60",
+    "CO2 emission factor": "196",
+    "CH4 emission factor": "3.00",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "2- 1400-2000cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "8.60",
+    "CO2 emission factor": "196",
+    "CH4 emission factor": "2.87",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "2- 1400-2000cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "8.60",
+    "CO2 emission factor": "196",
+    "CH4 emission factor": "2.87",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "2- 1400-2000cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "8.60",
+    "CO2 emission factor": "196",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "2- 1400-2000cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "6.42",
+    "CO2 emission factor": "173",
+    "CH4 emission factor": "7",
+    "N2O emission factor": "5.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "2- 1400-2000cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "6.42",
+    "CO2 emission factor": "173",
+    "CH4 emission factor": "3.00",
+    "N2O emission factor": "3.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "2- 1400-2000cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "6.42",
+    "CO2 emission factor": "173",
+    "CH4 emission factor": "1.1",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "2- 1400-2000cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "6.42",
+    "CO2 emission factor": "173",
+    "CH4 emission factor": "0.075",
+    "N2O emission factor": "15.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "2- 1400-2000cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "6.42",
+    "CO2 emission factor": "173",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "18.50"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "2- 1400-2000cm3",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "18.000",
+    "CO2 emission factor": "13.00",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "2- 1400-2000cm3",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "18.000",
+    "CO2 emission factor": "13.00",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "2- 1400-2000cm3",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "18.000",
+    "CO2 emission factor": "13.00",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "3- >2000cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "11.2",
+    "CO2 emission factor": "255",
+    "CH4 emission factor": "17",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "3- >2000cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "11.2",
+    "CO2 emission factor": "255",
+    "CH4 emission factor": "3.00",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "3- >2000cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "11.2",
+    "CO2 emission factor": "255",
+    "CH4 emission factor": "2.87",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "3- >2000cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "11.2",
+    "CO2 emission factor": "255",
+    "CH4 emission factor": "2.87",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "3- >2000cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "11.2",
+    "CO2 emission factor": "255",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "3- >2000cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "8.53",
+    "CO2 emission factor": "229",
+    "CH4 emission factor": "7",
+    "N2O emission factor": "5.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "3- >2000cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "8.53",
+    "CO2 emission factor": "229",
+    "CH4 emission factor": "3.00",
+    "N2O emission factor": "3.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "3- >2000cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "8.53",
+    "CO2 emission factor": "229",
+    "CH4 emission factor": "1.1",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "3- >2000cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "8.53",
+    "CO2 emission factor": "229",
+    "CH4 emission factor": "0.075",
+    "N2O emission factor": "15.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "3- >2000cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "8.53",
+    "CO2 emission factor": "229",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "18.50"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "3- >2000cm3",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "18.00",
+    "CO2 emission factor": "13.00",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "3- >2000cm3",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "18.00",
+    "CO2 emission factor": "13.00",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0.00"
+  },
+  {
+    "Category": "Passenger car",
+    "Size class": "3- >2000cm3",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "18.00",
+    "CO2 emission factor": "13.00",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "1- <1400cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "7.29",
+    "CO2 emission factor": "166",
+    "CH4 emission factor": "17.00",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "1- <1400cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "7.29",
+    "CO2 emission factor": "166",
+    "CH4 emission factor": "3.00",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "1- <1400cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "7.29",
+    "CO2 emission factor": "166",
+    "CH4 emission factor": "2.87",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "1- <1400cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "7.29",
+    "CO2 emission factor": "166",
+    "CH4 emission factor": "2.87",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "1- <1400cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "7.29",
+    "CO2 emission factor": "166",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "1- <1400cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "4.44",
+    "CO2 emission factor": "119",
+    "CH4 emission factor": "7.00",
+    "N2O emission factor": "5.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "1- <1400cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "4.44",
+    "CO2 emission factor": "119",
+    "CH4 emission factor": "3.00",
+    "N2O emission factor": "3.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "1- <1400cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "4.44",
+    "CO2 emission factor": "119",
+    "CH4 emission factor": "1.10",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "1- <1400cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "4.44",
+    "CO2 emission factor": "119",
+    "CH4 emission factor": "0.08",
+    "N2O emission factor": "15.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "1- <1400cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "4.44",
+    "CO2 emission factor": "119",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": "18.50"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "1- <1400cm3",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "18.00",
+    "CO2 emission factor": "13.00",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": "0.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "1- <1400cm3",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "18.00",
+    "CO2 emission factor": "13.00",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": "0.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "1- <1400cm3",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "18.00",
+    "CO2 emission factor": "13.00",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": "0.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "2- 1400-2000cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "8.60",
+    "CO2 emission factor": "196",
+    "CH4 emission factor": "17.00",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "2- 1400-2000cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "8.60",
+    "CO2 emission factor": "196",
+    "CH4 emission factor": "3.00",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "2- 1400-2000cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "8.60",
+    "CO2 emission factor": "196",
+    "CH4 emission factor": "2.87",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "2- 1400-2000cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "8.60",
+    "CO2 emission factor": "196",
+    "CH4 emission factor": "2.87",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "2- 1400-2000cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "8.60",
+    "CO2 emission factor": "196",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "2- 1400-2000cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "6.42",
+    "CO2 emission factor": "173",
+    "CH4 emission factor": "7.00",
+    "N2O emission factor": "5.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "2- 1400-2000cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "6.42",
+    "CO2 emission factor": "173",
+    "CH4 emission factor": "3.00",
+    "N2O emission factor": "3.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "2- 1400-2000cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "6.42",
+    "CO2 emission factor": "173",
+    "CH4 emission factor": "1.10",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "2- 1400-2000cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "6.42",
+    "CO2 emission factor": "173",
+    "CH4 emission factor": "0.08",
+    "N2O emission factor": "15.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "2- 1400-2000cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "6.42",
+    "CO2 emission factor": "173",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": "18.50"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "2- 1400-2000cm3",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "18.00",
+    "CO2 emission factor": "13.00",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": "0.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "2- 1400-2000cm3",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "18.00",
+    "CO2 emission factor": "13.00",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": "0.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "2- 1400-2000cm3",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "18.00",
+    "CO2 emission factor": "13.00",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": "0.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "3- >2000cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "11.2",
+    "CO2 emission factor": "255",
+    "CH4 emission factor": "17.00",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "3- >2000cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "11.2",
+    "CO2 emission factor": "255",
+    "CH4 emission factor": "3.00",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "3- >2000cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "11.2",
+    "CO2 emission factor": "255",
+    "CH4 emission factor": "2.87",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "3- >2000cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "11.2",
+    "CO2 emission factor": "255",
+    "CH4 emission factor": "2.87",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "3- >2000cm3",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "11.2",
+    "CO2 emission factor": "255",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "3- >2000cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "8.53",
+    "CO2 emission factor": "229",
+    "CH4 emission factor": "7.00",
+    "N2O emission factor": "5.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "3- >2000cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "8.53",
+    "CO2 emission factor": "229",
+    "CH4 emission factor": "3.00",
+    "N2O emission factor": "3.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "3- >2000cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "8.53",
+    "CO2 emission factor": "229",
+    "CH4 emission factor": "1.10",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "3- >2000cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "8.53",
+    "CO2 emission factor": "229",
+    "CH4 emission factor": "0.08",
+    "N2O emission factor": "15.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "3- >2000cm3",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "8.53",
+    "CO2 emission factor": "229",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": "18.50"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "3- >2000cm3",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "18.00",
+    "CO2 emission factor": "13.00",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": "0.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "3- >2000cm3",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "18.00",
+    "CO2 emission factor": "13.00",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": "0.00"
+  },
+  {
+    "Category": "Taxi",
+    "Size class": "3- >2000cm3",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "18.00",
+    "CO2 emission factor": "13.00",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": "0.00"
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "9.12",
+    "CO2 emission factor": "207",
+    "CH4 emission factor": "17",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "9.12",
+    "CO2 emission factor": "207",
+    "CH4 emission factor": "3.00",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "9.12",
+    "CO2 emission factor": "207",
+    "CH4 emission factor": "2.87",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "9.12",
+    "CO2 emission factor": "207",
+    "CH4 emission factor": "2.87",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "9.12",
+    "CO2 emission factor": "207",
+    "CH4 emission factor": "2.00",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "9.34",
+    "CO2 emission factor": "251",
+    "CH4 emission factor": "113.75",
+    "N2O emission factor": " 12.0 "
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "9.34",
+    "CO2 emission factor": "251",
+    "CH4 emission factor": "103.25",
+    "N2O emission factor": " 6.0 "
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "11.80",
+    "CO2 emission factor": "317",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": " 12.8 "
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "11.80",
+    "CO2 emission factor": "317",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": " 33.2 "
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "11.80",
+    "CO2 emission factor": "317",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": " 41.5 "
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "30.000",
+    "CO2 emission factor": "21.66",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "30.000",
+    "CO2 emission factor": "21.66",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "30.000",
+    "CO2 emission factor": "21.66",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "2- 3500-15000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "24.64",
+    "CO2 emission factor": "663",
+    "CH4 emission factor": "113.75",
+    "N2O emission factor": " 12 "
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "2- 3500-15000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "26.16",
+    "CO2 emission factor": "704",
+    "CH4 emission factor": "103.25",
+    "N2O emission factor": " 6 "
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "2- 3500-15000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "24.18",
+    "CO2 emission factor": "650",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": " 13 "
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "2- 3500-15000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "24.18",
+    "CO2 emission factor": "650",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": " 33 "
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "2- 3500-15000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "24.18",
+    "CO2 emission factor": "650",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": " 42 "
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "2- 3500-15000kg",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "56.00",
+    "CO2 emission factor": "40.44",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "2- 3500-15000kg",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "56.00",
+    "CO2 emission factor": "40.44",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "2- 3500-15000kg",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "56.00",
+    "CO2 emission factor": "40.44",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "2- 3500-15000kg",
+    "Fuel Type": "CNG",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "40.00",
+    "CO2 emission factor": "892",
+    "CH4 emission factor": "4500",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "2- 3500-15000kg",
+    "Fuel Type": "CNG",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "40.00",
+    "CO2 emission factor": "892",
+    "CH4 emission factor": "1280",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "2- 3500-15000kg",
+    "Fuel Type": "CNG",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "40.00",
+    "CO2 emission factor": "892",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "2- 3500-15000kg",
+    "Fuel Type": "CNG",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "40.00",
+    "CO2 emission factor": "892",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "2- 3500-15000kg",
+    "Fuel Type": "CNG",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "40.00",
+    "CO2 emission factor": "892",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "3- >15000-18000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "35.15",
+    "CO2 emission factor": "945",
+    "CH4 emission factor": "113.75",
+    "N2O emission factor": " 12 "
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "3- >15000-18000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "35.15",
+    "CO2 emission factor": "945",
+    "CH4 emission factor": "103.25",
+    "N2O emission factor": " 6 "
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "3- >15000-18000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "35.15",
+    "CO2 emission factor": "945",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": " 13 "
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "3- >15000-18000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "35.15",
+    "CO2 emission factor": "945",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": " 33 "
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "3- >15000-18000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "35.15",
+    "CO2 emission factor": "945",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": " 42 "
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "3- >15000-18000kg",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "140.0",
+    "CO2 emission factor": "101.09",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "3- >15000-18000kg",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "140.0",
+    "CO2 emission factor": "101.09",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "3- >15000-18000kg",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "140.0",
+    "CO2 emission factor": "101.09",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "3- >15000-18000kg",
+    "Fuel Type": "CNG",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "45.50",
+    "CO2 emission factor": "1015",
+    "CH4 emission factor": "4500",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "3- >15000-18000kg",
+    "Fuel Type": "CNG",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "45.50",
+    "CO2 emission factor": "1015",
+    "CH4 emission factor": "1280",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "3- >15000-18000kg",
+    "Fuel Type": "CNG",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "45.50",
+    "CO2 emission factor": "1015",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "3- >15000-18000kg",
+    "Fuel Type": "CNG",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "45.50",
+    "CO2 emission factor": "1015",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Urban Bus",
+    "Size class": "3- >15000-18000kg",
+    "Fuel Type": "CNG",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "45.50",
+    "CO2 emission factor": "1015",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "9.12",
+    "CO2 emission factor": "207",
+    "CH4 emission factor": "17.00",
+    "N2O emission factor": " 6.0 "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "9.12",
+    "CO2 emission factor": "207",
+    "CH4 emission factor": "3.00",
+    "N2O emission factor": " 6.0 "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "9.12",
+    "CO2 emission factor": "207",
+    "CH4 emission factor": "2.87",
+    "N2O emission factor": " 6.0 "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "9.12",
+    "CO2 emission factor": "207",
+    "CH4 emission factor": "2.87",
+    "N2O emission factor": " 6.0 "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "9.12",
+    "CO2 emission factor": "207",
+    "CH4 emission factor": "2.00",
+    "N2O emission factor": " 6.0 "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "9.34",
+    "CO2 emission factor": "251",
+    "CH4 emission factor": "113.75",
+    "N2O emission factor": " 12.0 "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "9.34",
+    "CO2 emission factor": "251",
+    "CH4 emission factor": "103.25",
+    "N2O emission factor": " 6.0 "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "11.80",
+    "CO2 emission factor": "317",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": " 12.8 "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "11.80",
+    "CO2 emission factor": "317",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": " 33.2 "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "11.80",
+    "CO2 emission factor": "317",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": " 41.5 "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "30.00",
+    "CO2 emission factor": "21.66",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": " -   "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "30.00",
+    "CO2 emission factor": "21.66",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": " -   "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "30.00",
+    "CO2 emission factor": "21.66",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": " -   "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "2- 3500-15000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "24.64",
+    "CO2 emission factor": "663",
+    "CH4 emission factor": "113.75",
+    "N2O emission factor": " 12 "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "2- 3500-15000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "26.16",
+    "CO2 emission factor": "704",
+    "CH4 emission factor": "103.25",
+    "N2O emission factor": " 6 "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "2- 3500-15000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "24.18",
+    "CO2 emission factor": "650",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": " 13 "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "2- 3500-15000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "24.18",
+    "CO2 emission factor": "650",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": " 33 "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "2- 3500-15000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "24.18",
+    "CO2 emission factor": "650",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": " 42 "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "2- 3500-15000kg",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "56.00",
+    "CO2 emission factor": "40.44",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": " -   "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "2- 3500-15000kg",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "56.00",
+    "CO2 emission factor": "40.44",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": " -   "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "2- 3500-15000kg",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "56.00",
+    "CO2 emission factor": "40.44",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": " -   "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "2- 3500-15000kg",
+    "Fuel Type": "CNG",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "40.00",
+    "CO2 emission factor": "892",
+    "CH4 emission factor": "4500.00",
+    "N2O emission factor": " -   "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "2- 3500-15000kg",
+    "Fuel Type": "CNG",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "40.00",
+    "CO2 emission factor": "892",
+    "CH4 emission factor": "1280.00",
+    "N2O emission factor": " -   "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "2- 3500-15000kg",
+    "Fuel Type": "CNG",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "40.00",
+    "CO2 emission factor": "892",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": " -   "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "2- 3500-15000kg",
+    "Fuel Type": "CNG",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "40.00",
+    "CO2 emission factor": "892",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": " -   "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "2- 3500-15000kg",
+    "Fuel Type": "CNG",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "40.00",
+    "CO2 emission factor": "892",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": " -   "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "3- >15000-18000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "35.15",
+    "CO2 emission factor": "945",
+    "CH4 emission factor": "113.75",
+    "N2O emission factor": " 11 "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "3- >15000-18000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "35.15",
+    "CO2 emission factor": "945",
+    "CH4 emission factor": "103.25",
+    "N2O emission factor": " 5 "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "3- >15000-18000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "35.15",
+    "CO2 emission factor": "945",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": " 11 "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "3- >15000-18000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "35.15",
+    "CO2 emission factor": "945",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": " 30 "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "3- >15000-18000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "35.15",
+    "CO2 emission factor": "945",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": " 37 "
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "3- >15000-18000kg",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "140.00",
+    "CO2 emission factor": "101.09",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "3- >15000-18000kg",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "140.00",
+    "CO2 emission factor": "101.09",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "3- >15000-18000kg",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "140.00",
+    "CO2 emission factor": "101.09",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "3- >15000-18000kg",
+    "Fuel Type": "CNG",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "45.50",
+    "CO2 emission factor": "1015",
+    "CH4 emission factor": "4500.00",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "3- >15000-18000kg",
+    "Fuel Type": "CNG",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "45.50",
+    "CO2 emission factor": "1015",
+    "CH4 emission factor": "1280.00",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "3- >15000-18000kg",
+    "Fuel Type": "CNG",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "45.50",
+    "CO2 emission factor": "1015",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "3- >15000-18000kg",
+    "Fuel Type": "CNG",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "45.50",
+    "CO2 emission factor": "1015",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Intercity Bus",
+    "Size class": "3- >15000-18000kg",
+    "Fuel Type": "CNG",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "45.50",
+    "CO2 emission factor": "1015",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": "0"
+  },
+  {
+    "Category": "Light trucks",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "9.12",
+    "CO2 emission factor": "207",
+    "CH4 emission factor": "17.00",
+    "N2O emission factor": " 6.0 "
+  },
+  {
+    "Category": "Light trucks",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "9.12",
+    "CO2 emission factor": "207",
+    "CH4 emission factor": "3.00",
+    "N2O emission factor": " 6.0 "
+  },
+  {
+    "Category": "Light trucks",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "9.12",
+    "CO2 emission factor": "207",
+    "CH4 emission factor": "2.87",
+    "N2O emission factor": " 6.0 "
+  },
+  {
+    "Category": "Light trucks",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "9.12",
+    "CO2 emission factor": "207",
+    "CH4 emission factor": "2.87",
+    "N2O emission factor": " 6.0 "
+  },
+  {
+    "Category": "Light trucks",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "9.12",
+    "CO2 emission factor": "207",
+    "CH4 emission factor": "2.00",
+    "N2O emission factor": " 6.0 "
+  },
+  {
+    "Category": "Light trucks",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "9.34",
+    "CO2 emission factor": "251",
+    "CH4 emission factor": "113.75",
+    "N2O emission factor": " 12.0 "
+  },
+  {
+    "Category": "Light trucks",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "9.34",
+    "CO2 emission factor": "251",
+    "CH4 emission factor": "103.25",
+    "N2O emission factor": " 6.0 "
+  },
+  {
+    "Category": "Light trucks",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "11.80",
+    "CO2 emission factor": "317",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": " 12.8 "
+  },
+  {
+    "Category": "Light trucks",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "11.80",
+    "CO2 emission factor": "317",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": " 33.2 "
+  },
+  {
+    "Category": "Light trucks",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "11.80",
+    "CO2 emission factor": "317",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": " 41.5 "
+  },
+  {
+    "Category": "Light trucks",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "30.00",
+    "CO2 emission factor": "21.66",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": " -   "
+  },
+  {
+    "Category": "Light trucks",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "30.00",
+    "CO2 emission factor": "21.66",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": " -   "
+  },
+  {
+    "Category": "Light trucks",
+    "Size class": "1- <3500kg",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "30.00",
+    "CO2 emission factor": "21.66",
+    "CH4 emission factor": "0.00",
+    "N2O emission factor": " -   "
+  },
+  {
+    "Category": "Trucks",
+    "Size class": "2-3500-7500kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "11.80",
+    "CO2 emission factor": "317",
+    "CH4 emission factor": "54.4",
+    "N2O emission factor": "5.00"
+  },
+  {
+    "Category": "Trucks",
+    "Size class": "2-3500-7500kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "11.80",
+    "CO2 emission factor": "317",
+    "CH4 emission factor": "47.6",
+    "N2O emission factor": "3.00"
+  },
+  {
+    "Category": "Trucks",
+    "Size class": "2-3500-7500kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "11.80",
+    "CO2 emission factor": "317",
+    "CH4 emission factor": "2.55",
+    "N2O emission factor": "6.00"
+  },
+  {
+    "Category": "Trucks",
+    "Size class": "2-3500-7500kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "11.80",
+    "CO2 emission factor": "317",
+    "CH4 emission factor": "2.55",
+    "N2O emission factor": "15.00"
+  },
+  {
+    "Category": "Trucks",
+    "Size class": "2-3500-7500kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "11.80",
+    "CO2 emission factor": "317",
+    "CH4 emission factor": "2.55",
+    "N2O emission factor": "18.50"
+  },
+  {
+    "Category": "Trucks",
+    "Size class": "2-3500-7500kg",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "30.00",
+    "CO2 emission factor": "21.66",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0.00"
+  },
+  {
+    "Category": "Trucks",
+    "Size class": "2-3500-7500kg",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "30.00",
+    "CO2 emission factor": "21.66",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0.00"
+  },
+  {
+    "Category": "Trucks",
+    "Size class": "2-3500-7500kg",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "30.00",
+    "CO2 emission factor": "21.66",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0.00"
+  },
+  {
+    "Category": "Trucks",
+    "Size class": "3-7500-16000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "18.10",
+    "CO2 emission factor": "487",
+    "CH4 emission factor": "54.4",
+    "N2O emission factor": "11.00"
+  },
+  {
+    "Category": "Trucks",
+    "Size class": "3-7500-16000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "18.10",
+    "CO2 emission factor": "487",
+    "CH4 emission factor": "47.6",
+    "N2O emission factor": "5.00"
+  },
+  {
+    "Category": "Trucks",
+    "Size class": "3-7500-16000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "18.10",
+    "CO2 emission factor": "487",
+    "CH4 emission factor": "2.55",
+    "N2O emission factor": "11.20"
+  },
+  {
+    "Category": "Trucks",
+    "Size class": "3-7500-16000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "18.10",
+    "CO2 emission factor": "487",
+    "CH4 emission factor": "2.55",
+    "N2O emission factor": "29.80"
+  },
+  {
+    "Category": "Trucks",
+    "Size class": "3-7500-16000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "18.10",
+    "CO2 emission factor": "487",
+    "CH4 emission factor": "2.55",
+    "N2O emission factor": "29.80"
+  },
+  {
+    "Category": "Trucks",
+    "Size class": "4-16000-32000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "24.53",
+    "CO2 emission factor": "660",
+    "CH4 emission factor": "112",
+    "N2O emission factor": "11.00"
+  },
+  {
+    "Category": "Trucks",
+    "Size class": "4-16000-32000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "24.53",
+    "CO2 emission factor": "660",
+    "CH4 emission factor": "98",
+    "N2O emission factor": "5.00"
+  },
+  {
+    "Category": "Trucks",
+    "Size class": "4-16000-32000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "24.53",
+    "CO2 emission factor": "660",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": "11.20"
+  },
+  {
+    "Category": "Trucks",
+    "Size class": "4-16000-32000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "24.53",
+    "CO2 emission factor": "660",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": "29.80"
+  },
+  {
+    "Category": "Trucks",
+    "Size class": "4-16000-32000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "24.53",
+    "CO2 emission factor": "660",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": "37.00"
+  },
+  {
+    "Category": "Trucks",
+    "Size class": "5->32000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "29.31",
+    "CO2 emission factor": "788",
+    "CH4 emission factor": "112",
+    "N2O emission factor": "17"
+  },
+  {
+    "Category": "Trucks",
+    "Size class": "5->32000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "29.31",
+    "CO2 emission factor": "788",
+    "CH4 emission factor": "98",
+    "N2O emission factor": "8"
+  },
+  {
+    "Category": "Trucks",
+    "Size class": "5->32000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "29.31",
+    "CO2 emission factor": "788",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": "17.4"
+  },
+  {
+    "Category": "Trucks",
+    "Size class": "5->32000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 5",
+    "Average Fuel consumption": "29.31",
+    "CO2 emission factor": "788",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": "45.6"
+  },
+  {
+    "Category": "Trucks",
+    "Size class": "5->32000kg",
+    "Fuel Type": "Diesel Oil",
+    "Emission standard": "Euro 6",
+    "Average Fuel consumption": "29.31",
+    "CO2 emission factor": "788",
+    "CH4 emission factor": "5.25",
+    "N2O emission factor": "56.5"
+  },
+  {
+    "Category": "Motorcycle",
+    "Size class": "1- 2-stroke>50cc",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "3.00",
+    "CO2 emission factor": "68",
+    "CH4 emission factor": "30",
+    "N2O emission factor": "2"
+  },
+  {
+    "Category": "Motorcycle",
+    "Size class": "1- 2-stroke>50cc",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "2.21",
+    "CO2 emission factor": "50",
+    "CH4 emission factor": "12",
+    "N2O emission factor": "2"
+  },
+  {
+    "Category": "Motorcycle",
+    "Size class": "1- 2-stroke>50cc",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "2.21",
+    "CO2 emission factor": "50",
+    "CH4 emission factor": "12",
+    "N2O emission factor": "2"
+  },
+  {
+    "Category": "Motorcycle",
+    "Size class": "2-4-stroke<250cc",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "4.69",
+    "CO2 emission factor": "107",
+    "CH4 emission factor": "136",
+    "N2O emission factor": "2"
+  },
+  {
+    "Category": "Motorcycle",
+    "Size class": "2-4-stroke<250cc",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 3",
+    "Average Fuel consumption": "4.69",
+    "CO2 emission factor": "107",
+    "CH4 emission factor": "82",
+    "N2O emission factor": "2"
+  },
+  {
+    "Category": "Motorcycle",
+    "Size class": "2-4-stroke<250cc",
+    "Fuel Type": "Motor Gasoline",
+    "Emission standard": "Euro 4",
+    "Average Fuel consumption": "4.69",
+    "CO2 emission factor": "107",
+    "CH4 emission factor": "82",
+    "N2O emission factor": "2"
+  },
+  {
+    "Category": "Motorcycle",
+    "Size class": "",
+    "Fuel Type": "Electric",
+    "Emission standard": "Euro 2",
+    "Average Fuel consumption": "4.00",
+    "CO2 emission factor": "91",
+    "CH4 emission factor": "0",
+    "N2O emission factor": "0"
+  }
+]

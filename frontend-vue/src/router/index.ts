@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from './../views/Login.vue'
-// @ts-ignore
 import Dashboard from './../views/Dashboard.vue'
-// @ts-ignore
 import SignUp from './../views/SignUp.vue'
+import Admin from './../views/Admin.vue'
+import AdminCSV from './../views/AdminCSV.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -21,6 +22,16 @@ const router = createRouter({
       path: '/signup',
       name: 'signup',
       component: SignUp
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: Admin
+    },
+    {
+      path: '/admincsv',
+      name: 'admincsv',
+      component: AdminCSV
     },
     // {
     //   path: '/upload-post',

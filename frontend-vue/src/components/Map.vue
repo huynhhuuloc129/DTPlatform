@@ -1,14 +1,125 @@
 <template>
 
-    <!-- <div v-if="checkClick"> -->
-        <!-- <SidebarComponent></SidebarComponent> -->
-        <Sidebar></Sidebar>
-    <!-- </div> -->
+    <div v-if="checkClick">
+        <div class="d-flex">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="bg-light border-end">
+                <!-- Sidebar Header -->
+                <div class="p-3 border-bottom">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <button class="btn btn-link p-0">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                        <!-- <button class="btn btn-link p-0">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button> -->
+                    </div>
+                </div>
+
+                <!-- Sidebar Content -->
+                <div class="p-3">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="d-flex align-items-center mb-3">
+                            <div style="margin-bottom: 5px">
+                                
+                                <input type="radio" @change="changeType(0)"
+                                    class="btn-check" name="btnradio" id="btnradio" autocomplete="off" />
+                                <label class="btn btn-outline-secondary  label" for="btnradio">
+                                    Tối ưu
+                                </label>
+
+                                <input checked v-model="speed" type="radio" value=60 @change="changeType(1)"
+                                    class="btn-check" name="btnradio" id="btnradioCar" autocomplete="off" />
+                                <label class="btn btn-outline-secondary  label" for="btnradioCar">
+                                    <i class="fa-solid fa-car"></i>
+                                </label>
+        
+                                <input v-model="speed" type="radio" value=40 @change="changeType(2)"
+                                    class="btn-check" name="btnradio" id="btnradioMotor" autocomplete="off" />
+                                <label class="btn btn-outline-secondary  label" for="btnradioMotor">
+                                    <i class="fa-solid fa-motorcycle"></i>
+                                </label>
+
+                                <input v-model="speed" type="radio" value=10 @change="changeType(3)"
+                                    class="btn-check" name="btnradio" id="btnradioBike" autocomplete="off" />
+                                <label class="btn btn-outline-secondary  label" for="btnradioBike">
+                                    <i class="fas fa-bicycle"></i>
+                                </label>
+
+                                <input v-model="speed" type="radio" value=5 @change="changeType(4)"
+                                    class="btn-check" name="btnradio" id="btnradioWalk" autocomplete="off" />
+                                <label class="btn btn-outline-secondary label" for="btnradioWalk">
+                                    <i class="fas fa-walking"></i>
+                                </label>
+
+                                <input v-model="speed" type="radio" value=1 @change="changeType(5)"
+                                    class="btn-check" name="btnradio" id="btnradioWait" autocomplete="off" />
+                                <label class="btn btn-outline-secondary label" for="btnradioWait">
+                                    <i class="fa-solid fa-person"></i>
+                                </label>
+                            </div>
+                          
+                        </div>
+                    </div>
+                    <div class="">
+                        <input disabled type="text" class="form-control" :value="displayNameStart">
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-light"
+                            @click="[displayNameStart, displayNameEnd] = [displayNameEnd, displayNameStart];">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </button>
+                    </div>
+                    <div class="mb-3">
+                        <input disabled type="text" class="form-control" :value="displayNameEnd">
+                    </div>
+                    <hr>
+
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div>
+                            <strong>qua CT01</strong>
+                            <p class="mb-0">2 giờ 48 p</p>
+                        </div>
+                        <div>
+                            <span class="badge bg-warning text-dark">Tuyến này có thu phí</span>
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <strong>Phuong Trang</strong>
+                        <p class="mb-0">3 giờ 58 p</p>
+                    </div>
+                    <div class="mb-2">
+                        <strong>Phuong Trang</strong>
+                        <p class="mb-0">3 giờ 52 p</p>
+                    </div>
+                    <hr>
+                    <div>
+                        <div class="profile">
+                            <div class="h6">
+                                <span class="h6">Độ dài: </span>
+                                <span>{{ lengthRoad }} m</span>
+                            </div>
+                            <div class="h6">
+                                <span class="h6">Lượng khí thải: </span>
+                                <span>1000 PPM</span>
+                            </div>
+                            <div class="h6">
+                                <span class="h6">Thời gian: </span>
+                                <span>{{ timeToTravel }} phút</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+        </div>
+    </div>
+
     <div ref="mapContainer" class="map-container"></div>
     <div v-if="checkClick" style="position: absolute; right: 0; margin: 110px 10px 0 0;">
         <div class="rounded-pill" style="padding: 10px 20px; background-color: white; margin-bottom: 10px">
             <span class="h6">Độ dài: </span>
-            <span>150km</span>
+            <span>{{ lengthRoad }} m</span>
         </div>
         <div class="rounded-pill bg-light" style="padding:10px 20px; background-color: white; margin-bottom: 10px">
             <span class="h6">Lượng khí thải: </span>
@@ -16,7 +127,7 @@
         </div>
         <div class="rounded-pill bg-light" style="padding:10px 20px; background-color: white; margin-bottom: 10px">
             <span class="h6">Thời gian: </span>
-            <span>15 phút</span>
+            <span>{{ timeToTravel }} phút</span>
         </div>
     </div>
 
@@ -26,24 +137,24 @@
 <script>
 import mapboxgl from 'mapbox-gl';
 import { useCookies } from 'vue3-cookies'
-import SidebarComponent from './SidebarComponent.vue';
-import Sidebar from './Sidebar.vue';
 import mapboxServices from '@/services/mapbox.services';
 mapboxgl.accessToken = 'pk.eyJ1IjoiaHFuZ2hpODgiLCJhIjoiY2xzdTBtOG5pMDczcTJqbzFueGhiOGphMyJ9.m-zWte_-Qgshf5tQ9pFIrA';
 import PathFinder, { pathToGeoJSON } from "geojson-path-finder";
-
+import { length } from '@turf/turf';
 const cookies = useCookies()
 
 var map, geocoderStart, geocoderEnd, start, end, token, roads
 export default {
-    components: {
-        SidebarComponent: SidebarComponent,
-        Sidebar: Sidebar
-    },
     data() {
         return {
             checkClick: false,
-            chargingStations: []
+            chargingStations: [],
+            displayNameEnd: '',
+            displayNameStart: '',
+            lengthRoad: 0,
+            timeToTravel: 0,
+            speed: 60,
+            choosenType : 1
         }
     },
     methods: {
@@ -70,6 +181,10 @@ export default {
             });
             console.log(this.chargingStations)
         },*/
+        changeType (index) {
+            this.choosenType = index
+            this.timeToTravel = Math.round(this.lengthRoad / this.speed * 60)
+        },
         async calculateRoute() {
             if (!start || !end) return;
 
@@ -82,9 +197,9 @@ export default {
             // var network = await mapboxServices.getRoadInsideBoundary(token, nearestRoad1[0], nearestRoad1[1], nearestRoad2[0], nearestRoad2[1])
 
             const pathFinder = new PathFinder({
-            "type": "FeatureCollection",
-            "features":
-                roads.roads
+                "type": "FeatureCollection",
+                "features":
+                    roads.roads
             }, {
                 weight: function (a, b, props) {
                     const dx = a[0] - b[0];
@@ -93,35 +208,51 @@ export default {
                 },
             });
 
-            const pathLineString = pathToGeoJSON(pathFinder.findPath({
-                    'type': 'Feature',
-                    'geometry': {
+            const pathFounded = pathFinder.findPath({
+                'type': 'Feature',
+                'geometry': {
                     'type': 'Point',
                     'coordinates': [nearestRoad1[0], nearestRoad1[1]]
                     // 'coordinates': [105.84368150000002, 21.046629699999983]
                 },
-                    'properties': {
+                'properties': {
                     'title': 'Start'
                 }
             }, {
-                    'type': 'Feature',
-                    'geometry': {
+                'type': 'Feature',
+                'geometry': {
                     'type': 'Point',
                     'coordinates': [nearestRoad2[0], nearestRoad2[1]]
                     // 'coordinates': [105.84368150000002, 21.046629699999983]
                 },
-                    'properties': {
+                'properties': {
                     'title': 'Start'
                 }
-            }));
+            })
 
-            console.log(pathLineString)
+            // calculate length road
+            const pathGeoJSONTurf = {
+                "type": "Feature",
+                "properties": {},
+                "geometry": {
+                    "type": "LineString",
+                    "coordinates": pathFounded.path
+                }
+            };
+            this.lengthRoad = Math.round(length(pathGeoJSONTurf, { units: 'meters' }));
+
+            // calculate time
+            console.log(this.speed)
+            this.timeToTravel = Math.round((this.lengthRoad*0.001) / this.speed * 60)
+
+            // find path line
+            const pathLineString = pathToGeoJSON(pathFounded);
 
             this.checkClick = true
-
             const route = pathLineString.geometry;
 
 
+            // add path to map
             if (map.getSource('route')) {
                 map.getSource('route').setData(route);
             } else {
@@ -192,10 +323,12 @@ export default {
 
         geocoderStart.on('result', (e) => {
             start = e.result.geometry.coordinates
+            this.displayNameStart = e.result.place_name
             this.calculateRoute()
         });
         geocoderEnd.on('result', (e) => {
             end = e.result.geometry.coordinates
+            this.displayNameEnd = e.result.place_name
             this.calculateRoute()
         });
     },
@@ -210,5 +343,17 @@ export default {
 <style>
 .map-container {
     flex: 1;
+}
+
+#sidebar {
+    width: 350px;
+    height: 100vh;
+}
+
+#content {
+    width: 100%;
+}
+.label{
+    margin-right: 5px;
 }
 </style>

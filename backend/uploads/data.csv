@@ -1,0 +1,200 @@
+Category,Size class,Fuel Type,Emission standard,Average Fuel consumption,CO2 emission factor,CH4 emission factor,N2O emission factor
+Passenger car,1- <1400cm3,Motor Gasoline,Euro 2,7.29,166,17.00,6.00
+Passenger car,1- <1400cm3,Motor Gasoline,Euro 3,7.29,166,3.00,6.00
+Passenger car,1- <1400cm3,Motor Gasoline,Euro 4,7.29,166,2.87,6.00
+Passenger car,1- <1400cm3,Motor Gasoline,Euro 5,7.29,166,2.87,6.00
+Passenger car,1- <1400cm3,Motor Gasoline,Euro 6,7.29,166,0.00,6.00
+Passenger car,1- <1400cm3,Diesel Oil,Euro 2,4.44,119,7.00,5.00
+Passenger car,1- <1400cm3,Diesel Oil,Euro 3,4.44,119,3.00,3.00
+Passenger car,1- <1400cm3,Diesel Oil,Euro 4,4.44,119,1.10,6.00
+Passenger car,1- <1400cm3,Diesel Oil,Euro 5,4.44,119,0.08,15.00
+Passenger car,1- <1400cm3,Diesel Oil,Euro 6,4.44,119,0.00,18.50
+Passenger car,1- <1400cm3,Electric,Euro 4,18.00,13.00,0,0
+Passenger car,1- <1400cm3,Electric,Euro 5,18.00,13.00,0,0
+Passenger car,1- <1400cm3,Electric,Euro 6,18.00,13.00,0,0
+Passenger car,2- 1400-2000cm3,Motor Gasoline,Euro 2,8.60,196,17,6.00
+Passenger car,2- 1400-2000cm3,Motor Gasoline,Euro 3,8.60,196,3.00,6.00
+Passenger car,2- 1400-2000cm3,Motor Gasoline,Euro 4,8.60,196,2.87,6.00
+Passenger car,2- 1400-2000cm3,Motor Gasoline,Euro 5,8.60,196,2.87,6.00
+Passenger car,2- 1400-2000cm3,Motor Gasoline,Euro 6,8.60,196,0,6.00
+Passenger car,2- 1400-2000cm3,Diesel Oil,Euro 2,6.42,173,7,5.00
+Passenger car,2- 1400-2000cm3,Diesel Oil,Euro 3,6.42,173,3.00,3.00
+Passenger car,2- 1400-2000cm3,Diesel Oil,Euro 4,6.42,173,1.1,6.00
+Passenger car,2- 1400-2000cm3,Diesel Oil,Euro 5,6.42,173,0.075,15.00
+Passenger car,2- 1400-2000cm3,Diesel Oil,Euro 6,6.42,173,0,18.50
+Passenger car,2- 1400-2000cm3,Electric,Euro 4,18.000,13.00,0,0.00
+Passenger car,2- 1400-2000cm3,Electric,Euro 5,18.000,13.00,0,0.00
+Passenger car,2- 1400-2000cm3,Electric,Euro 6,18.000,13.00,0,0.00
+Passenger car,3- >2000cm3,Motor Gasoline,Euro 2,11.2,255,17,6.00
+Passenger car,3- >2000cm3,Motor Gasoline,Euro 3,11.2,255,3.00,6.00
+Passenger car,3- >2000cm3,Motor Gasoline,Euro 4,11.2,255,2.87,6.00
+Passenger car,3- >2000cm3,Motor Gasoline,Euro 5,11.2,255,2.87,6.00
+Passenger car,3- >2000cm3,Motor Gasoline,Euro 6,11.2,255,0,6.00
+Passenger car,3- >2000cm3,Diesel Oil,Euro 2,8.53,229,7,5.00
+Passenger car,3- >2000cm3,Diesel Oil,Euro 3,8.53,229,3.00,3.00
+Passenger car,3- >2000cm3,Diesel Oil,Euro 4,8.53,229,1.1,6.00
+Passenger car,3- >2000cm3,Diesel Oil,Euro 5,8.53,229,0.075,15.00
+Passenger car,3- >2000cm3,Diesel Oil,Euro 6,8.53,229,0,18.50
+Passenger car,3- >2000cm3,Electric,Euro 4,18.00,13.00,0,0.00
+Passenger car,3- >2000cm3,Electric,Euro 5,18.00,13.00,0,0.00
+Passenger car,3- >2000cm3,Electric,Euro 6,18.00,13.00,0,0.00
+Taxi,1- <1400cm3,Motor Gasoline,Euro 2,7.29,166,17.00,6.00
+Taxi,1- <1400cm3,Motor Gasoline,Euro 3,7.29,166,3.00,6.00
+Taxi,1- <1400cm3,Motor Gasoline,Euro 4,7.29,166,2.87,6.00
+Taxi,1- <1400cm3,Motor Gasoline,Euro 5,7.29,166,2.87,6.00
+Taxi,1- <1400cm3,Motor Gasoline,Euro 6,7.29,166,0.00,6.00
+Taxi,1- <1400cm3,Diesel Oil,Euro 2,4.44,119,7.00,5.00
+Taxi,1- <1400cm3,Diesel Oil,Euro 3,4.44,119,3.00,3.00
+Taxi,1- <1400cm3,Diesel Oil,Euro 4,4.44,119,1.10,6.00
+Taxi,1- <1400cm3,Diesel Oil,Euro 5,4.44,119,0.08,15.00
+Taxi,1- <1400cm3,Diesel Oil,Euro 6,4.44,119,0.00,18.50
+Taxi,1- <1400cm3,Electric,Euro 4,18.00,13.00,0.00,0.00
+Taxi,1- <1400cm3,Electric,Euro 5,18.00,13.00,0.00,0.00
+Taxi,1- <1400cm3,Electric,Euro 6,18.00,13.00,0.00,0.00
+Taxi,2- 1400-2000cm3,Motor Gasoline,Euro 2,8.60,196,17.00,6.00
+Taxi,2- 1400-2000cm3,Motor Gasoline,Euro 3,8.60,196,3.00,6.00
+Taxi,2- 1400-2000cm3,Motor Gasoline,Euro 4,8.60,196,2.87,6.00
+Taxi,2- 1400-2000cm3,Motor Gasoline,Euro 5,8.60,196,2.87,6.00
+Taxi,2- 1400-2000cm3,Motor Gasoline,Euro 6,8.60,196,0.00,6.00
+Taxi,2- 1400-2000cm3,Diesel Oil,Euro 2,6.42,173,7.00,5.00
+Taxi,2- 1400-2000cm3,Diesel Oil,Euro 3,6.42,173,3.00,3.00
+Taxi,2- 1400-2000cm3,Diesel Oil,Euro 4,6.42,173,1.10,6.00
+Taxi,2- 1400-2000cm3,Diesel Oil,Euro 5,6.42,173,0.08,15.00
+Taxi,2- 1400-2000cm3,Diesel Oil,Euro 6,6.42,173,0.00,18.50
+Taxi,2- 1400-2000cm3,Electric,Euro 4,18.00,13.00,0.00,0.00
+Taxi,2- 1400-2000cm3,Electric,Euro 5,18.00,13.00,0.00,0.00
+Taxi,2- 1400-2000cm3,Electric,Euro 6,18.00,13.00,0.00,0.00
+Taxi,3- >2000cm3,Motor Gasoline,Euro 2,11.2,255,17.00,6.00
+Taxi,3- >2000cm3,Motor Gasoline,Euro 3,11.2,255,3.00,6.00
+Taxi,3- >2000cm3,Motor Gasoline,Euro 4,11.2,255,2.87,6.00
+Taxi,3- >2000cm3,Motor Gasoline,Euro 5,11.2,255,2.87,6.00
+Taxi,3- >2000cm3,Motor Gasoline,Euro 6,11.2,255,0.00,6.00
+Taxi,3- >2000cm3,Diesel Oil,Euro 2,8.53,229,7.00,5.00
+Taxi,3- >2000cm3,Diesel Oil,Euro 3,8.53,229,3.00,3.00
+Taxi,3- >2000cm3,Diesel Oil,Euro 4,8.53,229,1.10,6.00
+Taxi,3- >2000cm3,Diesel Oil,Euro 5,8.53,229,0.08,15.00
+Taxi,3- >2000cm3,Diesel Oil,Euro 6,8.53,229,0.00,18.50
+Taxi,3- >2000cm3,Electric,Euro 4,18.00,13.00,0.00,0.00
+Taxi,3- >2000cm3,Electric,Euro 5,18.00,13.00,0.00,0.00
+Taxi,3- >2000cm3,Electric,Euro 6,18.00,13.00,0.00,0.00
+Urban Bus,1- <3500kg,Motor Gasoline,Euro 2,9.12,207,17,6.00
+Urban Bus,1- <3500kg,Motor Gasoline,Euro 3,9.12,207,3.00,6.00
+Urban Bus,1- <3500kg,Motor Gasoline,Euro 4,9.12,207,2.87,6.00
+Urban Bus,1- <3500kg,Motor Gasoline,Euro 5,9.12,207,2.87,6.00
+Urban Bus,1- <3500kg,Motor Gasoline,Euro 6,9.12,207,2.00,6.00
+Urban Bus,1- <3500kg,Diesel Oil,Euro 2,9.34,251,113.75, 12.0 
+Urban Bus,1- <3500kg,Diesel Oil,Euro 3,9.34,251,103.25, 6.0 
+Urban Bus,1- <3500kg,Diesel Oil,Euro 4,11.80,317,5.25, 12.8 
+Urban Bus,1- <3500kg,Diesel Oil,Euro 5,11.80,317,5.25, 33.2 
+Urban Bus,1- <3500kg,Diesel Oil,Euro 6,11.80,317,5.25, 41.5 
+Urban Bus,1- <3500kg,Electric,Euro 4,30.000,21.66,0,0
+Urban Bus,1- <3500kg,Electric,Euro 5,30.000,21.66,0,0
+Urban Bus,1- <3500kg,Electric,Euro 6,30.000,21.66,0,0
+Urban Bus,2- 3500-15000kg,Diesel Oil,Euro 2,24.64,663,113.75, 12 
+Urban Bus,2- 3500-15000kg,Diesel Oil,Euro 3,26.16,704,103.25, 6 
+Urban Bus,2- 3500-15000kg,Diesel Oil,Euro 4,24.18,650,5.25, 13 
+Urban Bus,2- 3500-15000kg,Diesel Oil,Euro 5,24.18,650,5.25, 33 
+Urban Bus,2- 3500-15000kg,Diesel Oil,Euro 6,24.18,650,5.25, 42 
+Urban Bus,2- 3500-15000kg,Electric,Euro 4,56.00,40.44,0,0
+Urban Bus,2- 3500-15000kg,Electric,Euro 5,56.00,40.44,0,0
+Urban Bus,2- 3500-15000kg,Electric,Euro 6,56.00,40.44,0,0
+Urban Bus,2- 3500-15000kg,CNG,Euro 2,40.00,892,4500,0
+Urban Bus,2- 3500-15000kg,CNG,Euro 3,40.00,892,1280,0
+Urban Bus,2- 3500-15000kg,CNG,Euro 4,40.00,892,0,0
+Urban Bus,2- 3500-15000kg,CNG,Euro 5,40.00,892,0,0
+Urban Bus,2- 3500-15000kg,CNG,Euro 6,40.00,892,0,0
+Urban Bus,3- >15000-18000kg,Diesel Oil,Euro 2,35.15,945,113.75, 12 
+Urban Bus,3- >15000-18000kg,Diesel Oil,Euro 3,35.15,945,103.25, 6 
+Urban Bus,3- >15000-18000kg,Diesel Oil,Euro 4,35.15,945,5.25, 13 
+Urban Bus,3- >15000-18000kg,Diesel Oil,Euro 5,35.15,945,5.25, 33 
+Urban Bus,3- >15000-18000kg,Diesel Oil,Euro 6,35.15,945,5.25, 42 
+Urban Bus,3- >15000-18000kg,Electric,Euro 4,140.0,101.09,0,0
+Urban Bus,3- >15000-18000kg,Electric,Euro 5,140.0,101.09,0,0
+Urban Bus,3- >15000-18000kg,Electric,Euro 6,140.0,101.09,0,0
+Urban Bus,3- >15000-18000kg,CNG,Euro 2,45.50,1015,4500,0
+Urban Bus,3- >15000-18000kg,CNG,Euro 3,45.50,1015,1280,0
+Urban Bus,3- >15000-18000kg,CNG,Euro 4,45.50,1015,0,0
+Urban Bus,3- >15000-18000kg,CNG,Euro 5,45.50,1015,0,0
+Urban Bus,3- >15000-18000kg,CNG,Euro 6,45.50,1015,0,0
+Intercity Bus,1- <3500kg,Motor Gasoline,Euro 2,9.12,207,17.00, 6.0 
+Intercity Bus,1- <3500kg,Motor Gasoline,Euro 3,9.12,207,3.00, 6.0 
+Intercity Bus,1- <3500kg,Motor Gasoline,Euro 4,9.12,207,2.87, 6.0 
+Intercity Bus,1- <3500kg,Motor Gasoline,Euro 5,9.12,207,2.87, 6.0 
+Intercity Bus,1- <3500kg,Motor Gasoline,Euro 6,9.12,207,2.00, 6.0 
+Intercity Bus,1- <3500kg,Diesel Oil,Euro 2,9.34,251,113.75, 12.0 
+Intercity Bus,1- <3500kg,Diesel Oil,Euro 3,9.34,251,103.25, 6.0 
+Intercity Bus,1- <3500kg,Diesel Oil,Euro 4,11.80,317,5.25, 12.8 
+Intercity Bus,1- <3500kg,Diesel Oil,Euro 5,11.80,317,5.25, 33.2 
+Intercity Bus,1- <3500kg,Diesel Oil,Euro 6,11.80,317,5.25, 41.5 
+Intercity Bus,1- <3500kg,Electric,Euro 4,30.00,21.66,0.00, -   
+Intercity Bus,1- <3500kg,Electric,Euro 5,30.00,21.66,0.00, -   
+Intercity Bus,1- <3500kg,Electric,Euro 6,30.00,21.66,0.00, -   
+Intercity Bus,2- 3500-15000kg,Diesel Oil,Euro 2,24.64,663,113.75, 12 
+Intercity Bus,2- 3500-15000kg,Diesel Oil,Euro 3,26.16,704,103.25, 6 
+Intercity Bus,2- 3500-15000kg,Diesel Oil,Euro 4,24.18,650,5.25, 13 
+Intercity Bus,2- 3500-15000kg,Diesel Oil,Euro 5,24.18,650,5.25, 33 
+Intercity Bus,2- 3500-15000kg,Diesel Oil,Euro 6,24.18,650,5.25, 42 
+Intercity Bus,2- 3500-15000kg,Electric,Euro 4,56.00,40.44,0.00, -   
+Intercity Bus,2- 3500-15000kg,Electric,Euro 5,56.00,40.44,0.00, -   
+Intercity Bus,2- 3500-15000kg,Electric,Euro 6,56.00,40.44,0.00, -   
+Intercity Bus,2- 3500-15000kg,CNG,Euro 2,40.00,892,4500.00, -   
+Intercity Bus,2- 3500-15000kg,CNG,Euro 3,40.00,892,1280.00, -   
+Intercity Bus,2- 3500-15000kg,CNG,Euro 4,40.00,892,0.00, -   
+Intercity Bus,2- 3500-15000kg,CNG,Euro 5,40.00,892,0.00, -   
+Intercity Bus,2- 3500-15000kg,CNG,Euro 6,40.00,892,0.00, -   
+Intercity Bus,3- >15000-18000kg,Diesel Oil,Euro 2,35.15,945,113.75, 11 
+Intercity Bus,3- >15000-18000kg,Diesel Oil,Euro 3,35.15,945,103.25, 5 
+Intercity Bus,3- >15000-18000kg,Diesel Oil,Euro 4,35.15,945,5.25, 11 
+Intercity Bus,3- >15000-18000kg,Diesel Oil,Euro 5,35.15,945,5.25, 30 
+Intercity Bus,3- >15000-18000kg,Diesel Oil,Euro 6,35.15,945,5.25, 37 
+Intercity Bus,3- >15000-18000kg,Electric,Euro 4,140.00,101.09,0.00,0
+Intercity Bus,3- >15000-18000kg,Electric,Euro 5,140.00,101.09,0.00,0
+Intercity Bus,3- >15000-18000kg,Electric,Euro 6,140.00,101.09,0.00,0
+Intercity Bus,3- >15000-18000kg,CNG,Euro 2,45.50,1015,4500.00,0
+Intercity Bus,3- >15000-18000kg,CNG,Euro 3,45.50,1015,1280.00,0
+Intercity Bus,3- >15000-18000kg,CNG,Euro 4,45.50,1015,0.00,0
+Intercity Bus,3- >15000-18000kg,CNG,Euro 5,45.50,1015,0.00,0
+Intercity Bus,3- >15000-18000kg,CNG,Euro 6,45.50,1015,0.00,0
+Light trucks,1- <3500kg,Motor Gasoline,Euro 2,9.12,207,17.00, 6.0 
+Light trucks,1- <3500kg,Motor Gasoline,Euro 3,9.12,207,3.00, 6.0 
+Light trucks,1- <3500kg,Motor Gasoline,Euro 4,9.12,207,2.87, 6.0 
+Light trucks,1- <3500kg,Motor Gasoline,Euro 5,9.12,207,2.87, 6.0 
+Light trucks,1- <3500kg,Motor Gasoline,Euro 6,9.12,207,2.00, 6.0 
+Light trucks,1- <3500kg,Diesel Oil,Euro 2,9.34,251,113.75, 12.0 
+Light trucks,1- <3500kg,Diesel Oil,Euro 3,9.34,251,103.25, 6.0 
+Light trucks,1- <3500kg,Diesel Oil,Euro 4,11.80,317,5.25, 12.8 
+Light trucks,1- <3500kg,Diesel Oil,Euro 5,11.80,317,5.25, 33.2 
+Light trucks,1- <3500kg,Diesel Oil,Euro 6,11.80,317,5.25, 41.5 
+Light trucks,1- <3500kg,Electric,Euro 4,30.00,21.66,0.00, -   
+Light trucks,1- <3500kg,Electric,Euro 5,30.00,21.66,0.00, -   
+Light trucks,1- <3500kg,Electric,Euro 6,30.00,21.66,0.00, -   
+Trucks,2-3500-7500kg,Diesel Oil,Euro 2,11.80,317,54.4,5.00
+Trucks,2-3500-7500kg,Diesel Oil,Euro 3,11.80,317,47.6,3.00
+Trucks,2-3500-7500kg,Diesel Oil,Euro 4,11.80,317,2.55,6.00
+Trucks,2-3500-7500kg,Diesel Oil,Euro 5,11.80,317,2.55,15.00
+Trucks,2-3500-7500kg,Diesel Oil,Euro 6,11.80,317,2.55,18.50
+Trucks,2-3500-7500kg,Electric,Euro 4,30.00,21.66,0,0.00
+Trucks,2-3500-7500kg,Electric,Euro 5,30.00,21.66,0,0.00
+Trucks,2-3500-7500kg,Electric,Euro 6,30.00,21.66,0,0.00
+Trucks,3-7500-16000kg,Diesel Oil,Euro 2,18.10,487,54.4,11.00
+Trucks,3-7500-16000kg,Diesel Oil,Euro 3,18.10,487,47.6,5.00
+Trucks,3-7500-16000kg,Diesel Oil,Euro 4,18.10,487,2.55,11.20
+Trucks,3-7500-16000kg,Diesel Oil,Euro 5,18.10,487,2.55,29.80
+Trucks,3-7500-16000kg,Diesel Oil,Euro 6,18.10,487,2.55,29.80
+Trucks,4-16000-32000kg,Diesel Oil,Euro 2,24.53,660,112,11.00
+Trucks,4-16000-32000kg,Diesel Oil,Euro 3,24.53,660,98,5.00
+Trucks,4-16000-32000kg,Diesel Oil,Euro 4,24.53,660,5.25,11.20
+Trucks,4-16000-32000kg,Diesel Oil,Euro 5,24.53,660,5.25,29.80
+Trucks,4-16000-32000kg,Diesel Oil,Euro 6,24.53,660,5.25,37.00
+Trucks,5->32000kg,Diesel Oil,Euro 2,29.31,788,112,17
+Trucks,5->32000kg,Diesel Oil,Euro 3,29.31,788,98,8
+Trucks,5->32000kg,Diesel Oil,Euro 4,29.31,788,5.25,17.4
+Trucks,5->32000kg,Diesel Oil,Euro 5,29.31,788,5.25,45.6
+Trucks,5->32000kg,Diesel Oil,Euro 6,29.31,788,5.25,56.5
+Motorcycle,1- 2-stroke>50cc,Motor Gasoline,Euro 2,3.00,68,30,2
+Motorcycle,1- 2-stroke>50cc,Motor Gasoline,Euro 3,2.21,50,12,2
+Motorcycle,1- 2-stroke>50cc,Motor Gasoline,Euro 4,2.21,50,12,2
+Motorcycle,2-4-stroke<250cc,Motor Gasoline,Euro 2,4.69,107,136,2
+Motorcycle,2-4-stroke<250cc,Motor Gasoline,Euro 3,4.69,107,82,2
+Motorcycle,2-4-stroke<250cc,Motor Gasoline,Euro 4,4.69,107,82,2
+Motorcycle,,Electric,Euro 2,4.00,91,0,0

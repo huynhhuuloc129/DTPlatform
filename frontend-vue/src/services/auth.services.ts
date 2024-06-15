@@ -4,7 +4,7 @@ import axios from 'axios';
 
 class AuthService {
     api: any
-    constructor(baseUrl = "http://localhost:3000/api") {
+    constructor(baseUrl = "http://localhost:2000/api") {
         this.api = createApiClient(baseUrl);
     }
     async login(data: any) {
