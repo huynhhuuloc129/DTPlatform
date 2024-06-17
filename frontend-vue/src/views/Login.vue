@@ -1,6 +1,6 @@
 <template>
     <div>
-        <section class="vh-100 vw-100 gradient-custom">
+        <section id="section" class="vh-100 vw-100 gradient-custom">
             <div class="container py-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -112,5 +112,11 @@ onMounted(() => {
 
 .input-login {
     margin-top: 20px;
+}
+
+@media only screen and (max-width: 500px) {
+    h2{
+        font-size: 10%;
+    }
 }
 </style>

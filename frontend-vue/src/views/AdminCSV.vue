@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-column w-100">
     <Header></Header>
-    <div class="container">
+    <div id="contentBetween">
       <form @submit="onUploadinFile" style="margin-top: 50px;">
         <div class="form-group">
           <label for="input-file" class="label fw-bold">Upload new data:</label>
@@ -92,4 +92,16 @@ onMounted(async () => {
 </script>
 
 <style>
+#contentBetween{
+  margin: 0 50px 0 50px ;
+}
+@media only screen and (max-width: 770px) {
+  h2, label{
+    font-size: 175%;
+  }
+    #contentBetween{
+      margin: 0 10px 0 10px;
+      font-size: 50%;
+    }
+}
 </style>

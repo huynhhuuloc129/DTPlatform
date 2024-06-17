@@ -1,13 +1,13 @@
 <template>
-
-    <div v-if="checkClick">
-        <div class="d-flex">
+    <Transition>
+    <div  v-if="checkClick && show == true">
+        <div id="sidebarContainer" class="d-flex">
             <!-- Sidebar -->
             <nav id="sidebar" class="bg-light border-end">
                 <!-- Sidebar Header -->
                 <div class="p-3 border-bottom">
                     <div class="d-flex align-items-center justify-content-between">
-                        <button class="btn btn-link p-0">
+                        <button @click="show = false" class="btn btn-link p-0">
                             <i class="fas fa-arrow-left"></i>
                         </button>
                         <!-- <button class="btn btn-link p-0">
@@ -114,9 +114,15 @@
 
         </div>
     </div>
+    </Transition>
+    <Transition>
+        <button v-if="show == false && checkClick" style="position: absolute; z-index: 1; margin: 20px; " @click="show = true" class="btn btn-link p-0">
+            <i  class="fas fa-arrow-right"></i>
+        </button>
+    </Transition>
 
     <div ref="mapContainer" class="map-container"></div>
-    <div v-if="checkClick" style="position: absolute; right: 0; margin: 110px 10px 0 0;">
+    <div id="infor" v-if="checkClick">
         <div class="rounded-pill" style="padding: 10px 20px; background-color: white; margin-bottom: 10px">
             <span class="h6">Độ dài: </span>
             <span>{{ lengthRoad }} m</span>
@@ -147,6 +153,7 @@ var map, geocoderStart, geocoderEnd, start, end, token, roads
 export default {
     data() {
         return {
+            show: true,
             checkClick: false,
             chargingStations: [],
             displayNameEnd: '',
@@ -183,7 +190,7 @@ export default {
         },*/
         changeType (index) {
             this.choosenType = index
-            this.timeToTravel = Math.round(this.lengthRoad / this.speed * 60)
+            this.timeToTravel = Math.round((this.lengthRoad*0.001) / this.speed * 60)
         },
         async calculateRoute() {
             if (!start || !end) return;
@@ -346,14 +353,34 @@ export default {
 }
 
 #sidebar {
+    z-index: 1;
     width: 350px;
     height: 100vh;
 }
-
 #content {
     width: 100%;
 }
 .label{
     margin-right: 5px;
+}
+#infor{
+    position: absolute; right: 0; 
+    margin: 110px 10px 0 0;
+}
+.v-enter-active{
+  transition: opacity 0.5s ease;
+}
+.v-leave-active {
+    transition: opacity 0.2s ease;
+
+}
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+@media only screen and (max-width: 640px) {
+    #infor{
+        margin: 130px 10px 0 0;
+    }
 }
 </style>
