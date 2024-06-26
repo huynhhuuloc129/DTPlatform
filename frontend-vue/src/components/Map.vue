@@ -1,6 +1,6 @@
 <template>
     <Transition>
-    <div  v-if="checkClick && show == true">
+    <div  v-if="checkClick && show == true" style="position: absolute;">
         <div id="sidebarContainer" class="d-flex">
             <!-- Sidebar -->
             <nav id="sidebar" class="bg-light border-end">
@@ -116,8 +116,8 @@
     </div>
     </Transition>
     <Transition>
-        <button v-if="show == false && checkClick" style="position: absolute; z-index: 1; margin: 20px; " @click="show = true" class="btn btn-link p-0">
-            <i  class="fas fa-arrow-right"></i>
+        <button v-if="show == false && checkClick" style="position: absolute; z-index: 2; margin: 20px; background: white;" @click="show = true" class="btn btn-link p-0">
+            <i style="margin: 0 2px;" class="fas fa-arrow-right"></i>
         </button>
     </Transition>
 
@@ -137,6 +137,9 @@
         </div>
     </div>
 
+    <button class="geolocate-btn" style="width: 50px; height: auto;" @click="getLocation()">
+        <i class="fa-solid fa-location-crosshairs" style="width: 25px; height: 25px;"></i>
+    </button>
 
 </template>
 
@@ -165,29 +168,40 @@ export default {
         }
     },
     methods: {
-        /*
-        async getChargingStations(coordinates) {
-            const [longitude, latitude] = coordinates;
-            const bbox = [102.1444, 8.1797, 109.4648, 23.3933];
-            const response = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/xe%20điện.json?proximity=${longitude},${latitude}&bbox=${bbox.join(',')}&country=VN&access_token=${mapboxgl.accessToken}`);
-            const data = await response.json();
-            this.chargingStations = data.feature;
-            console.log(data)
-            this.displayChargingStations();
-        },
-        displayChargingStations() {
-            this.chargingStations.forEach(station => {
-                const [longitude, latitude] = station.geometry.coordinates;
-                const name = station.text;
-                const address = station.place_name;
+        async getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    const lng = position.coords.longitude;
+                    const lat = position.coords.latitude;
+                    const coordinates = [lng, lat];
 
-                new mapboxgl.Marker()
-                    .setLngLat([longitude, latitude])
-                    .setPopup(new mapboxgl.Popup().setHTML(`<h3>${name}</h3><p>${address}</p>`))
-                    .addTo(this.map);
-            });
-            console.log(this.chargingStations)
-        },*/
+                    map.flyTo({
+                        center: coordinates,
+                        zoom: 14
+                    });
+
+                    // Reverse geocode to get the address
+                    fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${mapboxgl.accessToken}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.features.length > 0) {
+                                const place = data.features[0].place_name;
+                                geocoderStart.query(place);
+                            } else {
+                                console.error('No place found for the coordinates');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching the place name', error);
+                        });
+                }, error => {
+                    console.error('Error getting location', error);
+                });
+            } else {
+                alert('Geolocation is not supported by this browser.');
+            }
+        },
+
         changeType (index) {
             this.choosenType = index
             this.timeToTravel = Math.round((this.lengthRoad*0.001) / this.speed * 60)
@@ -236,7 +250,7 @@ export default {
                     'title': 'Start'
                 }
             })
-
+            
             // calculate length road
             const pathGeoJSONTurf = {
                 "type": "Feature",
@@ -348,12 +362,24 @@ export default {
 </script>
 
 <style>
+.geolocate-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    cursor: pointer;
+    font-size: 16px;
+}
 .map-container {
     flex: 1;
 }
 
 #sidebar {
-    z-index: 1;
+    z-index: 2;
     width: 350px;
     height: 100vh;
 }
@@ -368,10 +394,10 @@ export default {
     margin: 110px 10px 0 0;
 }
 .v-enter-active{
-  transition: opacity 0.5s ease;
+  transition: opacity 0.05s ease;
 }
 .v-leave-active {
-    transition: opacity 0.2s ease;
+    transition: opacity 0.05s ease;
 
 }
 .v-enter-from,
