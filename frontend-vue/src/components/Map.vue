@@ -137,8 +137,13 @@
         </div>
     </div>
 
-    <button class="geolocate-btn" style="width: 50px; height: auto;" @click="getLocation()">
-        <i class="fa-solid fa-location-crosshairs" style="width: 25px; height: 25px;"></i>
+    <button class="geolocate-btn" style="width: 50px; height: auto;" @click="loadingWait = !loadingWait; getLocation()">
+        <div v-if="loadingWait == true">
+            <i  class="fa-solid fa-spinner fa-spin-pulse"  style="width: 25px; height: 25px;"></i>
+        </div>
+        <div v-else>
+            <i  class="fa-solid fa-location-crosshairs" style="width: 25px; height: 25px;"></i>
+        </div>
     </button>
 
 </template>
@@ -164,12 +169,14 @@ export default {
             lengthRoad: 0,
             timeToTravel: 0,
             speed: 60,
-            choosenType : 1
+            choosenType : 1,
+            loadingWait: false
         }
     },
     methods: {
         async getLocation() {
             if (navigator.geolocation) {
+
                 navigator.geolocation.getCurrentPosition(position => {
                     const lng = position.coords.longitude;
                     const lat = position.coords.latitude;
@@ -186,6 +193,7 @@ export default {
                         .then(data => {
                             if (data.features.length > 0) {
                                 const place = data.features[0].place_name;
+                                this.loadingWait = false
                                 geocoderStart.query(place);
                             } else {
                                 console.error('No place found for the coordinates');
@@ -200,6 +208,7 @@ export default {
             } else {
                 alert('Geolocation is not supported by this browser.');
             }
+
         },
 
         changeType (index) {
