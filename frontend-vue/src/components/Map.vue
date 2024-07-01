@@ -1,14 +1,18 @@
 <template>
     <Transition>
-    <div  v-if="checkClick && show == true" style="position: absolute;">
+    <div id="container" v-if="checkClick && show == true" style="position: absolute;">
         <div id="sidebarContainer" class="d-flex">
             <!-- Sidebar -->
             <nav id="sidebar" class="bg-light border-end">
                 <!-- Sidebar Header -->
                 <div class="p-3 border-bottom">
                     <div class="d-flex align-items-center justify-content-between">
-                        <button @click="show = false" class="btn btn-link p-0">
+                        <button id="arrow-left" @click="show = false" class="btn btn-link p-0">
                             <i class="fas fa-arrow-left"></i>
+                            
+                        </button>
+                        <button id="arrow-down" @click="show = false" class="btn btn-link p-0 w-100 align-content-center">
+                            <i class="fas fa-arrow-down"></i>
                         </button>
                         <!-- <button class="btn btn-link p-0">
                             <i class="fas fa-ellipsis-v"></i>
@@ -18,9 +22,9 @@
 
                 <!-- Sidebar Content -->
                 <div class="p-3">
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <div class="d-flex align-items-center mb-3">
-                            <div style="margin-bottom: 5px">
+                    <div class="d-flex justify-content-between mb-3">
+                        <div class="d-flex mb-3">
+                            <div style="margin-bottom: 5px;">
                                 
                                 <input type="radio" @change="changeType(0)"
                                     class="btn-check" name="btnradio" id="btnradio" autocomplete="off" />
@@ -66,7 +70,7 @@
                     </div>
                     <div class="text-center">
                         <button class="btn btn-light"
-                            @click="[displayNameStart, displayNameEnd] = [displayNameEnd, displayNameStart];">
+                            @click="swapPlace()">
                             <i class="fa-solid fa-arrows-rotate"></i>
                         </button>
                     </div>
@@ -75,23 +79,16 @@
                     </div>
                     <hr>
 
-                    <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h6>Các tuyến đường sẽ đi qua</h6>
+                    <div v-for="(roadName, index) in roadNames" class="d-flex justify-content-between align-items-center mb-2">
                         <div>
-                            <strong>qua CT01</strong>
-                            <p class="mb-0">2 giờ 48 p</p>
+                            {{ index+1 }}: <strong>{{ roadName }}</strong>
                         </div>
-                        <div>
+                        <!-- <div>
                             <span class="badge bg-warning text-dark">Tuyến này có thu phí</span>
-                        </div>
+                        </div> -->
                     </div>
-                    <div class="mb-2">
-                        <strong>Phuong Trang</strong>
-                        <p class="mb-0">3 giờ 58 p</p>
-                    </div>
-                    <div class="mb-2">
-                        <strong>Phuong Trang</strong>
-                        <p class="mb-0">3 giờ 52 p</p>
-                    </div>
+
                     <hr>
                     <div>
                         <div class="profile">
@@ -116,9 +113,15 @@
     </div>
     </Transition>
     <Transition>
-        <button v-if="show == false && checkClick" style="position: absolute; z-index: 2; margin: 20px; background: white;" @click="show = true" class="btn btn-link p-0">
-            <i style="margin: 0 2px;" class="fas fa-arrow-right"></i>
-        </button>
+        <div>
+            <button id="arrow-right" v-if="show == false && checkClick" style="position: absolute; z-index: 2; margin: 20px; background: white;" @click="show = true" class="btn btn-link p-2">
+                <i  style="margin: 0 2px;" class="fas fa-arrow-right"></i>
+            </button>
+
+            <button id="arrow-up" v-if="show == false && checkClick" style="position: absolute; z-index: 2; margin-bottom: 20px; left: 50%; bottom: 0; background: white;  transform: translate(-50%, 0)" @click="show = true" class="btn btn-link p-2">
+                <i  style="margin: 0 2px;" class="fas fa-arrow-up"></i>
+            </button>
+        </div>
     </Transition>
 
     <div ref="mapContainer" class="map-container"></div>
@@ -157,7 +160,7 @@ import PathFinder, { pathToGeoJSON } from "geojson-path-finder";
 import { length } from '@turf/turf';
 const cookies = useCookies()
 
-var map, geocoderStart, geocoderEnd, start, end, token, roads
+var map, geocoderStart, geocoderEnd, token, roads
 export default {
     data() {
         return {
@@ -170,7 +173,10 @@ export default {
             timeToTravel: 0,
             speed: 60,
             choosenType : 1,
-            loadingWait: false
+            loadingWait: false,
+            roadNames: [],
+            start: [],
+            end: []
         }
     },
     methods: {
@@ -211,15 +217,33 @@ export default {
 
         },
 
-        changeType (index) {
+        changeType(index) {
             this.choosenType = index
             this.timeToTravel = Math.round((this.lengthRoad*0.001) / this.speed * 60)
         },
-        async calculateRoute() {
-            if (!start || !end) return;
 
-            var roads1 = await mapboxServices.getRoadNear(token, start[0], start[1])
-            var roads2 = await mapboxServices.getRoadNear(token, end[0], end[1])
+        swapPlace(){
+
+            geocoderStart.query(this.displayNameEnd)
+            geocoderEnd.query(this.displayNameStart)
+
+            for (let i = 0; i < this.start.length; i++) {
+                let tempVariable = this.start[i];
+                this.start[i] = this.end[i];
+                this.end[i] = tempVariable;
+            }
+
+
+            [this.displayNameStart, this.displayNameEnd] = [this.displayNameEnd, this.displayNameStart]; 
+
+            this.calculateRoute()
+        },
+
+        async calculateRoute() {
+            if (this.start.length == 0 || this.end.length == 0) return;
+
+            var roads1 = await mapboxServices.getRoadNear(token, this.start[0], this.start[1])
+            var roads2 = await mapboxServices.getRoadNear(token, this.end[0], this.end[1])
 
             var nearestRoad1 = roads1.roads[0].geometry.coordinates[0]
             var nearestRoad2 = roads2.roads[0].geometry.coordinates[0]
@@ -272,7 +296,6 @@ export default {
             this.lengthRoad = Math.round(length(pathGeoJSONTurf, { units: 'meters' }));
 
             // calculate time
-            console.log(this.speed)
             this.timeToTravel = Math.round((this.lengthRoad*0.001) / this.speed * 60)
 
             // find path line
@@ -281,6 +304,26 @@ export default {
             this.checkClick = true
             const route = pathLineString.geometry;
 
+            // get road name
+            for (let i=0; i< pathFounded.path.length; i++) {
+                
+                fetch(`https://api.mapbox.com/search/geocode/v6/reverse?longitude=${pathFounded.path[i][0]}&latitude=${pathFounded.path[i][1]}&access_token=${mapboxgl.accessToken}`)
+                .then(response => response.json())
+                .then(data => {
+
+                    if (data.features.length > 0) {
+                        let address = data.features[0].properties.full_address;
+                        if (this.roadNames.indexOf(address) == -1){
+                            this.roadNames.push(address)
+                        }
+                    } else {
+                        console.error('No road name found for the coordinates');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching the road name', error);
+                });
+            }
 
             // add path to map
             if (map.getSource('route')) {
@@ -304,7 +347,6 @@ export default {
                     },
                 });
             }
-
         },
     },
 
@@ -312,23 +354,13 @@ export default {
         token = cookies.cookies.get('Token')
 
         roads = await mapboxServices.getRoad(token)
-        // pathFinder = new PathFinder(geojson, {
-        //     weight: function (a, b, props) {
-        //         const dx = a[0] - b[0];
-        //         const dy = a[1] - b[1];
-        //         return Math.sqrt(dx * dx + dy * dy);
-        //     },
-        // });
+
         map = new mapboxgl.Map({
             container: this.$refs.mapContainer,
             style: "mapbox://styles/mapbox/streets-v12",
             center: [105.7640697496488, 10.030023648539725],
             zoom: 12,
         });
-        // const marker = new mapboxgl.Marker() // initialize a new marker
-        // .setLngLat([105.7640697496488, 10.030023648539725]) // Marker [lng, lat] coordinates
-        // .addTo(map);
-        // this.map = map;
 
         geocoderStart = new MapboxGeocoder({
             accessToken: mapboxgl.accessToken,
@@ -352,15 +384,16 @@ export default {
         map.addControl(geocoderEnd);
 
         geocoderStart.on('result', (e) => {
-            start = e.result.geometry.coordinates
+            this.start = e.result.geometry.coordinates
             this.displayNameStart = e.result.place_name
             this.calculateRoute()
         });
         geocoderEnd.on('result', (e) => {
-            end = e.result.geometry.coordinates
+            this.end = e.result.geometry.coordinates
             this.displayNameEnd = e.result.place_name
             this.calculateRoute()
         });
+
     },
     unmounted() {
         map.remove();
@@ -371,6 +404,10 @@ export default {
 </script>
 
 <style>
+#sidebarContainer{
+    background-color: white;
+    overflow-x: hidden;
+}
 .geolocate-btn {
     position: absolute;
     bottom: 20px;
@@ -388,8 +425,10 @@ export default {
 }
 
 #sidebar {
-    z-index: 2;
-    width: 350px;
+    z-index: 3;
+    width: 360px;
+    overflow-x: hidden;
+    overflow-y: scroll;
     height: 100vh;
 }
 #content {
@@ -413,9 +452,27 @@ export default {
 .v-leave-to {
   opacity: 0;
 }
+#arrow-down, #arrow-up{
+    display: none;
+}
 @media only screen and (max-width: 640px) {
     #infor{
         margin: 130px 10px 0 0;
+    }
+
+    #container {
+        position: absolute;
+        bottom: 0;
+        height: 40vh;
+    }
+    #sidebar, #container    {
+        width: 100vw;
+    }
+    #arrow-left, #arrow-right{
+        display: none;
+    }
+    #arrow-down, #arrow-up{
+        display: inline;
     }
 }
 </style>
