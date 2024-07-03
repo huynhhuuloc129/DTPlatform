@@ -7,6 +7,14 @@
           <li><a href="http://localhost:5173/home" class="nav-link px-2 text-white">Home</a></li>
         </ul>
 
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 w-25">
+          <li><a @click="router.push({name: 'admin'})" href="#" class="nav-link px-2 text-white">Admin</a></li>
+        </ul>
+
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 w-25">
+          <li><a @click="router.push({name: 'admincsv'})" href="#" class="nav-link px-2 text-white">CSV</a></li>
+        </ul>
+
         <span class="text-end">
           <button @click="signOut()" type="button" class="btn btn-light">Log out</button>
         </span>

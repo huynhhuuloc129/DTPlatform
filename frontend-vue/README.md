@@ -31,3 +31,7 @@ npm run dev
 ```sh
 npm run build
 ```
+
+Url frontend: https://clonedtplatformfrontend.netlify.app/
+
+Url backend: https://clonedtplatformbackend.onrender.com/
