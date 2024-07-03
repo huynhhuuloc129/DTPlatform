@@ -2,7 +2,7 @@
     <!-- Remove the container if you want to extend the Footer to full width. -->
 <div class="my-5">
 
-<footer class="bg-dark text-center text-white">
+<footer class="text-center text-white" style="background-color: #23a5ae;">
 <!-- Grid container -->
 <div class="p-4 pb-0">
   <!-- Section: Social media -->

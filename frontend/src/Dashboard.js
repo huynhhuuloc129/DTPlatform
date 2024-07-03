@@ -211,7 +211,7 @@ class Dashboard extends Component {
     // });
   };
   navDashboard = () => {
-    this.props.navigate("/dashboard");
+    this.props.navigate("/map");
   }
 
   navProduct = () => {

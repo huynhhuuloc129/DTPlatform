@@ -4,6 +4,8 @@ import Dashboard from './../views/Dashboard.vue'
 import SignUp from './../views/SignUp.vue'
 import Admin from './../views/Admin.vue'
 import AdminCSV from './../views/AdminCSV.vue'
+// @ts-ignore
+import MainPage from './../views/MainPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,9 +16,14 @@ const router = createRouter({
       component: Login
     },
     {
-      path: '/dashboard',
+      path: '/map',
       name: 'dashboard',
       component: Dashboard
+    },
+    {
+      path: '/home',
+      name: 'home',
+      component: MainPage
     },
     {
       path: '/signup',

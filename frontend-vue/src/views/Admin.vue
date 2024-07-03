@@ -103,13 +103,11 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import checkLogin from '@/utilites/utilities'; ``
 import { useRouter } from 'vue-router'
-// @ts-ignore
-import Header from './../components/Header.vue'
-// @ts-ignore
-import Footer from './../components/Footer.vue'
 import userServices from '@/services/user.services';
+import Header from './../components/Header.vue'
+import Footer from './../components/Footer.vue'
+import checkLogin from '@/utilites/utilities'; 
 import { useCookies } from "vue3-cookies";
 
 const router = useRouter()
