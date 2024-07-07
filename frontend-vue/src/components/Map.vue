@@ -325,6 +325,7 @@ export default {
             this.checkClick = true
             const route = pathLineString.geometry;
 
+            this.roadNames = [];
             // get road name
             for (let i = 0; i < pathFounded.path.length; i++) {
 
