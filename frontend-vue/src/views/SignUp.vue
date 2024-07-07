@@ -34,8 +34,8 @@
                                 </div>
 
                                 <div>
-                                    <p class="mb-0">Already have an account? <a href="http://localhost:5173"
-                                          style="color: #23a5ae;"  class="fw-bold">Login</a>
+                                    <p class="mb-0">Already have an account? <a @click="router.push({ name: 'login' })"
+                                            href="#" style="color: #23a5ae;" class="fw-bold">Login</a>
                                     </p>
                                 </div>
 
@@ -102,17 +102,20 @@ onMounted(() => {
 </script>
 
 <style>
-.input-login::placeholder{
+.input-login::placeholder {
     color: #23a5ae;
 
 }
+
 .input-login {
     margin-top: 20px;
 }
-#section{
+
+#section {
     background-image: url('@/assets/banner.jpeg');
     background-size: 100vw 100vh;
 }
+
 .input-login {
     margin-top: 20px;
 }

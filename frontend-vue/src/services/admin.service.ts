@@ -4,13 +4,13 @@ import axios from 'axios';
 
 class AdminService {
     api: any
-    constructor(baseUrl = "http://localhost:2000/api") {
+    constructor(baseUrl = "https://dtplatform.onrender.com/api") {
         this.api = createApiClient(baseUrl);
     }
     async upload(data1: any, token: string) {
         let data = new FormData();
         data.append('data', data1);
-        return await axios.post("http://localhost:2000/csv/upload", data
+        return await axios.post("https://dtplatform.onrender.com/csv/upload", data
         ,{
             headers: {
                 'Content-Type': 'multipart/form-data',

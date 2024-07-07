@@ -4,12 +4,12 @@ import axios from 'axios';
 
 class AuthService {
     api: any
-    constructor(baseUrl = "http://localhost:2000/api") {
+    constructor(baseUrl = "https://dtplatform.onrender.com/api") {
         this.api = createApiClient(baseUrl);
     }
     async login(data: any) {
         try {
-            const tokens = (await this.api.post("http://localhost:2000/user/login", data));
+            const tokens = (await this.api.post("https://dtplatform.onrender.com/user/login", data));
             return tokens.data;
 
         } catch (err: any) {
@@ -21,7 +21,7 @@ class AuthService {
 
     async register(data: any) {
         try {
-            const resp = (await this.api.post("http://localhost:2000/user/register", data));
+            const resp = (await this.api.post("https://dtplatform.onrender.com/user/register", data));
             return resp.data;
         } catch (err: any) {
             if (err.response.status == '400') throw new Error("Người dùng này đã tồn tại!");
@@ -30,7 +30,7 @@ class AuthService {
     }
 
     async getMe(token: string) {
-        return await axios.get("http://localhost:3000/api/auth/me", {
+        return await axios.get("https://dtplatform.onrender.com/auth/me", {
           headers: {
             Authorization: 'Bearer ' + token
           }

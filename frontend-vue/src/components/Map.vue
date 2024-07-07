@@ -1,125 +1,140 @@
 <template>
+    <div id="backIcon" >
+        <button class="btn" style="background-color: none;" @click="pushToDashBoard()">
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor"
+                class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16" >
+                <path
+                    d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
+            </svg>
+        </button>
+    </div>
     <Transition>
-    <div id="container" v-if="checkClick && show == true" style="position: absolute;">
-        <div id="sidebarContainer" class="d-flex">
-            <!-- Sidebar -->
-            <nav id="sidebar" class="bg-light border-end">
-                <!-- Sidebar Header -->
-                <div class="p-3 border-bottom">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <button id="arrow-left" @click="show = false" class="btn btn-link p-0">
-                            <i class="fas fa-arrow-left"></i>
-                            
-                        </button>
-                        <button id="arrow-down" @click="show = false" class="btn btn-link p-0 w-100 align-content-center">
-                            <i class="fas fa-arrow-down"></i>
-                        </button>
-                        <!-- <button class="btn btn-link p-0">
+        <div id="container" v-if="checkClick && show == true" style="position: absolute;">
+            <div id="sidebarContainer" class="d-flex">
+                <!-- Sidebar -->
+                <nav id="sidebar" class="bg-light border-end">
+                    <!-- Sidebar Header -->
+                    <div class="p-3 border-bottom">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <button id="arrow-left" @click="show = false" class="btn btn-link p-0">
+                                <i class="fas fa-arrow-left"></i>
+
+                            </button>
+                            <button id="arrow-down" @click="show = false"
+                                class="btn btn-link p-0 w-100 align-content-center">
+                                <i class="fas fa-arrow-down"></i>
+                            </button>
+                            <!-- <button class="btn btn-link p-0">
                             <i class="fas fa-ellipsis-v"></i>
                         </button> -->
+                        </div>
                     </div>
-                </div>
 
-                <!-- Sidebar Content -->
-                <div class="p-3">
-                    <div class="d-flex justify-content-between mb-3">
-                        <div class="d-flex mb-3">
-                            <div style="margin-bottom: 5px;">
-                                
-                                <input type="radio" @change="changeType(0)"
-                                    class="btn-check" name="btnradio" id="btnradio" autocomplete="off" />
-                                <label class="btn btn-outline-secondary  label" for="btnradio">
-                                    Tối ưu
-                                </label>
+                    <!-- Sidebar Content -->
+                    <div class="p-3">
+                        <div class="d-flex justify-content-between mb-3">
+                            <div class="d-flex mb-3">
+                                <div style="margin-bottom: 5px;">
 
-                                <input checked v-model="speed" type="radio" value=60 @change="changeType(1)"
-                                    class="btn-check" name="btnradio" id="btnradioCar" autocomplete="off" />
-                                <label class="btn btn-outline-secondary  label" for="btnradioCar">
-                                    <i class="fa-solid fa-car"></i>
-                                </label>
-        
-                                <input v-model="speed" type="radio" value=40 @change="changeType(2)"
-                                    class="btn-check" name="btnradio" id="btnradioMotor" autocomplete="off" />
-                                <label class="btn btn-outline-secondary  label" for="btnradioMotor">
-                                    <i class="fa-solid fa-motorcycle"></i>
-                                </label>
+                                    <input type="radio" @change="changeType(0)" class="btn-check" name="btnradio"
+                                        id="btnradio" autocomplete="off" />
+                                    <label class="btn btn-outline-secondary  label" for="btnradio">
+                                        Tối ưu
+                                    </label>
 
-                                <input v-model="speed" type="radio" value=10 @change="changeType(3)"
-                                    class="btn-check" name="btnradio" id="btnradioBike" autocomplete="off" />
-                                <label class="btn btn-outline-secondary  label" for="btnradioBike">
-                                    <i class="fas fa-bicycle"></i>
-                                </label>
+                                    <input checked v-model="speed" type="radio" value=60 @change="changeType(1)"
+                                        class="btn-check" name="btnradio" id="btnradioCar" autocomplete="off" />
+                                    <label class="btn btn-outline-secondary  label" for="btnradioCar">
+                                        <i class="fa-solid fa-car"></i>
+                                    </label>
 
-                                <input v-model="speed" type="radio" value=5 @change="changeType(4)"
-                                    class="btn-check" name="btnradio" id="btnradioWalk" autocomplete="off" />
-                                <label class="btn btn-outline-secondary label" for="btnradioWalk">
-                                    <i class="fas fa-walking"></i>
-                                </label>
+                                    <input v-model="speed" type="radio" value=40 @change="changeType(2)"
+                                        class="btn-check" name="btnradio" id="btnradioMotor" autocomplete="off" />
+                                    <label class="btn btn-outline-secondary  label" for="btnradioMotor">
+                                        <i class="fa-solid fa-motorcycle"></i>
+                                    </label>
 
-                                <input v-model="speed" type="radio" value=1 @change="changeType(5)"
-                                    class="btn-check" name="btnradio" id="btnradioWait" autocomplete="off" />
-                                <label class="btn btn-outline-secondary label" for="btnradioWait">
-                                    <i class="fa-solid fa-person"></i>
-                                </label>
+                                    <input v-model="speed" type="radio" value=10 @change="changeType(3)"
+                                        class="btn-check" name="btnradio" id="btnradioBike" autocomplete="off" />
+                                    <label class="btn btn-outline-secondary  label" for="btnradioBike">
+                                        <i class="fas fa-bicycle"></i>
+                                    </label>
+
+                                    <input v-model="speed" type="radio" value=5 @change="changeType(4)"
+                                        class="btn-check" name="btnradio" id="btnradioWalk" autocomplete="off" />
+                                    <label class="btn btn-outline-secondary label" for="btnradioWalk">
+                                        <i class="fas fa-walking"></i>
+                                    </label>
+
+                                    <input v-model="speed" type="radio" value=1 @change="changeType(5)"
+                                        class="btn-check" name="btnradio" id="btnradioWait" autocomplete="off" />
+                                    <label class="btn btn-outline-secondary label" for="btnradioWait">
+                                        <i class="fa-solid fa-person"></i>
+                                    </label>
+                                </div>
+
                             </div>
-                          
                         </div>
-                    </div>
-                    <div class="">
-                        <input disabled type="text" class="form-control" :value="displayNameStart">
-                    </div>
-                    <div class="text-center">
-                        <button class="btn btn-light"
-                            @click="swapPlace()">
-                            <i class="fa-solid fa-arrows-rotate"></i>
-                        </button>
-                    </div>
-                    <div class="mb-3">
-                        <input disabled type="text" class="form-control" :value="displayNameEnd">
-                    </div>
-                    <hr>
+                        <div class="">
+                            <input disabled type="text" class="form-control" :value="displayNameStart">
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-light" @click="swapPlace()">
+                                <i class="fa-solid fa-arrows-rotate"></i>
+                            </button>
+                        </div>
+                        <div class="mb-3">
+                            <input disabled type="text" class="form-control" :value="displayNameEnd">
+                        </div>
+                        <hr>
 
-                    <h6>Các tuyến đường sẽ đi qua</h6>
-                    <div v-for="(roadName, index) in roadNames" class="d-flex justify-content-between align-items-center mb-2">
-                        <div>
-                            {{ index+1 }}: <strong>{{ roadName }}</strong>
-                        </div>
-                        <!-- <div>
+                        <h6>Các tuyến đường sẽ đi qua</h6>
+                        <div v-for="(roadName, index) in roadNames"
+                            class="d-flex justify-content-between align-items-center mb-2">
+                            <div>
+                                {{ index + 1 }}: <strong>{{ roadName }}</strong>
+                            </div>
+                            <!-- <div>
                             <span class="badge bg-warning text-dark">Tuyến này có thu phí</span>
                         </div> -->
-                    </div>
+                        </div>
 
-                    <hr>
-                    <div>
-                        <div class="profile">
-                            <div class="h6">
-                                <span class="h6">Độ dài: </span>
-                                <span>{{ lengthRoad }} m</span>
-                            </div>
-                            <div class="h6">
-                                <span class="h6">Lượng khí thải: </span>
-                                <span>1000 PPM</span>
-                            </div>
-                            <div class="h6">
-                                <span class="h6">Thời gian: </span>
-                                <span>{{ timeToTravel }} phút</span>
+                        <hr>
+                        <div>
+                            <div class="profile">
+                                <div class="h6">
+                                    <span class="h6">Độ dài: </span>
+                                    <span>{{ lengthRoad }} m</span>
+                                </div>
+                                <div class="h6">
+                                    <span class="h6">Lượng khí thải: </span>
+                                    <span>1000 PPM</span>
+                                </div>
+                                <div class="h6">
+                                    <span class="h6">Thời gian: </span>
+                                    <span>{{ timeToTravel }} phút</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </nav>
+                </nav>
 
+            </div>
         </div>
-    </div>
     </Transition>
     <Transition>
         <div>
-            <button id="arrow-right" v-if="show == false && checkClick" style="position: absolute; z-index: 2; margin: 20px; background: white;" @click="show = true" class="btn btn-link p-2">
-                <i  style="margin: 0 2px;" class="fas fa-arrow-right"></i>
+            <button id="arrow-right" v-if="show == false && checkClick"
+                style="position: absolute; z-index: 2; margin: 20px; background: white;" @click="show = true"
+                class="btn btn-link p-2">
+                <i style="margin: 0 2px;" class="fas fa-arrow-right"></i>
             </button>
 
-            <button id="arrow-up" v-if="show == false && checkClick" style="position: absolute; z-index: 2; margin-bottom: 20px; left: 50%; bottom: 0; background: white;  transform: translate(-50%, 0)" @click="show = true" class="btn btn-link p-2">
-                <i  style="margin: 0 2px;" class="fas fa-arrow-up"></i>
+            <button id="arrow-up" v-if="show == false && checkClick"
+                style="position: absolute; z-index: 2; margin-bottom: 20px; left: 50%; bottom: 0; background: white;  transform: translate(-50%, 0)"
+                @click="show = true" class="btn btn-link p-2">
+                <i style="margin: 0 2px;" class="fas fa-arrow-up"></i>
             </button>
         </div>
     </Transition>
@@ -142,10 +157,10 @@
 
     <button class="geolocate-btn" style="width: 50px; height: auto;" @click="loadingWait = !loadingWait; getLocation()">
         <div v-if="loadingWait == true">
-            <i  class="fa-solid fa-spinner fa-spin-pulse"  style="width: 25px; height: 25px;"></i>
+            <i class="fa-solid fa-spinner fa-spin-pulse" style="width: 25px; height: 25px;"></i>
         </div>
         <div v-else>
-            <i  class="fa-solid fa-location-crosshairs" style="width: 25px; height: 25px;"></i>
+            <i class="fa-solid fa-location-crosshairs" style="width: 25px; height: 25px;"></i>
         </div>
     </button>
 
@@ -158,6 +173,8 @@ import mapboxServices from '@/services/mapbox.services';
 mapboxgl.accessToken = 'pk.eyJ1IjoiaHFuZ2hpODgiLCJhIjoiY2xzdTBtOG5pMDczcTJqbzFueGhiOGphMyJ9.m-zWte_-Qgshf5tQ9pFIrA';
 import PathFinder, { pathToGeoJSON } from "geojson-path-finder";
 import { length } from '@turf/turf';
+import { useRouter } from 'vue-router'
+
 const cookies = useCookies()
 
 var map, geocoderStart, geocoderEnd, token, roads
@@ -172,14 +189,18 @@ export default {
             lengthRoad: 0,
             timeToTravel: 0,
             speed: 60,
-            choosenType : 1,
+            choosenType: 1,
             loadingWait: false,
             roadNames: [],
             start: [],
-            end: []
+            end: [],
+            router: useRouter()
         }
     },
     methods: {
+        pushToDashBoard() {
+            this.router.push('home')
+        },
         async getLocation() {
             if (navigator.geolocation) {
 
@@ -219,10 +240,10 @@ export default {
 
         changeType(index) {
             this.choosenType = index
-            this.timeToTravel = Math.round((this.lengthRoad*0.001) / this.speed * 60)
+            this.timeToTravel = Math.round((this.lengthRoad * 0.001) / this.speed * 60)
         },
 
-        swapPlace(){
+        swapPlace() {
 
             geocoderStart.query(this.displayNameEnd)
             geocoderEnd.query(this.displayNameStart)
@@ -234,7 +255,7 @@ export default {
             }
 
 
-            [this.displayNameStart, this.displayNameEnd] = [this.displayNameEnd, this.displayNameStart]; 
+            [this.displayNameStart, this.displayNameEnd] = [this.displayNameEnd, this.displayNameStart];
 
             this.calculateRoute()
         },
@@ -283,7 +304,7 @@ export default {
                     'title': 'Start'
                 }
             })
-            
+
             // calculate length road
             const pathGeoJSONTurf = {
                 "type": "Feature",
@@ -296,7 +317,7 @@ export default {
             this.lengthRoad = Math.round(length(pathGeoJSONTurf, { units: 'meters' }));
 
             // calculate time
-            this.timeToTravel = Math.round((this.lengthRoad*0.001) / this.speed * 60)
+            this.timeToTravel = Math.round((this.lengthRoad * 0.001) / this.speed * 60)
 
             // find path line
             const pathLineString = pathToGeoJSON(pathFounded);
@@ -305,24 +326,24 @@ export default {
             const route = pathLineString.geometry;
 
             // get road name
-            for (let i=0; i< pathFounded.path.length; i++) {
-                
-                fetch(`https://api.mapbox.com/search/geocode/v6/reverse?longitude=${pathFounded.path[i][0]}&latitude=${pathFounded.path[i][1]}&access_token=${mapboxgl.accessToken}`)
-                .then(response => response.json())
-                .then(data => {
+            for (let i = 0; i < pathFounded.path.length; i++) {
 
-                    if (data.features.length > 0) {
-                        let address = data.features[0].properties.full_address;
-                        if (this.roadNames.indexOf(address) == -1){
-                            this.roadNames.push(address)
+                fetch(`https://api.mapbox.com/search/geocode/v6/reverse?longitude=${pathFounded.path[i][0]}&latitude=${pathFounded.path[i][1]}&access_token=${mapboxgl.accessToken}`)
+                    .then(response => response.json())
+                    .then(data => {
+
+                        if (data.features.length > 0) {
+                            let address = data.features[0].properties.full_address;
+                            if (this.roadNames.indexOf(address) == -1) {
+                                this.roadNames.push(address)
+                            }
+                        } else {
+                            console.error('No road name found for the coordinates');
                         }
-                    } else {
-                        console.error('No road name found for the coordinates');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching the road name', error);
-                });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching the road name', error);
+                    });
             }
 
             // add path to map
@@ -404,10 +425,19 @@ export default {
 </script>
 
 <style>
-#sidebarContainer{
+#backIcon {
+    display: none;
+    z-index: 5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 10px;
+}
+#sidebarContainer {
     background-color: white;
     overflow-x: hidden;
 }
+
 .geolocate-btn {
     position: absolute;
     bottom: 20px;
@@ -416,10 +446,11 @@ export default {
     border: none;
     border-radius: 4px;
     padding: 10px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     cursor: pointer;
     font-size: 16px;
 }
+
 .map-container {
     flex: 1;
 }
@@ -431,32 +462,42 @@ export default {
     overflow-y: scroll;
     height: 100vh;
 }
+
 #content {
     width: 100%;
 }
-.label{
+
+.label {
     margin-right: 5px;
 }
-#infor{
-    position: absolute; right: 0; 
+
+#infor {
+    position: absolute;
+    right: 0;
     margin: 110px 10px 0 0;
 }
-.v-enter-active{
-  transition: opacity 0.05s ease;
+
+.v-enter-active {
+    transition: opacity 0.05s ease;
 }
+
 .v-leave-active {
     transition: opacity 0.05s ease;
 
 }
+
 .v-enter-from,
 .v-leave-to {
-  opacity: 0;
+    opacity: 0;
 }
-#arrow-down, #arrow-up{
+
+#arrow-down,
+#arrow-up {
     display: none;
 }
+
 @media only screen and (max-width: 640px) {
-    #infor{
+    #infor {
         margin: 130px 10px 0 0;
     }
 
@@ -465,13 +506,21 @@ export default {
         bottom: 0;
         height: 40vh;
     }
-    #sidebar, #container    {
+    #backIcon{
+        display: block;
+    }
+    #sidebar,
+    #container {
         width: 100vw;
     }
-    #arrow-left, #arrow-right{
+
+    #arrow-left,
+    #arrow-right {
         display: none;
     }
-    #arrow-down, #arrow-up{
+
+    #arrow-down,
+    #arrow-up {
         display: inline;
     }
 }

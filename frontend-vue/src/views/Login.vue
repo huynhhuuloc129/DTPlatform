@@ -28,7 +28,7 @@
                                 </div>
 
                                 <div>
-                                    <p class="mb-0">Don't have an account? <a href="http://localhost:5173/signup"
+                                    <p class="mb-0">Don't have an account? <a @click="router.push({ name: 'signup' })" href="#"
                                             class="fw-bold" style="color: #23a5ae;">Sign Up</a>
                                     </p>
                                 </div>

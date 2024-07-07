@@ -4,11 +4,11 @@ import axios from 'axios';
 
 class UserService {
     api: any
-    constructor(baseUrl = "http://localhost:2000/api") {
+    constructor(baseUrl = "https://dtplatform.onrender.com/api") {
         this.api = createApiClient(baseUrl);
     }
     async getUsers(token: string) {
-        return await axios.get(`http://localhost:2000/user`, {
+        return await axios.get(`https://dtplatform.onrender.com/user`, {
             headers: {
                 'token': token
             }
