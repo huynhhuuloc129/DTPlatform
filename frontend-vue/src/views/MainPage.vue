@@ -10,7 +10,7 @@
             <div class="container1" style="border-radius: 10px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
                 <div class="row">
                     <div class="col">
-                        <a @click="router.push({ name: 'dashboard' })" href="#">
+                        <a @click="router.push({ name: 'map navigate' })" href="">
                             <button class="btn btn-light w-100 text-start">
                                 <h5>
                                     <i class="fa-solid fa-location-dot" style="color: orange;"></i>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <a @click="router.push({ name: 'dashboard' })" href="#">
+                        <a @click="router.push({ name: 'map navigate' })" href="">
                             <button class="btn btn-outline-light d-flex justify-content-start align-items-center w-100"
                                 style="color: black;">
 
@@ -40,7 +40,7 @@
                         </a>
                     </div>
                     <div class="col">
-                        <a @click="router.push({ name: 'dashboard' })" href="#">
+                        <a @click="router.push({ name: 'map navigate' })" href="">
                             <button class="btn btn-outline-light d-flex justify-content-start align-items-center w-100"
                                 style="color: black;">
 
@@ -54,7 +54,7 @@
                         </a>
                     </div>
                     <div class="col">
-                        <a @click="router.push({ name: 'dashboard' })" href="#">
+                        <a @click="router.push({ name: 'map navigate' })" href="">
                             <button class="btn btn-outline-light d-flex justify-content-start align-items-center w-100"
                                 style="color: black;">
 
@@ -68,7 +68,7 @@
                         </a>
                     </div>
                     <div class="col responsive">
-                        <a @click="router.push({ name: 'dashboard' })" href="#">
+                        <a @click="router.push({ name: 'map navigate' })" href="">
                             <button class="btn btn-outline-light d-flex justify-content-start align-items-center w-100"
                                 style="color: black;">
 
@@ -82,7 +82,7 @@
                         </a>
                     </div>
                     <div class="col responsive">
-                        <a @click="router.push({ name: 'dashboard' })" href="#">
+                        <a @click="router.push({ name: 'map navigate' })" href="">
                             <button class="btn btn-outline-light d-flex justify-content-start align-items-center w-100"
                                 style="color: black;">
 

@@ -2,6 +2,35 @@
   <div class="d-flex flex-column w-100">
     <Header></Header>
     <div id="contentBetween">
+      <div style=" display: flex;  justify-content: center;">
+        <div id="card-user" class="card" style="border-radius: 0 0 15px 15px;  margin-top: 30px;">
+          <div class="card-body">
+            <h5>Thông tin tất cả người dùng</h5>
+            <ul class="list-group">
+              <li v-for="user in users" class="list-group-item  align-items-center"
+                style="display: flex; justify-content: space-between;">
+                <div style="display: flex;">
+                  <div>
+                    <div> Id: <span>{{ user._id }}</span> </div>
+
+                    <div> Tài khoản: <span>{{ user.username }}</span>
+                    </div>
+                    <div> Vai trò:
+
+                      <span v-if="user.username == 'admin'">Admin</span>
+                      <span v-else>Thành viên</span>
+
+                    </div>
+                  </div>
+
+                </div>
+
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
       <form @submit="onUploadinFile" style="margin-top: 50px;">
         <div class="form-group">
           <label for="input-file" class="label fw-bold">Upload new data:</label>
@@ -38,9 +67,10 @@ import Header from './../components/Header.vue'
 import Footer from './../components/Footer.vue'
 import axios from 'axios';
 import { useCookies } from "vue3-cookies";
-import Swal
- from 'sweetalert2';
+import Swal from 'sweetalert2';
 import adminService from '@/services/admin.service';
+import userServices from '@/services/user.services';
+
 const cookies = useCookies();
 const router = useRouter()
 const tableData = ref([])
@@ -48,11 +78,11 @@ const token = cookies.cookies.get('Token');
 const filecsv = ref()
 
 
-function changeFile(event: any){
-    filecsv.value = event.target.files[0]
+function changeFile(event: any) {
+  filecsv.value = event.target.files[0]
 }
 
-var onUploadinFile= async (e: any) =>{
+var onUploadinFile = async (e: any) => {
   e.preventDefault();
   try {
     await adminService.upload(filecsv.value, token)
@@ -73,35 +103,48 @@ var onUploadinFile= async (e: any) =>{
     console.log(err);
   }
 };
-
+const users = ref([
+  {
+    _id: "",
+    username: "",
+    password: "",
+    __v: 0
+  }])
 onMounted(async () => {
   if (!checkLogin()) router.push({ name: 'login' })
-    try {
+  let resp = await userServices.getUsers(token)
+  users.value = resp.users
 
-      const dataResponse = await axios.get(`http://localhost:2000/csv/data`, {
-            headers: {
-                'token': token
-            }
-        });
-      tableData.value = dataResponse.data;
-    } catch (error) {
-      console.error('Error uploading or fetching data:', error);
-    }
+  try {
+
+    const dataResponse = await axios.get(`http://localhost:2000/csv/data`, {
+      headers: {
+        'token': token
+      }
+    });
+    tableData.value = dataResponse.data;
+  } catch (error) {
+    console.error('Error uploading or fetching data:', error);
+  }
 })
 
 </script>
 
 <style>
-#contentBetween{
-  margin: 0 50px 0 50px ;
+#contentBetween {
+  margin: 0 50px 0 50px;
 }
+
 @media only screen and (max-width: 770px) {
-  h2, label{
+
+  h2,
+  label {
     font-size: 175%;
   }
-    #contentBetween{
-      margin: 0 10px 0 10px;
-      font-size: 50%;
-    }
+
+  #contentBetween {
+    margin: 0 10px 0 10px;
+    font-size: 50%;
+  }
 }
 </style>

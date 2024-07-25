@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from './../views/Login.vue'
-import Dashboard from './../views/Dashboard.vue'
+import MapNavigate from '../views/MapNavigate.vue'
 import SignUp from './../views/SignUp.vue'
-import Admin from './../views/Admin.vue'
 import AdminCSV from './../views/AdminCSV.vue'
 // @ts-ignore
 import MainPage from './../views/MainPage.vue'
+import Simulation from '@/views/Simulation.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,8 +17,8 @@ const router = createRouter({
     },
     {
       path: '/map',
-      name: 'dashboard',
-      component: Dashboard
+      name: 'map navigate',
+      component: MapNavigate
     },
     {
       path: '/home',
@@ -31,14 +31,14 @@ const router = createRouter({
       component: SignUp
     },
     {
-      path: '/admin',
-      name: 'admin',
-      component: Admin
-    },
-    {
       path: '/admincsv',
       name: 'admincsv',
       component: AdminCSV
+    },
+    {
+      path: '/simulate',
+      name: 'simulate',
+      component: Simulation
     },
     // {
     //   path: '/upload-post',
