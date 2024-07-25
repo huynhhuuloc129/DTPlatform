@@ -8,11 +8,11 @@
         </ul>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 w-25">
-          <li><a @click="router.push({name: 'map navigate'})" href="" class="nav-link px-2 text-white">Hiện trạng</a></li>
+          <li><a @click="router.push({name: 'map navigate'})" href="#" class="nav-link px-2 text-white">Hiện trạng</a></li>
         </ul>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 w-25">
-          <li><a @click="router.push({name: 'simulate'})" href="" class="nav-link px-2 text-white">Mô phỏng</a></li>
+          <li><a @click="router.push({name: 'simulate'})" href="#" class="nav-link px-2 text-white">Mô phỏng</a></li>
         </ul>
 
         <span class="text-end">
