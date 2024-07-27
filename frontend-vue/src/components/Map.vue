@@ -65,7 +65,7 @@
                             <input type="text" class="form-control " placeholder="Điểm bắt đầu" v-model="addressStart">
                             <div id="geocoder-icon" class="m-2">
                                 <div class="text-center">
-                                    <button class="btn btn-light" @click="swapPlace()">
+                                    <button :disabled="disableSwap" class="btn btn-light" @click="swapPlace()">
                                         <i class="fa-solid fa-arrows-rotate"></i>
                                     </button>
                                 </div>
@@ -131,7 +131,8 @@
 
     <div ref="mapContainer" class="map-container"></div>
 
-    <button class="geolocate-btn" style="width: 50px; height: auto;" @click="loadingWait = !loadingWait; getLocation()">
+    <button class="geolocate-btn" style="width: 50px; height: auto;"
+        @click="loadingWait = !loadingWait; getCurrentLocation()">
         <div v-if="loadingWait == true">
             <i class="fa-solid fa-spinner fa-spin-pulse" style="width: 25px; height: 25px;"></i>
         </div>
@@ -153,15 +154,21 @@ import { useRouter } from 'vue-router'
 import PollutionService from '../services/pollution.services'
 import trafficServices from '@/services/traffic.services';
 import directionService from '@/services/direction.services';
+import locationService from '@/services/location.service';
 
 const cookies = useCookies()
 
-var map, geocoderStart, geocoderEnd, token, roads
+var map, token, roads
 
 const aqicnApiKey = 'a6d3ca8dfb52c718d0c1070ac1d59a41f2e15d54'
 const trafficToken = 'AvZ5t7w-HChgI2LOFoy_UF4cf77ypi2ctGYxCgWOLGFwMGIGrsiDpCDCjliUliln'
 
 export default {
+    computed: {
+        disableSwap() {
+            return this.addressStart == '' || this.addressEnd == '';
+        }
+    },
     data() {
         return {
             show: true,
@@ -186,79 +193,72 @@ export default {
             this.markers.forEach(marker => marker.remove());
             this.markers.length = 0; // Clear the array
         },
-        geocode(e) {
+
+        async geocode(e) {
             e.preventDefault();
             this.clearMarkers();
 
-            var bingMapsKey = trafficToken;
-
             if (this.addressStart == '' || this.addressEnd == '') return;
 
-            var requestUrlStart = `http://dev.virtualearth.net/REST/v1/Locations?q=${encodeURIComponent(this.addressStart)}&key=${bingMapsKey}`;
-            var requestUrlEnd = `http://dev.virtualearth.net/REST/v1/Locations?q=${encodeURIComponent(this.addressEnd)}&key=${bingMapsKey}`;
+            // get start location
+            let resp = await locationService.getLocation(this.addressStart, trafficToken)
 
-            fetch(requestUrlStart)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.resourceSets.length > 0 && data.resourceSets[0].resources.length > 0) {
-                        var location = data.resourceSets[0].resources[0].point.coordinates;
-                        var lng = location[1];
-                        var lat = location[0];
+            if (resp.resourceSets.length > 0 && resp.resourceSets[0].resources.length > 0) {
+                var location = resp.resourceSets[0].resources[0].point.coordinates;
+                var lng = location[1];
+                var lat = location[0];
 
-                        this.start[0] = lng
-                        this.start[1] = lat
+                this.start[0] = lng
+                this.start[1] = lat
 
-                        let marker = new mapboxgl.Marker({ color: 'green', draggable: true })
-                            .setLngLat([lng, lat])
-                            .addTo(map);
-                        marker.on('dragend', () => {
-                            let lngLat = marker.getLngLat();
-                            this.start[0] = lngLat.lng
-                            this.start[1] = lngLat.lat
-                            this.calculateRoute()
-                        });
-                        this.markers.push(marker);
+                let marker = new mapboxgl.Marker({ color: 'green', draggable: true })
+                    .setLngLat([lng, lat])
+                    .addTo(map);
+                marker.on('dragend', () => {
+                    let lngLat = marker.getLngLat();
+                    this.start[0] = lngLat.lng
+                    this.start[1] = lngLat.lat
+                    this.calculateRoute()
+                });
+                this.markers.push(marker);
 
-                    } else {
-                        alert('Location not found');
-                    }
-                })
-                .catch(error => console.error('Error:', error));
+            } else {
+                alert('Location not found');
+            }
 
-            fetch(requestUrlEnd)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.resourceSets.length > 0 && data.resourceSets[0].resources.length > 0) {
-                        var location = data.resourceSets[0].resources[0].point.coordinates;
-                        var lng = location[1];
-                        var lat = location[0];
+            // get end location
+            let respEnd = await locationService.getLocation(this.addressEnd, trafficToken)
 
-                        this.end[0] = lng
-                        this.end[1] = lat
+            if (respEnd.resourceSets.length > 0 && respEnd.resourceSets[0].resources.length > 0) {
+                var location = respEnd.resourceSets[0].resources[0].point.coordinates;
+                var lng = location[1];
+                var lat = location[0];
 
-                        let marker = new mapboxgl.Marker({ color: 'red', draggable: true })
-                            .setLngLat([lng, lat])
-                            .addTo(map);
-                        marker.on('dragend', () => {
-                            let lngLat = marker.getLngLat();
-                            this.end[0] = lngLat.lng
-                            this.end[1] = lngLat.lat
-                            this.calculateRoute()
-                        });
-                        this.markers.push(marker);
+                this.end[0] = lng
+                this.end[1] = lat
 
-                        map.flyTo({
-                            center: [lng, lat],
-                            essential: true // this animation is considered essential with respect to prefers-reduced-motion
-                        });
+                let marker = new mapboxgl.Marker({ color: 'red', draggable: true })
+                    .setLngLat([lng, lat])
+                    .addTo(map);
+                marker.on('dragend', () => {
+                    let lngLat = marker.getLngLat();
+                    this.end[0] = lngLat.lng
+                    this.end[1] = lngLat.lat
+                    this.calculateRoute()
+                });
+                this.markers.push(marker);
 
-                        this.calculateRoute()
+                map.flyTo({
+                    center: [lng, lat],
+                    essential: true // this animation is considered essential with respect to prefers-reduced-motion
+                });
 
-                    } else {
-                        alert('Location not found');
-                    }
-                })
-                .catch(error => console.error('Error:', error));
+                // calculate route
+                this.calculateRoute()
+
+            } else {
+                alert('Location not found');
+            }
 
         },
 
@@ -273,37 +273,50 @@ export default {
         pushToDashBoard() {
             this.router.push('home')
         },
-        async getLocation() {
+        async getCurrentLocation() {
             if (navigator.geolocation) {
+                var latCurrent, lngCurrent
 
-                navigator.geolocation.getCurrentPosition(position => {
-                    const lng = position.coords.longitude;
-                    const lat = position.coords.latitude;
-                    const coordinates = [lng, lat];
+                navigator.geolocation.getCurrentPosition(async (position) => {
+                    lngCurrent = position.coords.longitude;
+                    latCurrent = position.coords.latitude;
+
+                    const coordinates = [lngCurrent, latCurrent];
+
+                    let resp = await locationService.getLocationByPoint(latCurrent, lngCurrent, trafficToken)
+                    if (resp.resourceSets.length > 0 && resp.resourceSets[0].resources.length > 0) {
+                        var address = resp.resourceSets[0].resources[0].address.addressLine;
+
+                        this.addressStart = address + ' Việt Nam'
+                    }
 
                     map.flyTo({
                         center: coordinates,
                         zoom: 14
                     });
 
-                    // Reverse geocode to get the address
-                    fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${mapboxgl.accessToken}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.features.length > 0) {
-                                const place = data.features[0].place_name;
-                                this.loadingWait = false
-                                // geocoderStart.query(place);
-                            } else {
-                                console.error('No place found for the coordinates');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error fetching the place name', error);
-                        });
+                    this.start[0] = lngCurrent
+                    this.start[1] = latCurrent
+
+                    let marker = new mapboxgl.Marker({ color: 'green', draggable: true })
+                        .setLngLat([lngCurrent, latCurrent])
+                        .addTo(map);
+                    marker.on('dragend', () => {
+                        let lngLat = marker.getLngLat();
+                        this.start[0] = lngLat.lng
+                        this.start[1] = lngLat.lat
+                        this.calculateRoute()
+                    });
+                    this.markers[0] = marker
+
+                    // calculate route
+                    this.calculateRoute()
+
+                    this.loadingWait = false
                 }, error => {
                     console.error('Error getting location', error);
                 });
+
             } else {
                 alert('Geolocation is not supported by this browser.');
             }
@@ -321,15 +334,23 @@ export default {
         },
 
         swapPlace() {
+
             for (let i = 0; i < this.start.length; i++) {
                 let tempVariable = this.start[i];
                 this.start[i] = this.end[i];
                 this.end[i] = tempVariable;
             }
+
+            // swap address in input
+            let temp = this.addressStart;
+            this.addressStart = this.addressEnd
+            this.addressEnd = temp
+
             this.calculateRoute()
         },
 
         async calculateRoute() {
+            if (this.start.length == 0 || this.end.length == 0) return;
 
             // Mapbox direction API
             let respDirection = await directionService.getDirection(this.choosenTypeCar, 'pk.eyJ1IjoiaHFuZ2hpODgiLCJhIjoiY2xzdTBtOG5pMDczcTJqbzFueGhiOGphMyJ9.m-zWte_-Qgshf5tQ9pFIrA', this.start[0], this.start[1], this.end[0], this.end[1])
@@ -348,14 +369,14 @@ export default {
 
             this.lengthRoad = Math.round(directions.distance);
             this.timeToTravel = Math.round(directions.duration / 60)
-            
+
             if (map.getLayer('route')) {
                 map.removeLayer('route');
             }
             if (map.getSource('route')) {
                 map.removeSource('route');
             }
-           
+
             map.addSource('route', {
                 'type': 'geojson',
                 'data': {
@@ -387,7 +408,7 @@ export default {
             ];
 
             map.fitBounds(bounds, {
-                padding: 50 // Optional padding around the bounding box
+                padding: 100 // Optional padding around the bounding box
             });
 
             // own data road
