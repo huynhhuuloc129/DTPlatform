@@ -8,14 +8,14 @@ class TrafficService {
         this.api = createApiClient(baseUrl);
     }
     async getLocation(address: string,  bingMapsKey: string) {
-        return await axios.get(`http://dev.virtualearth.net/REST/v1/Locations?q=${encodeURIComponent(address)}&key=${bingMapsKey}`).then((res) => {
+        return await axios.get(`https://dev.virtualearth.net/REST/v1/Locations?q=${encodeURIComponent(address)}&key=${bingMapsKey}`).then((res) => {
             return res.data;
         }).catch((err) => {
             handlingError(err);
         })
     }
     async getLocationByPoint(lat: number, lng: number,  bingMapsKey: string) {
-        return await axios.get(`http://dev.virtualearth.net/REST/v1/Locations/${lat},${lng}?key=${bingMapsKey}`).then((res) => {
+        return await axios.get(`https://dev.virtualearth.net/REST/v1/Locations/${lat},${lng}?key=${bingMapsKey}`).then((res) => {
             return res.data;
         }).catch((err) => {
             handlingError(err);
