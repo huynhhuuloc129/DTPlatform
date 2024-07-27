@@ -62,7 +62,19 @@
                             </div>
                         </div>
                         <div id="geocoder">
-                            <div id="geocoder-start"></div>
+                            <input type="text" class="form-control " placeholder="Điểm bắt đầu" v-model="addressStart">
+                            <div id="geocoder-icon" class="m-2">
+                                <div class="text-center">
+                                    <button class="btn btn-light" @click="swapPlace()">
+                                        <i class="fa-solid fa-arrows-rotate"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control mb-3" placeholder="Điểm kết thúc"
+                                v-model="addressEnd">
+
+                            <button class="btn btn-primary" @click="geocode($event)">Tìm đường</button>
+                            <!-- <div id="geocoder-start"></div>
                             <div id="geocoder-icon">
                                 <div class="text-center">
                                     <button class="btn btn-light" @click="swapPlace()">
@@ -71,7 +83,7 @@
                                 </div>
 
                             </div>
-                            <div id="geocoder-end"></div>
+                            <div id="geocoder-end"></div> -->
                         </div>
                         <hr>
 
@@ -164,9 +176,92 @@ export default {
             end: [],
             traffics: [],
             router: useRouter(),
+            markers: [],
+            addressStart: '',
+            addressEnd: '',
         }
     },
     methods: {
+        clearMarkers() {
+            this.markers.forEach(marker => marker.remove());
+            this.markers.length = 0; // Clear the array
+        },
+        geocode(e) {
+            e.preventDefault();
+            this.clearMarkers();
+
+            var bingMapsKey = trafficToken;
+
+            if (this.addressStart == '' || this.addressEnd == '') return;
+
+            var requestUrlStart = `http://dev.virtualearth.net/REST/v1/Locations?q=${encodeURIComponent(this.addressStart)}&key=${bingMapsKey}`;
+            var requestUrlEnd = `http://dev.virtualearth.net/REST/v1/Locations?q=${encodeURIComponent(this.addressEnd)}&key=${bingMapsKey}`;
+
+            fetch(requestUrlStart)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.resourceSets.length > 0 && data.resourceSets[0].resources.length > 0) {
+                        var location = data.resourceSets[0].resources[0].point.coordinates;
+                        var lng = location[1];
+                        var lat = location[0];
+
+                        this.start[0] = lng
+                        this.start[1] = lat
+
+                        let marker = new mapboxgl.Marker({ color: 'green', draggable: true })
+                            .setLngLat([lng, lat])
+                            .addTo(map);
+                        marker.on('dragend', () => {
+                            let lngLat = marker.getLngLat();
+                            this.start[0] = lngLat.lng
+                            this.start[1] = lngLat.lat
+                            this.calculateRoute()
+                        });
+                        this.markers.push(marker);
+
+                    } else {
+                        alert('Location not found');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+
+            fetch(requestUrlEnd)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.resourceSets.length > 0 && data.resourceSets[0].resources.length > 0) {
+                        var location = data.resourceSets[0].resources[0].point.coordinates;
+                        var lng = location[1];
+                        var lat = location[0];
+
+                        this.end[0] = lng
+                        this.end[1] = lat
+
+                        let marker = new mapboxgl.Marker({ color: 'red', draggable: true })
+                            .setLngLat([lng, lat])
+                            .addTo(map);
+                        marker.on('dragend', () => {
+                            let lngLat = marker.getLngLat();
+                            this.end[0] = lngLat.lng
+                            this.end[1] = lngLat.lat
+                            this.calculateRoute()
+                        });
+                        this.markers.push(marker);
+
+                        map.flyTo({
+                            center: [lng, lat],
+                            essential: true // this animation is considered essential with respect to prefers-reduced-motion
+                        });
+
+                        this.calculateRoute()
+
+                    } else {
+                        alert('Location not found');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+
+        },
+
         toggle() {
             var x = document.getElementById("container");
             if (x.style.display === "none") {
@@ -198,7 +293,7 @@ export default {
                             if (data.features.length > 0) {
                                 const place = data.features[0].place_name;
                                 this.loadingWait = false
-                                geocoderStart.query(place);
+                                // geocoderStart.query(place);
                             } else {
                                 console.error('No place found for the coordinates');
                             }
@@ -222,7 +317,6 @@ export default {
             else if (index == 0) this.choosenTypeCar = 'driving-traffic'
 
             this.choosenType = index
-            // this.timeToTravel = Math.round((this.lengthRoad * 0.001) / this.speed * 60)
             this.calculateRoute()
         },
 
@@ -236,7 +330,6 @@ export default {
         },
 
         async calculateRoute() {
-            if (this.start.length == 0 || this.end.length == 0) return;
 
             // Mapbox direction API
             let respDirection = await directionService.getDirection(this.choosenTypeCar, 'pk.eyJ1IjoiaHFuZ2hpODgiLCJhIjoiY2xzdTBtOG5pMDczcTJqbzFueGhiOGphMyJ9.m-zWte_-Qgshf5tQ9pFIrA', this.start[0], this.start[1], this.end[0], this.end[1])
@@ -253,47 +346,49 @@ export default {
             }
             instructions.innerHTML = `<ol>${tripInstructions}</ol>`;
 
-            // console.log(directions)
-
             this.lengthRoad = Math.round(directions.distance);
             this.timeToTravel = Math.round(directions.duration / 60)
-
+            
+            if (map.getLayer('route')) {
+                map.removeLayer('route');
+            }
             if (map.getSource('route')) {
-                map.getSource('route').setData({
+                map.removeSource('route');
+            }
+           
+            map.addSource('route', {
+                'type': 'geojson',
+                'data': {
                     'type': 'Feature',
                     'properties': {},
                     'geometry': {
                         'type': 'LineString',
                         'coordinates': route
                     }
-                });
-            } else {
-                map.addSource('route', {
-                    'type': 'geojson',
-                    'data': {
-                        'type': 'Feature',
-                        'properties': {},
-                        'geometry': {
-                            'type': 'LineString',
-                            'coordinates': route
-                        }
-                    }
-                });
-                map.addLayer({
-                    'id': 'route',
-                    'type': 'line',
-                    'source': 'route',
-                    'layout': {
-                        'line-join': 'round',
-                        'line-cap': 'round'
-                    },
-                    'paint': {
-                        'line-color': 'blue',
-                        'line-width': 8
-                    }
-                })
-            }
+                }
+            });
+            map.addLayer({
+                'id': 'route',
+                'type': 'line',
+                'source': 'route',
+                'layout': {
+                    'line-join': 'round',
+                    'line-cap': 'round'
+                },
+                'paint': {
+                    'line-color': 'blue',
+                    'line-width': 8
+                }
+            })
 
+            const bounds = [
+                [Math.min(this.start[0], this.end[0]), Math.min(this.start[1], this.end[1])], // Southwest coordinates [lng, lat]
+                [Math.max(this.start[0], this.end[0]), Math.max(this.start[1], this.end[1])]  // Northeast coordinates [lng, lat]
+            ];
+
+            map.fitBounds(bounds, {
+                padding: 50 // Optional padding around the bounding box
+            });
 
             // own data road
 
@@ -404,6 +499,8 @@ export default {
             //     });
             // }
         },
+
+
     },
 
     async mounted() {
@@ -419,58 +516,58 @@ export default {
         });
 
         // add start point
-        geocoderStart = new MapboxGeocoder({
-            accessToken: mapboxgl.accessToken,
-            mapboxgl: mapboxgl,
-            marker: {
-                color: 'red',
-                draggable: true
+        // geocoderStart = new MapboxGeocoder({
+        //     accessToken: mapboxgl.accessToken,
+        //     mapboxgl: mapboxgl,
+        //     marker: {
+        //         color: 'red',
+        //         draggable: true
 
-            },
-            placeholder: 'Start place',
-        });
+        //     },
+        //     placeholder: 'Start place',
+        // });
 
-        geocoderStart.on('result', (e) => {
-            var marker = geocoderStart.mapMarker;
-            if (marker) {
-                marker.on('dragend', () => {
-                    let lngLat = marker.getLngLat();
-                    this.start[0] = lngLat.lng
-                    this.start[1] = lngLat.lat
-                    this.calculateRoute()
-                });
-            }
+        // geocoderStart.on('result', (e) => {
+        //     var marker = geocoderStart.mapMarker;
+        //     if (marker) {
+        //         marker.on('dragend', () => {
+        //             let lngLat = marker.getLngLat();
+        //             this.start[0] = lngLat.lng
+        //             this.start[1] = lngLat.lat
+        //             this.calculateRoute()
+        //         });
+        //     }
 
-            this.start = e.result.geometry.coordinates
-            this.calculateRoute()
-        });
+        //     this.start = e.result.geometry.coordinates
+        //     this.calculateRoute()
+        // });
 
-        // add end point
-        geocoderEnd = new MapboxGeocoder({
-            accessToken: mapboxgl.accessToken,
-            mapboxgl: mapboxgl,
-            marker: {
-                color: 'yellow',
-                draggable: true
+        // // add end point
+        // geocoderEnd = new MapboxGeocoder({
+        //     accessToken: mapboxgl.accessToken,
+        //     mapboxgl: mapboxgl,
+        //     marker: {
+        //         color: 'yellow',
+        //         draggable: true
 
-            },
-            placeholder: 'End place',
-        });
+        //     },
+        //     placeholder: 'End place',
+        // });
 
-        geocoderEnd.on('result', (e) => {
-            var marker = geocoderEnd.mapMarker;
-            if (marker) {
-                marker.on('dragend', () => {
-                    let lngLat = marker.getLngLat();
-                    this.end[0] = lngLat.lng
-                    this.end[1] = lngLat.lat
-                    this.calculateRoute()
-                });
-            }
+        // geocoderEnd.on('result', (e) => {
+        //     var marker = geocoderEnd.mapMarker;
+        //     if (marker) {
+        //         marker.on('dragend', () => {
+        //             let lngLat = marker.getLngLat();
+        //             this.end[0] = lngLat.lng
+        //             this.end[1] = lngLat.lat
+        //             this.calculateRoute()
+        //         });
+        //     }
 
-            this.end = e.result.geometry.coordinates
-            this.calculateRoute()
-        });
+        //     this.end = e.result.geometry.coordinates
+        //     this.calculateRoute()
+        // });
 
         // adding pollution
         const stations = [
@@ -556,8 +653,8 @@ export default {
         }
 
 
-        document.getElementById('geocoder-start').appendChild(geocoderStart.onAdd(map));
-        document.getElementById('geocoder-end').appendChild(geocoderEnd.onAdd(map));
+        // document.getElementById('geocoder-start').appendChild(geocoderStart.onAdd(map));
+        // document.getElementById('geocoder-end').appendChild(geocoderEnd.onAdd(map));
 
 
         // add traffic
@@ -748,37 +845,11 @@ export default {
         margin: 130px 10px 0 0;
     }
 
-    /* .custom-marker {
-        width: 40px;
-        height: 40px;
-    } */
-    /* #container {
-        position: absolute;
-        bottom: 0;
-        height: 40vh;
-    } */
 
-
-
-    /* #sidebar,
-    #container {
-        width: 100vw;
-    }
-
-    #arrow-left,
-    #arrow-right {
-        display: none;
-    }
-
-    #arrow-down,
-    #arrow-up {
-        display: inline;
-    } */
 }
 
 .mapboxgl-ctrl-geocoder {
     min-width: 100% !important;
-    /* Adjust width to 100% */
 }
 
 .mapboxgl-ctrl-geocoder--input {
@@ -787,7 +858,6 @@ export default {
 
 .mapboxgl-ctrl-geocoder--suggestion {
     z-index: 1000 !important;
-    /* Ensure dropdown has higher z-index */
 }
 
 .mapboxgl-ctrl-geocoder:first-child {
