@@ -57,13 +57,12 @@
                             </div>
                         </div>
                         <div id="geocoder">
-
-                            <input type="text" @keyup="suggestion(addressStart, 0)" class="form-control "
-                                placeholder="Điểm bắt đầu" v-model="addressStart">
+                            <input @blur="displaySuggestStart = false" type="text" @keyup="suggestion(addressStart, 0)"
+                                class="form-control " placeholder="Điểm bắt đầu" v-model="addressStart">
 
                             <select v-if="suggestStart.length > 0 && displaySuggestStart == true" class="form-select"
-                                multiple size="2">
-                                <option value=1 v-for="suggestion in suggestStart"
+                                multiple aria-label="multiple select example">
+                                <option v-for="suggestion in suggestStart"
                                     @click="addressStart = suggestion; displaySuggestStart = false">
                                     {{ suggestion }}
                                 </option>
@@ -76,12 +75,11 @@
                                     </button>
                                 </div>
                             </div>
-
                             <input type="text" @keyup="suggestion(addressEnd, 1)" class="form-control"
                                 placeholder="Điểm kết thúc" v-model="addressEnd">
 
                             <select v-if="suggestEnd.length > 0 && displaySuggestEnd == true" class="form-select"
-                                multiple size="2">
+                                multiple aria-label="multiple select example">
                                 <option v-for="suggestion in suggestEnd"
                                     @click="addressEnd = suggestion; displaySuggestEnd = false">
                                     {{ suggestion }}
@@ -194,8 +192,14 @@ export default {
     methods: {
         createCompleteAddresses(data) {
             return data.map(entry => {
-                console.log(entry)
-                return entry.address.formattedAddress
+                const address = entry.address;
+                const name = entry.name ? `${entry.name}, ` : '';
+                const locality = address.locality ? `${address.locality}, ` : '';
+                const adminDistrict = address.adminDistrict ? `${address.adminDistrict}, ` : '';
+                const adminDistrict2 = address.adminDistrict2 ? `${address.adminDistrict2}, ` : '';
+                const countryRegion = address.countryRegion ? `${address.countryRegion}` : '';
+
+                return `${name}${locality}${adminDistrict}${adminDistrict2}${countryRegion}`;
             });
         },
         async suggestion(q, type) {
@@ -206,7 +210,7 @@ export default {
 
             this.timer = setTimeout(async () => {
                 let resp = await autosuggestServices.getAutoSuggest(q, trafficToken)
-                if (resp != null && resp.resourceSets.length > 0 && resp.resourceSets[0].resources.length > 0) {
+                if (resp.resourceSets.length > 0 && resp.resourceSets[0].resources.length > 0) {
                     let completeAddress = this.createCompleteAddresses(resp.resourceSets[0].resources[0].value)
 
                     if (type == 0) { // suggest start
@@ -214,8 +218,7 @@ export default {
 
                         this.suggestStart = []
                         completeAddress.forEach(element => {
-                            if (element != '')
-                                this.suggestStart.push(element)
+                            this.suggestStart.push(element)
                         });
 
                     } else { // suggest end
@@ -223,8 +226,7 @@ export default {
 
                         this.suggestEnd = []
                         completeAddress.forEach(element => {
-                            if (element != '')
-                                this.suggestEnd.push(element)
+                            this.suggestEnd.push(element)
                         });
                     }
                 } else {
@@ -798,7 +800,6 @@ export default {
 <style>
 #backIcon {
     z-index: 5;
-
 }
 
 #sidebarContainer {
@@ -892,9 +893,26 @@ export default {
 }
 
 .form-select {
-    min-height: 10px;
     position: absolute;
-    z-index: 999;
+    z-index: 99;
+
+
+}
+
+.mapboxgl-ctrl-geocoder {
+    min-width: 100% !important;
+}
+
+.mapboxgl-ctrl-geocoder--input {
+    z-index: 1;
+}
+
+.mapboxgl-ctrl-geocoder--suggestion {
+    z-index: 1000 !important;
+}
+
+.mapboxgl-ctrl-geocoder:first-child {
+    z-index: 1001;
 }
 
 .marker.green {
