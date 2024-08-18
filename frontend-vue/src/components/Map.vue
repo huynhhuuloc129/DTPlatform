@@ -147,7 +147,7 @@
 import mapboxgl from 'mapbox-gl';
 import { useCookies } from 'vue3-cookies'
 import mapboxServices from '@/services/mapbox.services';
-mapboxgl.accessToken = 'pk.eyJ1IjoiaHFuZ2hpODgiLCJhIjoiY2xzdTBtOG5pMDczcTJqbzFueGhiOGphMyJ9.m-zWte_-Qgshf5tQ9pFIrA';
+mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_KEY;
 import { useRouter } from 'vue-router'
 import autosuggestServices from '@/services/autosuggest.services';
 import PollutionService from '../services/pollution.services'
@@ -159,8 +159,8 @@ const cookies = useCookies()
 
 var map, token, roads
 
-const aqicnApiKey = 'a6d3ca8dfb52c718d0c1070ac1d59a41f2e15d54'
-const trafficToken = 'AvZ5t7w-HChgI2LOFoy_UF4cf77ypi2ctGYxCgWOLGFwMGIGrsiDpCDCjliUliln'
+const aqicnApiKey = import.meta.env.VITE_AQI_API_KEY
+const trafficToken = import.meta.env.VITE_TRAFFIC_API_KEY
 
 export default {
     computed: {
@@ -399,7 +399,7 @@ export default {
             if (this.start.length == 0 || this.end.length == 0) return;
 
             // Mapbox direction API
-            let respDirection = await directionService.getDirection(this.choosenTypeCar, 'pk.eyJ1IjoiaHFuZ2hpODgiLCJhIjoiY2xzdTBtOG5pMDczcTJqbzFueGhiOGphMyJ9.m-zWte_-Qgshf5tQ9pFIrA', this.start[0], this.start[1], this.end[0], this.end[1])
+            let respDirection = await directionService.getDirection(this.choosenTypeCar, import.meta.env.VITE_MAPBOX_KEY, this.start[0], this.start[1], this.end[0], this.end[1])
             const directions = respDirection.routes[0];
 
             const route = directions.geometry.coordinates;
@@ -795,7 +795,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #backIcon {
     z-index: 5;
 

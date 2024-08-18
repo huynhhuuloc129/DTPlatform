@@ -8,7 +8,7 @@ class TrafficService {
         this.api = createApiClient(baseUrl);
     }
     async getTraffic(token: string) {
-        return await axios.get(`https://dev.virtualearth.net/REST/v1/Traffic/Incidents/8.179,102.144,23.393,109.465?key=${token}`).then((res) => {
+        return await axios.get(`https://dev.virtualearth.net/REST/v1/Traffic/Incidents/20.4991,104.7231,21.4505,106.5866?key=${token}`).then((res) => {
             return res.data;
         }).catch((err) => {
             handlingError(err);

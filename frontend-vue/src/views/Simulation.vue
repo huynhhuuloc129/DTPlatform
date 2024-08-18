@@ -1,13 +1,12 @@
 <template>
   <div id="layout">
-    <Map></Map>
+    <MapSimulate></MapSimulate>
 
   </div>
 </template>
 <script setup lang="ts">
 //@ts-ignore
-import Map from '../components/Map.vue';
-import '../../node_modules/mapbox-gl/dist/mapbox-gl.css';
+import MapSimulate from '../components/MapSimulate.vue';
 import checkLogin from '@/utilites/utilities';
 import { useRouter } from 'vue-router'
 import { onMounted } from 'vue';
