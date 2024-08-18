@@ -8,7 +8,7 @@ class AutoSuggestService {
         this.api = createApiClient(baseUrl);
     }
     async getAutoSuggest(q:string, token: string) {
-        return await axios.get(`http://dev.virtualearth.net/REST/v1/Autosuggest?query=${q}&maxResults=5&key=${token}`).then((res) => {
+        return await axios.get(`https://dev.virtualearth.net/REST/v1/Autosuggest?query=${q}&maxResults=5&key=${token}`).then((res) => {
             return res.data;
         }).catch((err) => {
             handlingError(err);
