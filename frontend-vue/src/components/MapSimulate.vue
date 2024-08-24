@@ -1,6 +1,6 @@
 <template>
     <div
-        style="position:absolute;top:15px;left:15px;border-radius:5px;padding:5px;background-color:white; z-index: 500;">
+        style="position:absolute;top:15px;left:15px;border-radius:5px;padding:5px;background-color:white; z-index: 500; margin: 10px;">
         Select weather overlay:
         <select @change="updateTileLayer($event)" title="Select weather overlay">
             <option value="microsoft.weather.radar.main">Radar</option>
@@ -61,6 +61,7 @@ var weatherLayers = {
 
 
 onMounted(() => {
+
     map.value = new atlas.Map('mapContainer', {
         center: [105.804817, 21.028511],
         zoom: 5,
