@@ -139,7 +139,6 @@
                 class="btn btn-link p-2">
                 <i style="margin: 0 2px;" class="fas fa-arrow-right"></i>
             </button>
-
         </div>
     </Transition>
 
@@ -159,15 +158,15 @@
 
 <script>
 import mapboxgl from 'mapbox-gl';
-import { useCookies } from 'vue3-cookies'
-import mapboxServices from '@/services/mapbox.services';
-mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_KEY;
-import { useRouter } from 'vue-router'
 import autosuggestServices from '@/services/autosuggest.services';
 import PollutionService from '../services/pollution.services'
 import directionService from '@/services/direction.services';
 import locationService from '@/services/location.service';
 import trafficServices from '@/services/traffic.services';
+import mapboxServices from '@/services/mapbox.services';
+mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_KEY;
+import { useCookies } from 'vue3-cookies'
+import { useRouter } from 'vue-router'
 
 const cookies = useCookies()
 

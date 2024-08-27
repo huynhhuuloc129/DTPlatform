@@ -1,25 +1,177 @@
 <template>
-    <div
-        style="position:absolute;top:15px;left:15px;border-radius:5px;padding:5px;background-color:white; z-index: 500; margin: 10px;">
-        Select weather overlay:
-        <select @change="updateTileLayer($event)" title="Select weather overlay">
-            <option value="microsoft.weather.radar.main">Radar</option>
-            <option value="microsoft.weather.infrared.main" selected="selected">Infrared</option>
-        </select>
-        <br /><br />
-        <input type="button" value="Play" title="Play" @click="playAnimation" />
-        <input type="button" value="Pause" title="Pause" @click="pauseAnimation" />
-        <input type="button" value="Stop" title="Stop" @click="stopAnimation" />
-        <input type="button" value="Reset" title="Reset" @click="resetAnimation" />
-        <br /><br />
-        Speed:
-        <select @change="setSpeed($event)" title="Speed">
-            <option value="0.5">0.5x</option>
-            <option selected="selected" value="1">1x</option>
-            <option value="2">2x</option>
-            <option value="5">5x</option>
-        </select>
-    </div>
+    <Transition>
+        <div id="container" style="position: absolute;">
+            <div id="sidebarContainer" class="d-flex">
+                <!-- Sidebar -->
+                <nav id="sidebar" class="bg-light border-end">
+                    <!-- Sidebar Header -->
+                    <div class="p-3 border-bottom">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div id="backIcon">
+                                <button class="btn btn-outline-primary" style="background-color: none;"
+                                    @click="pushToDashBoard()">
+                                    Trang chủ
+                                </button>
+                            </div>
+                            <button id="arrow-left" @click="show = false; toggle()" class="btn btn-link p-0">
+                                <i class="fas fa-arrow-left"></i>
+                            </button>
+                            <!-- <button class="btn btn-link p-0">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button> -->
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Content -->
+                    <div class="p-3">
+                        <div class="d-flex justify-content-between mb-3">
+                            <div class="d-flex mb-3">
+                                <div style="margin-bottom: 5px;">
+
+                                    <input type="radio" @change="changeType(0)" class="btn-check" name="btnradio"
+                                        id="btnradio" autocomplete="off" />
+                                    <label class="btn btn-outline-secondary  label" for="btnradio">
+                                        Tối ưu
+                                    </label>
+
+                                    <input checked type="radio" value=60 @change="changeType(1)" class="btn-check"
+                                        name="btnradio" id="btnradioCar" autocomplete="off" />
+                                    <label class="btn btn-outline-secondary  label" for="btnradioCar">
+                                        <i class="fa-solid fa-car"></i>
+                                    </label>
+
+                                    <input type="radio" value=10 @change="changeType(2)" class="btn-check"
+                                        name="btnradio" id="btnradioBike" autocomplete="off" />
+                                    <label class="btn btn-outline-secondary  label" for="btnradioBike">
+                                        <i class="fas fa-bicycle"></i>
+                                    </label>
+
+                                    <input type="radio" value=5 @change="changeType(3)" class="btn-check"
+                                        name="btnradio" id="btnradioWalk" autocomplete="off" />
+                                    <label class="btn btn-outline-secondary label" for="btnradioWalk">
+                                        <i class="fas fa-walking"></i>
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div id="geocoder">
+
+                            <input type="text" @keyup="suggestion(addressStart, 0)" class="form-control "
+                                placeholder="Điểm bắt đầu" v-model="addressStart">
+
+                            <!-- <select v-if="addressStart.length > 0 && displaySuggestStart == true" class="form-select"
+                                multiple :size="suggestStart.length">
+                                <option value=1 v-for="suggestion in suggestStart"
+                                    @click="addressStart = suggestion; displaySuggestStart = false">
+                                    {{ suggestion }}
+                                </option>
+                            </select> -->
+
+                            <div id="geocoder-icon" class="m-2">
+                                <div class="text-center">
+                                    <button :disabled="disableSwap" class="btn btn-light" @click="swapPlace()">
+                                        <i class="fa-solid fa-arrows-rotate"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <input type="text" @keyup="suggestion(addressEnd, 1)" class="form-control"
+                                placeholder="Điểm kết thúc" v-model="addressEnd">
+
+                            <!-- <select v-if="suggestEnd.length > 0 && displaySuggestEnd == true" class="form-select"
+                                multiple :size='suggestEnd.length'>
+                                <option v-for="suggestion in suggestEnd"
+                                    @click="addressEnd = suggestion; displaySuggestEnd = false">
+                                    {{ suggestion }}
+                                </option>
+                            </select> -->
+
+                            <button class="btn btn-primary mt-3" @click="geocode($event)">Tìm đường</button>
+                        </div>
+                        <hr>
+
+                        <div>
+                            <div class="profile">
+                                <div class="h6">
+                                    <span class="h6">Độ dài: </span>
+                                    <span>{{ lengthRoad }} m</span>
+                                </div>
+                                <div class="h6">
+                                    <span class="h6">Lượng khí thải: </span>
+                                    <span>1000 PPM</span>
+                                </div>
+                                <div class="h6">
+                                    <span class="h6">Thời gian: </span>
+                                    <span>{{ timeToTravel }} phút</span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="fw-bold">
+                            <div class="d-flex justify-content-between">
+                                <span class="fw-bold">
+                                    Kiểu thời tiết:
+                                </span>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" @click="toggleWeatherLayer" type="checkbox"
+                                        role="switch" id="flexSwitchCheckDefault">
+                                </div>
+                            </div>
+
+                            <select class="form-select w-75" @change="updateTileLayer($event)"
+                                title="Select weather overlay">
+                                <option value="microsoft.weather.radar.main">Radar</option>
+                                <option value="microsoft.weather.infrared.main" selected="selected">Infrared</option>
+                            </select>
+
+                            <!-- <br /><br />
+                            <input type="button" class="btn btn-dark me-2" value="Play" title="Play"
+                                @click="playAnimation" />
+                            <input type="button" class="btn btn-dark me-2" value="Pause" title="Pause"
+                                @click="pauseAnimation" />
+                            <input type="button" class="btn btn-dark me-2" value="Stop" title="Stop"
+                                @click="stopAnimation" />
+                            <input type="button" class="btn btn-dark" value="Reset" title="Reset"
+                                @click="resetAnimation" /> -->
+                            <br /><br />
+                        </div>
+
+                        <hr>
+                        <div class="accordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button :disabled="stepsNum <= 0" class="accordion-button collapsed" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
+                                        aria-controls="collapseOne">
+                                        Lộ trình
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse"
+                                    data-bs-parent="#accordionExample">
+                                    <div id="instructions" class="accordion-body">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+    </Transition>
+    <Transition>
+        <div>
+            <button id="arrow-right" v-if="show == false"
+                style="position: absolute; z-index: 2; margin: 20px; background: white;" @click="show = true; toggle()"
+                class="btn btn-link p-2">
+                <i style="margin: 0 2px;" class="fas fa-arrow-right"></i>
+            </button>
+
+        </div>
+    </Transition>
+
+
 
     <!-- <div id="messagePanel"
         style="position: absolute;top: 20px;right: 20px;background-color: white;padding: 2px;border-radius: 15px;width: 110px;text-align: center; z-index: 500;">
@@ -32,6 +184,11 @@
 <script setup>
 import PollutionService from '../services/pollution.services'
 import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+const show = ref(true)
+const switchBtn = ref(false)
 
 const map = ref(null);
 const layer = ref(null);
@@ -46,8 +203,6 @@ const boundingBox = [
 //Base weather tile layer URL for radar data. {azMapsDomain} is a placeholder that is set automatically by the map, and will also automatically append the map credentials to the request.
 var urlTemplate = 'https://{azMapsDomain}/map/tile?api-version=2022-08-01&tilesetId={tilesetId}&zoom={z}&x={x}&y={y}&timeStamp={timeStamp}&tileSize=256&view=Auto';
 
-
-
 //Details on the availability of the different weather layers.
 var weatherLayers = {
     'microsoft.weather.infrared.main': {
@@ -61,7 +216,6 @@ var weatherLayers = {
         future: 1.5 * 60 * 60 * 1000 //Data available up to 1.5 hours in the future.
     }
 };
-
 
 onMounted(async () => {
 
@@ -81,12 +235,8 @@ onMounted(async () => {
     // add pollution data
     await loadPollutionData();
 
-
     map.value.events.add('ready', function () {
 
-        loadWeatherLayer('microsoft.weather.infrared.main');
-
-        //Create a vector tile source and add it to the map.
         var datasource = new atlas.source.VectorTileSource(null, {
             tiles: ['https://{azMapsDomain}/traffic/flow/tile/pbf?api-version=1.0&style=relative&zoom={z}&x={x}&y={y}'],
             maxZoom: 22
@@ -331,39 +481,28 @@ function loadWeatherLayer(tilesetId) {
         //Calculate time period for an animation frame. Shift the interval by one as the olds tile will expire almost immediately.
         var time = (now - layerInfo.past) + (i + 1) * layerInfo.interval;
 
-        //Create a tile layer option for each timestamp.
-        tlOptions.push(createTileLayer(tilesetId, time));
+        var tileLayerOption = createTileLayer(tilesetId, time);
 
-        //Optionally, create a message to display for each frame of the animation based on the time stamp.
-        if (time === now) {
-            displayMessages.value.push('Current');
-        } else {
-            var dt = (time - now) / 1000 / 60;
-            displayMessages.value.push(`${dt} minutes`);
-        }
+        //Create a tile layer option for each timestamp.
+        tlOptions.push(tileLayerOption);
     }
 
     if (layer.value) {
         layer.value.setOptions({
-            tileLayerOptions: tlOptions
+            tileLayerOptions: tlOptions,
+            speedMultiplier: 0.5
         });
+
         layer.value.play();
     } else {
         //Create the animation manager.
         layer.value = new atlas.layer.AnimatedTileLayer({
             tileLayerOptions: tlOptions,
             duration: numTimestamps * 800, //Allow one second for each frame (tile layer) in the animation.
+            speedMultiplier: 0.5,
             autoPlay: true,
             loop: true
         });
-
-        //Add an event to the underlying frame animation to update the message panel when the frame changes.
-        // map.value.events.add('onframe', layer.value.getPlayableAnimation(), function (e) {
-        //     if (e.frameIdx >= 0) {
-        //         var msg = displayMessages.value[e.frameIdx];
-        //         document.getElementById('messagePanel').innerText = msg;
-        //     }
-        // });
 
         //Add the layer to the map.
         map.value.layers.add(layer.value, 'labels');
@@ -374,11 +513,9 @@ function loadWeatherLayer(tilesetId) {
 }
 
 function createTileLayer(tilesetId, time) {
-    //Create an ISO 8601 timestamp string.
-    //JavaScripts format for ISO string includes decimal seconds and the letter "Z" at the end that is not supported. Use slice to remove this.
+
     var timestamp = new Date(time).toISOString().slice(0, 19);
 
-    //Create a tile layer option for each timestamp.
     return {
         tileUrl: urlTemplate.replace('{tilesetId}', tilesetId).replace('{timeStamp}', timestamp),
         tileSize: 256,      //Weather tiles only available in 256 pixel size.
@@ -418,34 +555,37 @@ function updateTileLayer(event) {
     loadWeatherLayer(tilesetId);
 }
 
-function setSpeed(event) {
-    const speed = parseFloat(event.target.value);
+function toggleWeatherLayer() {
+    // e.preventDefault();
+    switchBtn.value = !switchBtn.value
 
-    layer.value.setOptions({ speedMultiplier: speed });
+    if (switchBtn.value) {
+        loadWeatherLayer('microsoft.weather.infrared.main');
+    } else {
+        if (layer.value) {
+            map.value.layers.remove(layer.value);
+            layer.value = null; // Ensure layer is reset.
+        }
+        // Stop the interval timer if necessary.
+        if (timer.value) {
+            clearInterval(timer.value);
+            timer.value = null; // Ensure timer is reset.
+        }
+    }
+
 }
 
-function playAnimation() {
-    if (layer.value) {
-        layer.value.play();
+function toggle() {  // toggle side bar
+    var x = document.getElementById("container");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
     }
 }
 
-function pauseAnimation() {
-    if (layer.value) {
-        layer.value.pause();
-    }
-}
-
-function stopAnimation() {
-    if (layer.value) {
-        layer.value.stop();
-    }
-}
-
-function resetAnimation() {
-    if (layer.value) {
-        layer.value.reset();
-    }
+function pushToDashBoard() {
+    router.push('home')
 }
 
 </script>
@@ -455,6 +595,7 @@ function resetAnimation() {
     width: 100%;
     height: 100%;
 }
+
 .custom-marker {
     /* pollution */
     color: black;
