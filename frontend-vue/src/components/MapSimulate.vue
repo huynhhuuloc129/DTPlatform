@@ -281,7 +281,7 @@ async function loadPollutionData() {
 
             let markerColor = 'green';
             if (aqi > 50 && aqi <= 100) {
-                markerColor = 'orange';
+                markerColor = 'yellow';
             } else if (aqi > 100 && aqi <= 150) {
                 markerColor = 'red';
             } else if (aqi > 150 && aqi <= 200) {
@@ -292,8 +292,6 @@ async function loadPollutionData() {
 
             let el = {
                 htmlContent: `<div class="custom-marker marker ${markerColor}">${aqi}</div>`,
-                color: markerColor,
-                text: aqi,
                 position: [coords[1], coords[0]],
                 popup: new atlas.Popup({
                     content: description,
