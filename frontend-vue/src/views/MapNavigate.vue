@@ -20,7 +20,7 @@ onMounted(() => {
 })
 </script>
 
-<style>
+<style scoped>
 #layout {
   flex: 1;
   display: flex;

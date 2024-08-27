@@ -30,6 +30,7 @@
 </template>
 
 <script setup>
+import PollutionService from '../services/pollution.services'
 import { ref, onMounted } from 'vue';
 
 const map = ref(null);
@@ -44,6 +45,8 @@ const boundingBox = [
 
 //Base weather tile layer URL for radar data. {azMapsDomain} is a placeholder that is set automatically by the map, and will also automatically append the map credentials to the request.
 var urlTemplate = 'https://{azMapsDomain}/map/tile?api-version=2022-08-01&tilesetId={tilesetId}&zoom={z}&x={x}&y={y}&timeStamp={timeStamp}&tileSize=256&view=Auto';
+
+
 
 //Details on the availability of the different weather layers.
 var weatherLayers = {
@@ -60,11 +63,11 @@ var weatherLayers = {
 };
 
 
-onMounted(() => {
+onMounted(async () => {
 
     map.value = new atlas.Map('mapContainer', {
         center: [105.804817, 21.028511],
-        zoom: 5,
+        zoom: 12,
         // style: 'grayscale_dark',
         view: 'Auto',
 
@@ -75,8 +78,14 @@ onMounted(() => {
         }
     });
 
+    // add pollution data
+    await loadPollutionData();
+
+
     map.value.events.add('ready', function () {
+
         loadWeatherLayer('microsoft.weather.infrared.main');
+
         //Create a vector tile source and add it to the map.
         var datasource = new atlas.source.VectorTileSource(null, {
             tiles: ['https://{azMapsDomain}/traffic/flow/tile/pbf?api-version=1.0&style=relative&zoom={z}&x={x}&y={y}'],
@@ -208,6 +217,99 @@ onMounted(() => {
     });
 })
 
+async function loadPollutionData() {
+    const stations = [
+        'hanoi',
+        '@13414',
+        '@1583',
+        '@13686',
+        'A230626',
+        '@8641',
+        'A476599',
+        'A363001',
+        'A230383',
+        'A112819',
+        'A80656',
+        'A477292',
+        'A230398'
+    ];
+
+    for (let i = 0; i < stations.length; i++) {
+
+        let resp = await PollutionService.getPollution(import.meta.env.VITE_AQI_API_KEY, stations[i])
+        // console.log(resp.data)
+        if (resp.status == 'ok') {
+            let aqi = resp.data.aqi;
+            let coords = resp.data.city.geo;
+
+            // adding description to marker
+            let description = `<div style="margin: 10px">
+                    <b>Station</b>: ${resp.data.city.name} <br>
+                    <b>AQI</b>: ${aqi}  <br>
+                    <b>Dominant Pollutant</b>: ${resp.data.dominentpol} <br>
+                    `;
+            if (resp.data.iaqi.pm25 != null) {
+                description += `<b>PM2.5</b>: ${resp.data.iaqi.pm25.v} <br>`
+            }
+            if (resp.data.iaqi.pm10 != null) {
+                description += `<b>PM10</b>: ${resp.data.iaqi.pm10.v} <br>`
+            }
+            if (resp.data.iaqi.h != null) {
+                description += `<b>Humidity</b>: ${resp.data.iaqi.h.v} <br>`
+            }
+            if (resp.data.iaqi.t != null) {
+                description += `<b>Temperature</b>: ${resp.data.iaqi.t.v} <br>`
+            }
+            if (resp.data.iaqi.p != null) {
+                description += `<b>Pressure</b>: ${resp.data.iaqi.p.v} <br>`
+            }
+            if (resp.data.iaqi.w != null) {
+                description += `<b>Wind</b>: ${resp.data.iaqi.w.v} <br>`
+            }
+            // calculate time and add to description
+            let timeElapsed = Date.now() - Date.parse(resp.data.time.s);
+            let minutesElapsed = Math.floor(timeElapsed / (1000 * 60));
+            let hoursElapsed = Math.floor(timeElapsed / (1000 * 60 * 60));
+            let daysElapsed = Math.floor(timeElapsed / (1000 * 60 * 60 * 24));
+
+            let content = minutesElapsed + ' phút trước'
+            if (minutesElapsed > 60) content = hoursElapsed + ' giờ trước'
+            if (hoursElapsed > 24) content = daysElapsed + ' ngày trước'
+
+            description += `<div class='text-secondary'>Cập nhật lần cuối: ${content} </div>`
+            description += `</div>`
+
+            let markerColor = 'green';
+            if (aqi > 50 && aqi <= 100) {
+                markerColor = 'orange';
+            } else if (aqi > 100 && aqi <= 150) {
+                markerColor = 'red';
+            } else if (aqi > 150 && aqi <= 200) {
+                markerColor = 'purple';
+            } else if (aqi > 200) {
+                markerColor = 'brown';
+            }
+
+            let el = {
+                htmlContent: `<div class="custom-marker marker ${markerColor}">${aqi}</div>`,
+                color: markerColor,
+                text: aqi,
+                position: [coords[1], coords[0]],
+                popup: new atlas.Popup({
+                    content: description,
+                    pixelOffset: [0, -40]
+                })
+            }
+
+            let marker = new atlas.HtmlMarker(el)
+            map.value.markers.add(marker);
+
+            map.value.events.add('click', marker, () => {
+                marker.togglePopup();
+            });
+        }
+    }
+}
 
 function loadWeatherLayer(tilesetId) {
     //If there is already a layer, stop it animating.
@@ -354,5 +456,52 @@ function resetAnimation() {
 #mapContainer {
     width: 100%;
     height: 100%;
+}
+.custom-marker {
+    /* pollution */
+    color: black;
+    font-size: 15px;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #2980b9;
+    border-radius: 5px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.custom-marker::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #3498db;
+}
+
+.marker.green {
+    background-color: #00e676;
+}
+
+.marker.yellow {
+    background-color: #ffeb3b;
+}
+
+.marker.red {
+    background-color: #f44336;
+}
+
+.marker.purple {
+    background-color: #9c27b0;
+}
+
+.marker.brown {
+    background-color: #795548;
 }
 </style>

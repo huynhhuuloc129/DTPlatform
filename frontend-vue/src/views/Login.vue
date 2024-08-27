@@ -98,7 +98,7 @@ onMounted(() => {
 
 </script>
 
-<style>
+<style scoped>
 .input-login::placeholder{
     color: #23a5ae;
 

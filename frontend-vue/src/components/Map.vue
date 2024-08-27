@@ -61,8 +61,8 @@
                             <input type="text" @keyup="suggestion(addressStart, 0)" class="form-control "
                                 placeholder="Điểm bắt đầu" v-model="addressStart">
 
-                            <select v-if="suggestStart.length > 0 && displaySuggestStart == true" class="form-select"
-                                multiple size="2">
+                            <select v-if="addressStart.length > 0 && displaySuggestStart == true" class="form-select"
+                                multiple :size="suggestStart.length">
                                 <option value=1 v-for="suggestion in suggestStart"
                                     @click="addressStart = suggestion; displaySuggestStart = false">
                                     {{ suggestion }}
@@ -81,7 +81,7 @@
                                 placeholder="Điểm kết thúc" v-model="addressEnd">
 
                             <select v-if="suggestEnd.length > 0 && displaySuggestEnd == true" class="form-select"
-                                multiple size="2">
+                                multiple :size='suggestEnd.length'>
                                 <option v-for="suggestion in suggestEnd"
                                     @click="addressEnd = suggestion; displaySuggestEnd = false">
                                     {{ suggestion }}
@@ -92,10 +92,6 @@
                         </div>
                         <hr>
 
-                        <h6>Lộ trình:</h6>
-                        <div id="instructions"></div>
-
-                        <hr>
                         <div>
                             <div class="profile">
                                 <div class="h6">
@@ -109,6 +105,24 @@
                                 <div class="h6">
                                     <span class="h6">Thời gian: </span>
                                     <span>{{ timeToTravel }} phút</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <hr>
+                        <div class="accordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button :disabled="stepsNum <= 0" class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Lộ trình
+                                    </button>
+                                </h2>
+                                <div  id="collapseOne" class="accordion-collapse collapse"
+                                    data-bs-parent="#accordionExample">
+                                    <div id="instructions" class="accordion-body">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -189,13 +203,17 @@ export default {
             markers: [],
             addressStart: '',
             addressEnd: '',
+            stepsNum: 0,
         }
     },
     methods: {
         createCompleteAddresses(data) {
+
             return data.map(entry => {
-                console.log(entry)
-                return entry.address.formattedAddress
+                if (entry.name == undefined)
+                    return entry.address.formattedAddress
+                else
+                    return entry.name + ' ' + entry.address.formattedAddress
             });
         },
         async suggestion(q, type) {
@@ -206,6 +224,7 @@ export default {
 
             this.timer = setTimeout(async () => {
                 let resp = await autosuggestServices.getAutoSuggest(q, trafficToken)
+                console.log(resp.resourceSets)
                 if (resp != null && resp.resourceSets.length > 0 && resp.resourceSets[0].resources.length > 0) {
                     let completeAddress = this.createCompleteAddresses(resp.resourceSets[0].resources[0].value)
 
@@ -401,11 +420,12 @@ export default {
             // Mapbox direction API
             let respDirection = await directionService.getDirection(this.choosenTypeCar, import.meta.env.VITE_MAPBOX_KEY, this.start[0], this.start[1], this.end[0], this.end[1])
             const directions = respDirection.routes[0];
-
+            console.log(respDirection)
             const route = directions.geometry.coordinates;
             const steps = directions.legs[0].steps;
 
             // add instruction
+            this.stepsNum = steps.length
             const instructions = document.getElementById('instructions');
             let tripInstructions = '';
             for (const step of steps) {
@@ -710,9 +730,11 @@ export default {
 
                 let el = document.createElement('div');
                 el.className = `custom-marker marker ${markerColor}`;
+
+                // el.setAttribute('style', 'width: 30px; height: 30px; background-color: blue')
                 el.textContent = aqi
 
-                let marker = new mapboxgl.Marker(el)
+                let marker1 = new mapboxgl.Marker(el)
                     .setLngLat([coords[1], coords[0]])
                     .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(description))
                     .addTo(map);
@@ -795,7 +817,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 #backIcon {
     z-index: 5;
 
@@ -851,7 +873,6 @@ export default {
 
 .v-leave-active {
     transition: opacity 0.05s ease;
-
 }
 
 .v-enter-from,
@@ -922,4 +943,15 @@ export default {
         margin: 130px 10px 0 0;
     }
 }
+@media only screen and (max-width: 500px) {
+    #sidebar {
+        width: 300px;
+    }
+}
+#instructions {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 25vh;
+}
+
 </style>

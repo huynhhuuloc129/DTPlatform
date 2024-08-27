@@ -139,7 +139,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 </script>
 
-<style>
+<style scoped>
 .mleft {
     margin-left: 50px;
 }
