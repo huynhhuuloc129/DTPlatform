@@ -24,7 +24,7 @@
 
                     <!-- Sidebar Content -->
                     <div class="p-3">
-                        <div class="d-flex justify-content-between mb-3">
+                        <!-- <div class="d-flex justify-content-between mb-3">
                             <div class="d-flex mb-3">
                                 <div style="margin-bottom: 5px;">
 
@@ -54,64 +54,53 @@
                                 </div>
 
                             </div>
-                        </div>
+                        </div> -->
                         <div id="geocoder">
 
-                            <input type="text" @keyup="suggestion(addressStart, 0)" class="form-control "
-                                placeholder="Điểm bắt đầu" v-model="addressStart">
+                            <input type="text" @input="onStartInput" class="form-control" placeholder="Điểm bắt đầu"
+                                v-model="addressStart">
 
-                            <!-- <select v-if="addressStart.length > 0 && displaySuggestStart == true" class="form-select"
-                                multiple :size="suggestStart.length">
-                                <option value=1 v-for="suggestion in suggestStart"
-                                    @click="addressStart = suggestion; displaySuggestStart = false">
-                                    {{ suggestion }}
+                            <select
+                                v-if="addressStart != undefined && addressStart.length > 0 && displaySuggestStart == true"
+                                class="form-select" multiple :size="suggestionsStart.length">
+                                <option value=1 v-for="(suggestion) in suggestionsStart"
+                                    @click="addressStart = suggestion.address.freeformAddress; startPoint = suggestion.position; displaySuggestStart = false">
+                                    {{ suggestion.address.freeformAddress }}
                                 </option>
-                            </select> -->
+                            </select>
 
                             <div id="geocoder-icon" class="m-2">
                                 <div class="text-center">
-                                    <button :disabled="disableSwap" class="btn btn-light" @click="swapPlace()">
+                                    <button :disabled="addressStart == '' || addressEnd == ''" class="btn btn-light" @click="swapPlace()">
                                         <i class="fa-solid fa-arrows-rotate"></i>
                                     </button>
                                 </div>
                             </div>
 
-                            <input type="text" @keyup="suggestion(addressEnd, 1)" class="form-control"
-                                placeholder="Điểm kết thúc" v-model="addressEnd">
+                            <input type="text" @input="onEndInput" class="form-control" placeholder="Điểm kết thúc"
+                                v-model="addressEnd">
 
-                            <!-- <select v-if="suggestEnd.length > 0 && displaySuggestEnd == true" class="form-select"
-                                multiple :size='suggestEnd.length'>
-                                <option v-for="suggestion in suggestEnd"
-                                    @click="addressEnd = suggestion; displaySuggestEnd = false">
-                                    {{ suggestion }}
+                            <select v-if="addressEnd != undefined && addressEnd.length > 0 && displaySuggestEnd == true"
+                                class="form-select" multiple :size="suggestionsEnd.length">
+                                <option value=1 v-for="(suggestion) in suggestionsEnd"
+                                    @click="addressEnd = suggestion.address.freeformAddress; endPoint = suggestion.position; displaySuggestEnd = false">
+                                    {{ suggestion.address.freeformAddress }}
                                 </option>
-                            </select> -->
+                            </select>
 
                             <button class="btn btn-primary mt-3" @click="geocode($event)">Tìm đường</button>
                         </div>
                         <hr>
 
-                        <div>
-                            <div class="profile">
-                                <div class="h6">
-                                    <span class="h6">Độ dài: </span>
-                                    <span>{{ lengthRoad }} m</span>
-                                </div>
-                                <div class="h6">
-                                    <span class="h6">Lượng khí thải: </span>
-                                    <span>1000 PPM</span>
-                                </div>
-                                <div class="h6">
-                                    <span class="h6">Thời gian: </span>
-                                    <span>{{ timeToTravel }} phút</span>
-                                </div>
-                            </div>
-                        </div>
+                        <h5>Kết quả</h5>
+                        <div id="resultsPanel"></div>
+
                         <hr>
                         <div class="fw-bold">
+
                             <div class="d-flex justify-content-between">
                                 <span class="fw-bold">
-                                    Kiểu thời tiết:
+                                    Thời tiết:
                                 </span>
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" @click="toggleWeatherLayer" type="checkbox"
@@ -124,36 +113,9 @@
                                 <option value="microsoft.weather.radar.main">Radar</option>
                                 <option value="microsoft.weather.infrared.main" selected="selected">Infrared</option>
                             </select>
-
-                            <!-- <br /><br />
-                            <input type="button" class="btn btn-dark me-2" value="Play" title="Play"
-                                @click="playAnimation" />
-                            <input type="button" class="btn btn-dark me-2" value="Pause" title="Pause"
-                                @click="pauseAnimation" />
-                            <input type="button" class="btn btn-dark me-2" value="Stop" title="Stop"
-                                @click="stopAnimation" />
-                            <input type="button" class="btn btn-dark" value="Reset" title="Reset"
-                                @click="resetAnimation" /> -->
                             <br /><br />
                         </div>
 
-                        <hr>
-                        <div class="accordion">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button :disabled="stepsNum <= 0" class="accordion-button collapsed" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
-                                        aria-controls="collapseOne">
-                                        Lộ trình
-                                    </button>
-                                </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse"
-                                    data-bs-parent="#accordionExample">
-                                    <div id="instructions" class="accordion-body">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </nav>
 
@@ -182,26 +144,81 @@
 </template>
 
 <script setup>
+import AutoSuggestAzureServices from '@/services/autoSuggestAzure.services';
 import PollutionService from '../services/pollution.services'
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router'
+import debounce from 'lodash/debounce';
 
 const router = useRouter()
 const show = ref(true)
 const switchBtn = ref(false)
 
-const map = ref(null);
+const addressStart = ref(null)
+const startPoint = ref(null)
+const addressEnd = ref(null)
+const endPoint = ref(null)
+const suggestionsStart = ref([]);
+const suggestionsEnd = ref([]);
+const displaySuggestStart = ref(false), displaySuggestEnd = ref(false)
+
+const routeColors = ['#0000FF', '#800080', '#FF1493', '#00FFFF', '#FF00FF', '#40E0D0'];
+var routeURL, map
+const datasourceRoute = ref(null)
+
+
 const layer = ref(null);
 const timer = ref(null);
-const displayMessages = ref([]);
 
-const boundingBox = [
-    [105.878868, 21.06872], // Bottom-left corner
-    [105.788963, 20.97431]  // Top-right corner
-];
+// const boundingBox = [
+//     [105.878868, 21.06872], // Bottom-left corner
+//     [105.788963, 20.97431]  // Top-right corner
+// ];
 
 //Base weather tile layer URL for radar data. {azMapsDomain} is a placeholder that is set automatically by the map, and will also automatically append the map credentials to the request.
 var urlTemplate = 'https://{azMapsDomain}/map/tile?api-version=2022-08-01&tilesetId={tilesetId}&zoom={z}&x={x}&y={y}&timeStamp={timeStamp}&tileSize=256&view=Auto';
+
+const getSuggestionsStart = async () => {
+    displaySuggestStart.value = true
+
+    setTimeout(async () => { // delay the search
+        if (addressStart.value) {
+
+            let resp = await AutoSuggestAzureServices.getSuggestion(addressStart.value, import.meta.env.VITE_AZURE_MAP_KEY)
+            suggestionsStart.value = resp.results;
+
+        } else {
+            suggestionsStart.value = [];
+        }
+    }, 500
+    )
+};
+
+const getSuggestionsEnd = async () => {
+    displaySuggestEnd.value = true
+
+    setTimeout(async () => { // delay the search
+        if (addressEnd.value) {
+
+            let resp = await AutoSuggestAzureServices.getSuggestion(addressEnd.value, import.meta.env.VITE_AZURE_MAP_KEY)
+            suggestionsEnd.value = resp.results;
+        } else {
+            suggestionsEnd.value = [];
+        }
+    }, 500
+    )
+};
+
+const debouncedFetchStartSuggestions = debounce(getSuggestionsStart, 300);
+const debouncedFetchEndSuggestions = debounce(getSuggestionsEnd, 300);
+
+const onStartInput = () => {
+    debouncedFetchStartSuggestions();
+};
+
+const onEndInput = () => {
+    debouncedFetchEndSuggestions();
+};
 
 //Details on the availability of the different weather layers.
 var weatherLayers = {
@@ -217,32 +234,59 @@ var weatherLayers = {
     }
 };
 
+
 onMounted(async () => {
 
-    map.value = new atlas.Map('mapContainer', {
+    map = new atlas.Map('mapContainer', {
         center: [105.804817, 21.028511],
         zoom: 12,
         // style: 'grayscale_dark',
         view: 'Auto',
 
         authOptions: {
-
             authType: atlas.AuthenticationType.subscriptionKey,
             subscriptionKey: import.meta.env.VITE_AZURE_MAP_KEY
         }
     });
 
+    //Use MapControlCredential to share authentication between a map control and the service module.
+    var pipeline = atlas.service.MapsURL.newPipeline(new atlas.service.MapControlCredential(map));
+
+    //Construct the RouteURL object
+    routeURL = new atlas.service.RouteURL(pipeline);
+
     // add pollution data
     await loadPollutionData();
 
-    map.value.events.add('ready', function () {
+    map.events.add('ready', function () {
 
         var datasource = new atlas.source.VectorTileSource(null, {
             tiles: ['https://{azMapsDomain}/traffic/flow/tile/pbf?api-version=1.0&style=relative&zoom={z}&x={x}&y={y}'],
             maxZoom: 22
         });
-        map.value.sources.add(datasource);
+        map.sources.add(datasource);
 
+        // for routing
+        datasourceRoute.value = new atlas.source.DataSource();
+        map.sources.add(datasourceRoute.value);
+
+        map.layers.add(new atlas.layer.LineLayer(datasourceRoute.value, null, {
+            //Get the route color using the resultIndex property of the route line. 
+            strokeColor: ['to-color', ['at', ['get', 'resultIndex'], ['literal', routeColors]]],
+            strokeWidth: 10,
+            lineJoin: 'round',
+            lineCap: 'round'
+        }), 'labels1');
+
+        map.layers.add(new atlas.layer.SymbolLayer(datasourceRoute.value, null, {
+            textOptions: {
+                textField: ['get', 'title'],
+                offset: [0, 1.2]
+            },
+            filter: ['any', ['==', ['geometry-type'], 'Point'], ['==', ['geometry-type'], 'MultiPoint']] //Only render Point or MultiPoints in this layer.
+        }));
+
+        // for traffic
         //Common style options for traffic background colors.
         var trafficBackgroundOptions = {
             //The name of the data layer within the data source to pass into this rendering layer.
@@ -269,7 +313,7 @@ onMounted(async () => {
         };
 
         //Create two line layer for the base traffic flow color. One layer for both direction traffic data, and one layer for single line traffic data.
-        map.value.layers.add([
+        map.layers.add([
             new atlas.layer.LineLayer(datasource, null, Object.assign({
                 //For traffic data that represents one side of the road, offset it.
                 offset: [
@@ -341,7 +385,7 @@ onMounted(async () => {
         }, trafficFLowLineOptions));
 
         //Add the layers below the labels to make the map clearer.
-        map.value.layers.add([oneSideSlowFlowLayer, slowFlowLayer, oneSideMidFlowLayer, midFlowLayer, oneSideFastFlowLayer, fastFlowLayer], 'labels');
+        map.layers.add([oneSideSlowFlowLayer, slowFlowLayer, oneSideMidFlowLayer, midFlowLayer, oneSideFastFlowLayer, fastFlowLayer], 'labels');
 
         //Create a moving dashed line animation for each of the flow layers, but with different speedMultipliers.
         //Reverse the animation direction as it appears to ensure the correct flow directions for different side of the road for most countries (drive on the right side).
@@ -450,9 +494,9 @@ async function loadPollutionData() {
             }
 
             let marker = new atlas.HtmlMarker(el)
-            map.value.markers.add(marker);
+            map.markers.add(marker);
 
-            map.value.events.add('click', marker, () => {
+            map.events.add('click', marker, () => {
                 marker.togglePopup();
             });
         }
@@ -505,7 +549,7 @@ function loadWeatherLayer(tilesetId) {
         });
 
         //Add the layer to the map.
-        map.value.layers.add(layer.value, 'labels');
+        map.layers.add(layer.value, 'labels');
 
         //Setup an interval timer to shift the layers (remove oldest, add newest) based on the update interval of the tile layer.
         timer.value = setInterval(intervalHandler(tilesetId), layerInfo.interval);
@@ -563,7 +607,7 @@ function toggleWeatherLayer() {
         loadWeatherLayer('microsoft.weather.infrared.main');
     } else {
         if (layer.value) {
-            map.value.layers.remove(layer.value);
+            map.layers.remove(layer.value);
             layer.value = null; // Ensure layer is reset.
         }
         // Stop the interval timer if necessary.
@@ -586,6 +630,126 @@ function toggle() {  // toggle side bar
 
 function pushToDashBoard() {
     router.push('home')
+}
+
+// 
+// routing
+// 
+async function geocode(e) {
+    e.preventDefault();
+    // this.clearMarkers();
+    if (addressStart.value == null || addressEnd.value == null) return;
+
+    // get start location
+    let markerStart = new atlas.HtmlMarker({
+        color: 'DodgerBlue',
+        text: 'S',
+        position: [startPoint.value.lon, startPoint.value.lat]
+    })
+    // get end location
+    let markerEnd = new atlas.HtmlMarker({
+        color: 'Red',
+        text: 'E',
+        position: [endPoint.value.lon, endPoint.value.lat]
+    });
+
+    map.markers.add(markerStart);
+    map.markers.add(markerEnd);
+
+    map.setCamera({
+        bounds: [
+            Math.min(startPoint.value.lon, endPoint.value.lon),
+            Math.min(startPoint.value.lat, endPoint.value.lat),
+            Math.max(startPoint.value.lon, endPoint.value.lon),
+            Math.max(startPoint.value.lat, endPoint.value.lat)
+        ], // Set the bounds to the defined area
+        padding: 100,    // Optional: Add some padding around the bounds (in pixels)
+        type: 'fly',    // Smooth transition
+        duration: 2000
+    });
+
+    calculateRoute()
+}
+
+async function calculateRoute() {
+    //Colors for the different routes.
+
+    datasourceRoute.value.clear();
+
+    var coordinates = [
+        [startPoint.value.lon, startPoint.value.lat], [endPoint.value.lon, endPoint.value.lat]
+    ];
+    //Get the route options from the form.         
+    var options = {
+        maxAlternatives: 5,
+        minDeviationTime: 0,
+        minDeviationDistance: 0,
+        postBody: {
+            "supportingPoints": {
+                "type": "GeometryCollection",
+                "geometries": [
+                    new atlas.data.Point([startPoint.value.lon, startPoint.value.lat]),
+                    new atlas.data.Point([endPoint.value.lon, endPoint.value.lat])
+                ]
+            }
+        }
+    };
+
+    try {
+
+        //Calculate a route.
+        const directions = await routeURL.calculateRouteDirections(atlas.service.Aborter.timeout(10000), coordinates, options)
+
+        //Get the route data as GeoJSON and add it to the data source.
+        var data = directions.geojson.getFeatures();
+        datasourceRoute.value.add(data);
+
+        // Create a table with the route travel time/distance information.
+        var html = ['<table class="table"><tr><td>Route</td><td>Distance</td><td>Time</td></tr>'];
+
+        for (var i = 0; i < directions.routes.length; i++) {
+            var s = directions.routes[i].summary.travelTimeInSeconds % 60;
+
+            html.push('<tr><td><div class="colorBlock" style="background-color:',
+                routeColors[i], '; width: 40px; height: 20px"></div></td><td>',
+
+                //Convert distance to meters and round to 1 decimal place.
+                Math.round(directions.routes[i].summary.lengthInMeters / 1000 * 10) / 10, ' km</td><td>',
+
+                //Format time as min:sec. If seconds less than 10, prepend a 0 to the second value.
+                Math.round(directions.routes[i].summary.travelTimeInSeconds / 60), ':',
+                ((s < 10) ? '0' : ''), s, ' min</td></tr>');
+        }
+
+        html.push('</table>');
+        document.getElementById('resultsPanel').innerHTML = html.join('');
+
+        //Update the map view to center over the route.
+        // map.value.setCamera({
+        //     bounds: data.bbox,
+        //     padding: 30 //Add a padding to account for the pixel size of symbols.
+        // });
+    } catch (error) {
+        console.error('Error calculating route:', error);
+    }
+}
+
+function swapPlace() { // swap start and end place
+
+    let tempVariable = startPoint.value.lon;
+    startPoint.value.lon = endPoint.value.lon;
+    endPoint.value.lon = tempVariable;
+
+    tempVariable = startPoint.value.lat;
+    startPoint.value.lat = endPoint.value.lat;
+    endPoint.value.lat = tempVariable;
+
+    // swap address in input
+    let temp = addressStart.value;
+    addressStart.value = addressEnd.value
+    addressEnd.value = temp
+
+    calculateRoute()
 }
 
 </script>
@@ -642,5 +806,11 @@ function pushToDashBoard() {
 
 .marker.brown {
     background-color: #795548;
+}
+
+@media only screen and (max-width: 500px) {
+    #sidebar {
+        width: 300px;
+    }
 }
 </style>
