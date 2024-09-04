@@ -36,7 +36,7 @@
           <label for="input-file" class="label fw-bold">Upload new data:</label>
           <input @change="changeFile($event)" id="input-file" type="file" class="form-control">
         </div>
-        <button type="submit" class="btn btn-primary" style="margin-top: 20px; padding: 10px;">Upload file</button>
+        <button type="submit" class="btn btn-dark" style="margin-top: 20px; padding: 10px;">Upload file</button>
       </form>
 
       <h2 class="mt-5">Uploaded Data</h2>
@@ -117,7 +117,7 @@ onMounted(async () => {
 
   try {
 
-    const dataResponse = await axios.get(`http://localhost:2000/csv/data`, {
+    const dataResponse = await axios.get(`https://dtplatform.onrender.com/csv/data`, {
       headers: {
         'token': token
       }

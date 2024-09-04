@@ -4,7 +4,7 @@
             <div class="container py-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                        <div class="card" style="border-radius: 1rem; color: #23a5ae;">
+                        <div class="card" style="border-radius: 1rem;">
                             <div class="card-body p-5 text-center">
 
                                 <div class="mt-md-4 pb-5">
@@ -26,7 +26,7 @@
                                             class="form-control form-control-lg input-login"
                                             placeholder="Repeat password" required />
 
-                                        <button class="btn btn-outline-info btn-lg px-5 input-login"
+                                        <button class="btn btn-outline-dark btn-lg px-5 input-login"
                                             type="submit">Signup</button>
 
                                     </form>
@@ -35,7 +35,7 @@
 
                                 <div>
                                     <p class="mb-0">Already have an account? <a @click="router.push({ name: 'login' })"
-                                            href="#" style="color: #23a5ae;" class="fw-bold">Login</a>
+                                            href="#" class="fw-bold">Login</a>
                                     </p>
                                 </div>
 
@@ -102,17 +102,13 @@ onMounted(() => {
 </script>
 
 <style>
-.input-login::placeholder {
-    color: #23a5ae;
-
-}
 
 .input-login {
     margin-top: 20px;
 }
 
 #section {
-    background-image: url('@/assets/banner.jpeg');
+    background-image: url('@/assets/banner1.jpg');
     background-size: 100vw 100vh;
 }
 

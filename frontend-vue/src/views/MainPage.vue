@@ -2,7 +2,7 @@
     <div class="d-flex flex-column w-100">
         <Header></Header>
         <div id="banner">
-            <img src="@/assets/banner.jpeg" width="100%" alt="">
+            <img src="@/assets/banner.webp" width="100%" alt="">
         </div>
 
         <h5 class="mleft mb-3 mt-2">Xin chào, admin!</h5>
@@ -119,11 +119,7 @@
                 </div>
             </div>
 
-            <img src="@/assets/banner3.png" width="94%" class="mleft" style="border-radius: 20px;" alt="">
-            
-            <div class="mleft mt-3">
-                <h5>Thanh toán tiện lợi - Ưu đãi hấp dẫn</h5>
-            </div>
+            <img src="@/assets/banner2.jpg" width="94%" class="mleft" style="border-radius: 20px; box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;" alt="">
         </div>
 
         <Footer></Footer>

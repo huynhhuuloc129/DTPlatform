@@ -4,13 +4,13 @@
             <div class="container py-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                        <div class="card " style="border-radius: 1rem; color: #23a5ae;">
+                        <div class="card " style="border-radius: 1rem; ">
                             <div class="card-body p-5 text-center">
 
                                 <div class=" mt-md-4 pb-5">
 
                                     <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-                                    <p class="mb-5" style="color: #23a5ae;">Please enter your username and password!</p>
+                                    <p class="mb-5" style="">Please enter your username and password!</p>
                                     <form @submit="onLogin">
 
                                         <input v-model="inputFormLogin.username" type="text" id="typeEmailX"
@@ -22,14 +22,14 @@
                                             required />
 
                                         <button type="submit"
-                                            class="btn btn-outline-info btn-lg px-5 input-login">Login</button>
+                                            class="btn btn-outline-dark btn-lg px-5 input-login">Login</button>
                                     </form>
 
                                 </div>
 
                                 <div>
                                     <p class="mb-0">Don't have an account? <a @click="router.push({ name: 'signup' })" href="#"
-                                            class="fw-bold" style="color: #23a5ae;">Sign Up</a>
+                                            class="fw-bold">Sign Up</a>
                                     </p>
                                 </div>
 
@@ -99,15 +99,11 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.input-login::placeholder{
-    color: #23a5ae;
-
-}
 .input-login {
     margin-top: 20px;
 }
 #section{
-    background-image: url('@/assets/banner.jpeg');
+    background-image: url('@/assets/banner1.jpg');
     background-size: 100vw 100vh;
 }
 @media only screen and (max-width: 500px) {

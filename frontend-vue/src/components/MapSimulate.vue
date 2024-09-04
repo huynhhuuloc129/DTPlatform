@@ -8,7 +8,7 @@
                     <div class="p-3 border-bottom">
                         <div class="d-flex align-items-center justify-content-between">
                             <div id="backIcon">
-                                <button class="btn btn-outline-primary" style="background-color: none;"
+                                <button class="btn btn-outline-dark" style="background-color: none;"
                                     @click="pushToDashBoard()">
                                     Trang chủ
                                 </button>
@@ -71,7 +71,8 @@
 
                             <div id="geocoder-icon" class="m-2">
                                 <div class="text-center">
-                                    <button :disabled="addressStart == '' || addressEnd == ''" class="btn btn-light" @click="swapPlace()">
+                                    <button :disabled="addressStart == '' || addressEnd == ''" class="btn btn-light"
+                                        @click="swapPlace()">
                                         <i class="fa-solid fa-arrows-rotate"></i>
                                     </button>
                                 </div>
@@ -88,7 +89,7 @@
                                 </option>
                             </select>
 
-                            <button class="btn btn-primary mt-3" @click="geocode($event)">Tìm đường</button>
+                            <button class="btn btn-dark mt-3" @click="geocode($event)">Tìm đường</button>
                         </div>
                         <hr>
 
@@ -153,7 +154,7 @@ import debounce from 'lodash/debounce';
 const router = useRouter()
 const show = ref(true)
 const switchBtn = ref(false)
-
+const lineLayer = ref(null)
 const addressStart = ref(null)
 const startPoint = ref(null)
 const addressEnd = ref(null)
@@ -162,7 +163,7 @@ const suggestionsStart = ref([]);
 const suggestionsEnd = ref([]);
 const displaySuggestStart = ref(false), displaySuggestEnd = ref(false)
 
-const routeColors = ['#0000FF', '#800080', '#FF1493', '#00FFFF', '#FF00FF', '#40E0D0'];
+const routeColors = ['blue', '#800080', '#FF1493', '#00FFFF', '#FF00FF', '#40E0D0'];
 var routeURL, map
 const datasourceRoute = ref(null)
 
@@ -270,13 +271,14 @@ onMounted(async () => {
         datasourceRoute.value = new atlas.source.DataSource();
         map.sources.add(datasourceRoute.value);
 
-        map.layers.add(new atlas.layer.LineLayer(datasourceRoute.value, null, {
-            //Get the route color using the resultIndex property of the route line. 
+        lineLayer.value = new atlas.layer.LineLayer(datasourceRoute.value, null, {
+            // Get the route color using the resultIndex property of the route line. 
             strokeColor: ['to-color', ['at', ['get', 'resultIndex'], ['literal', routeColors]]],
             strokeWidth: 10,
             lineJoin: 'round',
-            lineCap: 'round'
-        }), 'labels1');
+            lineCap: 'round',
+        });
+        map.layers.add(lineLayer.value, 'labels1');
 
         map.layers.add(new atlas.layer.SymbolLayer(datasourceRoute.value, null, {
             textOptions: {
@@ -673,12 +675,12 @@ async function geocode(e) {
 
 async function calculateRoute() {
     //Colors for the different routes.
-
     datasourceRoute.value.clear();
 
     var coordinates = [
         [startPoint.value.lon, startPoint.value.lat], [endPoint.value.lon, endPoint.value.lat]
     ];
+
     //Get the route options from the form.         
     var options = {
         maxAlternatives: 5,
@@ -720,6 +722,37 @@ async function calculateRoute() {
                 Math.round(directions.routes[i].summary.travelTimeInSeconds / 60), ':',
                 ((s < 10) ? '0' : ''), s, ' min</td></tr>');
         }
+
+        map.events.add('click', lineLayer.value, function (e) {
+            let clickedRoadIndex = e.shapes[0].getProperties().resultIndex;
+
+            if (clickedRoadIndex !== undefined) {
+                let originalData = datasourceRoute.value.getShapes();
+
+                map.layers.remove(lineLayer.value);
+
+                datasourceRoute.value.clear();
+                let clickedRoadData = e.shapes;
+                let otherRoadData = originalData.filter(shape => shape.getProperties().resultIndex !== clickedRoadIndex);
+
+                datasourceRoute.value.add([...otherRoadData, ...clickedRoadData]);
+
+
+                map.layers.add(lineLayer.value, 'labels1');
+
+                lineLayer.value.setOptions({
+                    strokeColor: [
+                        'case',
+                        ['==', ['get', 'resultIndex'], clickedRoadIndex], // If the clicked road
+                        'blue', // Highlight color
+                        '#B0B0B0' // Gray color for other roads
+                    ],
+                });
+
+            } else {
+                console.error('Clicked road has no resultIndex property');
+            }
+        });
 
         html.push('</table>');
         document.getElementById('resultsPanel').innerHTML = html.join('');

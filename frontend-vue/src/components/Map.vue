@@ -9,7 +9,7 @@
                     <div class="p-3 border-bottom">
                         <div class="d-flex align-items-center justify-content-between">
                             <div id="backIcon">
-                                <button class="btn btn-outline-primary" style="background-color: none;"
+                                <button class="btn btn-outline-dark" style="background-color: none;"
                                     @click="pushToDashBoard()">
                                     Trang chủ
                                 </button>
@@ -88,7 +88,7 @@
                                 </option>
                             </select>
 
-                            <button class="btn btn-primary mt-3" @click="geocode($event)">Tìm đường</button>
+                            <button class="btn btn-dark mt-3" @click="geocode($event)">Tìm đường</button>
                         </div>
                         <hr>
 
@@ -114,12 +114,13 @@
                         <div class="accordion">
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
-                                    <button :disabled="stepsNum <= 0" class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <button :disabled="stepsNum <= 0" class="accordion-button collapsed" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
+                                        aria-controls="collapseOne">
                                         Lộ trình
                                     </button>
                                 </h2>
-                                <div  id="collapseOne" class="accordion-collapse collapse"
+                                <div id="collapseOne" class="accordion-collapse collapse"
                                     data-bs-parent="#accordionExample">
                                     <div id="instructions" class="accordion-body">
                                     </div>
@@ -428,7 +429,39 @@ export default {
             const instructions = document.getElementById('instructions');
             let tripInstructions = '';
             for (const step of steps) {
-                tripInstructions += `<li>${step.maneuver.instruction}</li>`;
+                let instruction = step.maneuver.instruction
+                let distance = Math.round(step.distance)
+                let duration = Math.round(step.duration / 60)
+                if (duration == 0) {
+                    duration = Math.round(step.duration)
+                    duration += 's'
+                } else {
+                    duration += 'p'
+                }
+
+
+                tripInstructions += `<li>
+
+                        <div class="d-flex justify-content-between">
+                            <div class="w-75">
+                                ${instruction} 
+                            </div>
+
+                           `;
+                if (duration != '0s' || distance != 0) {
+                    tripInstructions += ` 
+                            <div class="ms-2 w-25">
+                                ${distance}m
+                            </div>
+                            <div class="w-25">
+                                ${duration}
+                            </div>
+                        </div>
+                      
+                    </li>`
+                } else {
+                    tripInstructions += `</div></li>`
+                }
             }
             instructions.innerHTML = `<ol>${tripInstructions}</ol>`;
 
@@ -942,15 +975,16 @@ export default {
         margin: 130px 10px 0 0;
     }
 }
+
 @media only screen and (max-width: 500px) {
     #sidebar {
         width: 300px;
     }
 }
+
 #instructions {
     overflow-y: scroll;
     overflow-x: hidden;
-    max-height: 25vh;
+    max-height: 35vh;
 }
-
 </style>
