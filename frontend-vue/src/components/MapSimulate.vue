@@ -259,7 +259,7 @@ onMounted(async () => {
 
     // add bus data
     // add bus data
-    let resp = await fetchJSON('http://localhost:5173/export.geojson')
+    let resp = await fetchJSON('https://dtplatform.netlify.app/export.geojson')
     dataBus.value = resp.features
 
     for (let i = 0; i < dataBus.value.length; i++) {

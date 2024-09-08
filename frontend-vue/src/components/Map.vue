@@ -648,7 +648,7 @@ export default {
         });
 
         // add bus data
-        let resp = await this.fetchJSON('http://localhost:5173/export.geojson')
+        let resp = await this.fetchJSON('https://dtplatform.netlify.app/export.geojson')
         this.dataBus = resp.features
 
         for (let i = 0; i < this.dataBus.length; i++) {
