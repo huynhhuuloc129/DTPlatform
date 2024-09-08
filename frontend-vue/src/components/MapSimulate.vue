@@ -167,6 +167,7 @@ const routeColors = ['blue', '#800080', '#FF1493', '#00FFFF', '#FF00FF', '#40E0D
 var routeURL, map
 const datasourceRoute = ref(null)
 
+const dataBus = ref([])
 
 const layer = ref(null);
 const timer = ref(null);
@@ -235,6 +236,12 @@ var weatherLayers = {
     }
 };
 
+async function fetchJSON(url) {
+    return fetch(url)
+        .then(function (response) {
+            return response.json();
+        });
+}
 
 onMounted(async () => {
 
@@ -249,6 +256,37 @@ onMounted(async () => {
             subscriptionKey: import.meta.env.VITE_AZURE_MAP_KEY
         }
     });
+
+    // add bus data
+    // add bus data
+    let resp = await fetchJSON('http://localhost:5173/export.geojson')
+    dataBus.value = resp.features
+
+    for (let i = 0; i < dataBus.value.length; i++) {
+        let lat = dataBus.value[i].geometry.coordinates[1]
+        let lng = dataBus.value[i].geometry.coordinates[0]
+
+        let description = ''
+        if (dataBus.value[i].properties.name != undefined)
+            description = `<div class="fw-bold">${dataBus.value[i].properties.name}</div>`
+
+        let el = {
+            htmlContent: `<div class="custom-marker-bus marker"><i class="fa-solid fa-bus text-white"></i></div>`,
+            position: [lng, lat],
+            popup: new atlas.Popup({
+                content: description,
+                pixelOffset: [0, -20]
+            })
+        }
+
+        let marker = new atlas.HtmlMarker(el)
+        map.markers.add(marker);
+
+        map.events.add('click', marker, () => {
+            marker.togglePopup();
+        });
+    }
+
 
     //Use MapControlCredential to share authentication between a map control and the service module.
     var pipeline = atlas.service.MapsURL.newPipeline(new atlas.service.MapControlCredential(map));
@@ -820,6 +858,24 @@ function swapPlace() { // swap start and end place
     border-right: 10px solid transparent;
     border-top: 10px solid #3498db;
 }
+
+.custom-marker-bus {
+    position: relative;
+    width: 20px;
+    /* Width of the marker */
+    height: 20px;
+    /* Height of the marker */
+    background-color: #007bff;
+    /* Marker color */
+    border-radius: 50%;
+    /* Make it round */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #fff;
+    /* Optional border */
+}
+
 
 .marker.green {
     background-color: #00e676;

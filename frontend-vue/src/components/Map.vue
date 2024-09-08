@@ -165,6 +165,8 @@ import directionService from '@/services/direction.services';
 import locationService from '@/services/location.service';
 import trafficServices from '@/services/traffic.services';
 import mapboxServices from '@/services/mapbox.services';
+
+
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_KEY;
 import { useCookies } from 'vue3-cookies'
 import { useRouter } from 'vue-router'
@@ -204,9 +206,16 @@ export default {
             addressStart: '',
             addressEnd: '',
             stepsNum: 0,
+            dataBus: {}
         }
     },
     methods: {
+        async fetchJSON(url) {
+            return fetch(url)
+                .then(function (response) {
+                    return response.json();
+                });
+        },
         createCompleteAddresses(data) {
 
             return data.map(entry => {
@@ -419,8 +428,8 @@ export default {
 
             // Mapbox direction API
             let respDirection = await directionService.getDirection(this.choosenTypeCar, import.meta.env.VITE_MAPBOX_KEY, this.start[0], this.start[1], this.end[0], this.end[1])
-            const directions = respDirection.routes[0];
-            console.log(respDirection)
+            const directions = respTransit.routes[0];
+            console.log(respTransit)
             const route = directions.geometry.coordinates;
             const steps = directions.legs[0].steps;
 
@@ -623,9 +632,13 @@ export default {
     },
 
     async mounted() {
+
+
         token = cookies.cookies.get('Token')
 
         roads = await mapboxServices.getRoad(token)
+
+
 
         map = new mapboxgl.Map({
             container: this.$refs.mapContainer,
@@ -634,59 +647,27 @@ export default {
             zoom: 12,
         });
 
-        // add start point
-        // geocoderStart = new MapboxGeocoder({
-        //     accessToken: mapboxgl.accessToken,
-        //     mapboxgl: mapboxgl,
-        //     marker: {
-        //         color: 'red',
-        //         draggable: true
+        // add bus data
+        let resp = await this.fetchJSON('http://localhost:5173/export.geojson')
+        this.dataBus = resp.features
 
-        //     },
-        //     placeholder: 'Start place',
-        // });
+        for (let i = 0; i < this.dataBus.length; i++) {
+            let lat = this.dataBus[i].geometry.coordinates[1]
+            let lng = this.dataBus[i].geometry.coordinates[0]
 
-        // geocoderStart.on('result', (e) => {
-        //     var marker = geocoderStart.mapMarker;
-        //     if (marker) {
-        //         marker.on('dragend', () => {
-        //             let lngLat = marker.getLngLat();
-        //             this.start[0] = lngLat.lng
-        //             this.start[1] = lngLat.lat
-        //             this.calculateRoute()
-        //         });
-        //     }
+            let el = document.createElement('div');
+            el.className = `custom-marker-bus marker`;
 
-        //     this.start = e.result.geometry.coordinates
-        //     this.calculateRoute()
-        // });
+            el.innerHTML = '<i class="fa-solid fa-bus text-white"></i>';
 
-        // // add end point
-        // geocoderEnd = new MapboxGeocoder({
-        //     accessToken: mapboxgl.accessToken,
-        //     mapboxgl: mapboxgl,
-        //     marker: {
-        //         color: 'yellow',
-        //         draggable: true
-
-        //     },
-        //     placeholder: 'End place',
-        // });
-
-        // geocoderEnd.on('result', (e) => {
-        //     var marker = geocoderEnd.mapMarker;
-        //     if (marker) {
-        //         marker.on('dragend', () => {
-        //             let lngLat = marker.getLngLat();
-        //             this.end[0] = lngLat.lng
-        //             this.end[1] = lngLat.lat
-        //             this.calculateRoute()
-        //         });
-        //     }
-
-        //     this.end = e.result.geometry.coordinates
-        //     this.calculateRoute()
-        // });
+            let description = ''
+            if (this.dataBus[i].properties.name != undefined)
+            description = `<div class="fw-bold">${this.dataBus[i].properties.name}</div>`
+            let markerBus = new mapboxgl.Marker(el)
+                .setLngLat([lng, lat])
+                .setPopup(new mapboxgl.Popup({ offset: 10 }).setHTML(description))
+                .addTo(map);
+        }
 
         // adding pollution
         const stations = [
@@ -942,6 +923,23 @@ export default {
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-top: 10px solid #3498db;
+}
+
+.custom-marker-bus {
+    position: relative;
+    width: 20px;
+    /* Width of the marker */
+    height: 20px;
+    /* Height of the marker */
+    background-color: #007bff;
+    /* Marker color */
+    border-radius: 50%;
+    /* Make it round */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #fff;
+    /* Optional border */
 }
 
 .form-select {
