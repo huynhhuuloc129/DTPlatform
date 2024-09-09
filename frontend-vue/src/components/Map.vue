@@ -52,6 +52,12 @@
                                     <label class="btn btn-outline-secondary label" for="btnradioWalk">
                                         <i class="fas fa-walking"></i>
                                     </label>
+
+                                    <input type="radio" value=5 @change="changeType(4)" class="btn-check"
+                                        name="btnradio" id="btnradioBus" autocomplete="off" />
+                                    <label class="btn btn-outline-secondary label" for="btnradioBus">
+                                        <i class="fa-solid fa-bus"></i>
+                                    </label>
                                 </div>
 
                             </div>
@@ -210,6 +216,51 @@ export default {
         }
     },
     methods: {
+        haversineDistance(lat1, lon1, lat2, lon2) {
+            const toRadians = (degree) => (degree * Math.PI) / 180;
+
+            const R = 6371; // Earth's radius in kilometers
+            const dLat = toRadians(lat2 - lat1);
+            const dLon = toRadians(lon2 - lon1);
+
+            const a =
+                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+            return R * c; // Distance in kilometers
+        },
+
+        // Check if the point lies between the start and end points
+        isBetweenPoints(startLat, startLon, endLat, endLon, pointLat, pointLon) {
+            const latMin = Math.min(startLat, endLat);
+            const latMax = Math.max(startLat, endLat);
+            const lonMin = Math.min(startLon, endLon);
+            const lonMax = Math.max(startLon, endLon);
+
+            return pointLat >= latMin && pointLat <= latMax && pointLon >= lonMin && pointLon <= lonMax;
+        },
+
+        // Function to find the closest point between start and end points
+        findClosestPointInRoute(startLat, startLon, endLat, endLon, points) {
+            let closestPoint = null;
+            let minDistance = Infinity;
+
+            points.forEach(point => {
+                if (this.isBetweenPoints(startLat, startLon, endLat, endLon, point.geometry.coordinates[1], point.geometry.coordinates[0])) {
+                    const distance = this.haversineDistance(startLat, startLon, point.geometry.coordinates[1], point.geometry.coordinates[0]);
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        closestPoint = [point.geometry.coordinates[0], point.geometry.coordinates[1]];
+                    }
+                }
+            });
+
+            return closestPoint;
+        },
+
         async fetchJSON(url) {
             return fetch(url)
                 .then(function (response) {
@@ -233,7 +284,6 @@ export default {
 
             this.timer = setTimeout(async () => {
                 let resp = await autosuggestServices.getAutoSuggest(q, trafficToken)
-                console.log(resp.resourceSets)
                 if (resp != null && resp.resourceSets.length > 0 && resp.resourceSets[0].resources.length > 0) {
                     let completeAddress = this.createCompleteAddresses(resp.resourceSets[0].resources[0].value)
 
@@ -401,6 +451,7 @@ export default {
             if (index == 1) this.choosenTypeCar = 'driving'
             else if (index == 2) this.choosenTypeCar = 'cycling'
             else if (index == 3) this.choosenTypeCar = 'walking'
+            else if (index == 4) this.choosenTypeCar = 'bus'
             else if (index == 0) this.choosenTypeCar = 'driving-traffic'
 
             this.choosenType = index
@@ -426,30 +477,126 @@ export default {
         async calculateRoute() { // find path
             if (this.start.length == 0 || this.end.length == 0) return;
 
-            // Mapbox direction API
-            let respDirection = await directionService.getDirection(this.choosenTypeCar, import.meta.env.VITE_MAPBOX_KEY, this.start[0], this.start[1], this.end[0], this.end[1])
-            const directions = respTransit.routes[0];
-            console.log(respTransit)
-            const route = directions.geometry.coordinates;
-            const steps = directions.legs[0].steps;
+            if (this.choosenTypeCar == 'bus') {
+                // find 2 closest bus stop
+                let start1 = this.findClosestPointInRoute(this.start[1], this.start[0], this.end[1], this.end[0], this.dataBus)
+                let end1 = this.findClosestPointInRoute(this.end[1], this.end[0], this.start[1], this.start[0], this.dataBus)
 
-            // add instruction
-            this.stepsNum = steps.length
-            const instructions = document.getElementById('instructions');
-            let tripInstructions = '';
-            for (const step of steps) {
-                let instruction = step.maneuver.instruction
-                let distance = Math.round(step.distance)
-                let duration = Math.round(step.duration / 60)
-                if (duration == 0) {
-                    duration = Math.round(step.duration)
-                    duration += 's'
-                } else {
-                    duration += 'p'
+                // Mapbox direction API
+                let respDirection1 = await directionService.getDirection('walking', import.meta.env.VITE_MAPBOX_KEY, this.start[0], this.start[1], start1[0], start1[1])
+                let respDirection2 = await directionService.getDirection('driving', import.meta.env.VITE_MAPBOX_KEY, start1[0], start1[1], end1[0], end1[1])
+                let respDirection3 = await directionService.getDirection('walking', import.meta.env.VITE_MAPBOX_KEY, end1[0], end1[1], this.end[0], this.end[1])
+
+
+                const directions1 = respDirection1.routes[0];
+                const directions2 = respDirection2.routes[0];
+                const directions3 = respDirection3.routes[0];
+
+                // console.log(respTransit)
+                const route1 = directions1.geometry.coordinates;
+                const route2 = directions2.geometry.coordinates;
+                const route3 = directions3.geometry.coordinates;
+
+                const steps1 = directions1.legs[0].steps;
+
+                if (map.getLayer('route')) {
+                    map.removeLayer('route');
+                }
+                if (map.getSource('route')) {
+                    map.removeSource('route');
                 }
 
+                // Function to convert line into dots by creating a feature collection of points
+                const createCombinedGeoJSON = (route1, route2, route3) => {
+                    let features = [];
 
-                tripInstructions += `<li>
+                    // Add dots for route1 and route3
+                    [route1, route3].forEach(route => {
+                        route.forEach(coord => {
+                            features.push({
+                                'type': 'Feature',
+                                'geometry': {
+                                    'type': 'Point',
+                                    'coordinates': coord
+                                }
+                            });
+                        });
+                    });
+
+                    // Add LineString for route2
+                    features.push({
+                        'type': 'Feature',
+                        'geometry': {
+                            'type': 'LineString',
+                            'coordinates': route2
+                        }
+                    });
+
+                    return {
+                        'type': 'FeatureCollection',
+                        'features': features
+                    };
+                };
+
+                map.addSource('route', {
+                    'type': 'geojson',
+                    'data': createCombinedGeoJSON(route1, route2, route3)  // Use the function to convert the line to dots
+                });
+
+                // Add a circle layer to display the dots
+                map.addLayer({
+                    'id': 'route',
+                    'type': 'circle',  // Use circle layer to display both dots and lines
+                    'source': 'route',
+                    'paint': {
+                        'circle-radius': [
+                            'case',
+                            ['==', ['geometry-type'], 'Point'],  // If feature is a Point
+                            5,  // Size of the dots
+                            0  // No size for non-Point features
+                        ],
+                        'circle-color': [
+                            'case',
+                            ['==', ['geometry-type'], 'Point'],  // If feature is a Point
+                            'blue',  // Color of the dots
+                            'transparent'  // No color for non-Point features
+                        ]
+                    }
+                });
+
+                // Add a line layer to the same source (using a separate layer, not strictly one layer but combined with the circle layer)
+                map.addLayer({
+                    'id': 'routeLine',
+                    'type': 'line',
+                    'source': 'route',
+                    'paint': {
+                        'line-color': [
+                            'case',
+                            ['==', ['geometry-type'], 'LineString'],  // If feature is a LineString
+                            'blue',  // Color of the line
+                            'transparent'  // No color for non-LineString features
+                        ],
+                        'line-width': 8
+                    }
+                });
+
+                // // add instruction
+                this.stepsNum = steps1.length
+                const instructions = document.getElementById('instructions');
+                let tripInstructions = '';
+                for (const step of steps1) {
+                    let instruction = step.maneuver.instruction
+                    let distance = Math.round(step.distance)
+                    let duration = Math.round(step.duration / 60)
+                    if (duration == 0) {
+                        duration = Math.round(step.duration)
+                        duration += 's'
+                    } else {
+                        duration += 'p'
+                    }
+
+
+                    tripInstructions += `<li>
 
                         <div class="d-flex justify-content-between">
                             <div class="w-75">
@@ -457,8 +604,68 @@ export default {
                             </div>
 
                            `;
-                if (duration != '0s' || distance != 0) {
-                    tripInstructions += ` 
+                    if (duration != '0s' || distance != 0) {
+                        tripInstructions += ` 
+                            <div class="ms-2 w-25">
+                                ${distance}m
+                            </div>
+                            <div class="w-25">
+                                ${duration}
+                            </div>
+                        </div>
+
+                    </li>`
+                    } else {
+                        tripInstructions += `</div></li>`
+                    }
+                }
+                instructions.innerHTML = `<ol>${tripInstructions}</ol>`;
+
+                this.lengthRoad = Math.round(directions1.distance);
+                this.timeToTravel = Math.round(directions1.duration / 60)
+
+
+                const bounds = [
+                    [Math.min(this.start[0], this.end[0]), Math.min(this.start[1], this.end[1])], // Southwest coordinates [lng, lat]
+                    [Math.max(this.start[0], this.end[0]), Math.max(this.start[1], this.end[1])]  // Northeast coordinates [lng, lat]
+                ];
+
+                map.fitBounds(bounds, {
+                    padding: 100 // Optional padding around the bounding box
+                });
+            } else {
+                // Mapbox direction API
+                let respDirection = await directionService.getDirection(this.choosenTypeCar, import.meta.env.VITE_MAPBOX_KEY, this.start[0], this.start[1], this.end[0], this.end[1])
+                const directions = respDirection.routes[0];
+                const route = directions.geometry.coordinates;
+                const steps = directions.legs[0].steps;
+
+                // add instruction
+                this.stepsNum = steps.length
+                const instructions = document.getElementById('instructions');
+                let tripInstructions = '';
+                for (const step of steps) {
+                    let instruction = step.maneuver.instruction
+                    let distance = Math.round(step.distance)
+                    let duration = Math.round(step.duration / 60)
+                    if (duration == 0) {
+                        duration = Math.round(step.duration)
+                        duration += 's'
+                    } else {
+                        duration += 'p'
+                    }
+
+
+                    tripInstructions += `<li>
+
+                        <div class="d-flex justify-content-between">
+                            <div class="w-75">
+                                ${instruction} 
+                            </div>
+
+                           `;
+                    if (duration != '0s' || distance != 0) {
+                        tripInstructions += ` 
                             <div class="ms-2 w-25">
                                 ${distance}m
                             </div>
@@ -468,164 +675,61 @@ export default {
                         </div>
                       
                     </li>`
-                } else {
-                    tripInstructions += `</div></li>`
-                }
-            }
-            instructions.innerHTML = `<ol>${tripInstructions}</ol>`;
-
-            this.lengthRoad = Math.round(directions.distance);
-            this.timeToTravel = Math.round(directions.duration / 60)
-
-            if (map.getLayer('route')) {
-                map.removeLayer('route');
-            }
-            if (map.getSource('route')) {
-                map.removeSource('route');
-            }
-
-            map.addSource('route', {
-                'type': 'geojson',
-                'data': {
-                    'type': 'Feature',
-                    'properties': {},
-                    'geometry': {
-                        'type': 'LineString',
-                        'coordinates': route
+                    } else {
+                        tripInstructions += `</div></li>`
                     }
                 }
-            });
-            map.addLayer({
-                'id': 'route',
-                'type': 'line',
-                'source': 'route',
-                'layout': {
-                    'line-join': 'round',
-                    'line-cap': 'round'
-                },
-                'paint': {
-                    'line-color': 'blue',
-                    'line-width': 8
+                instructions.innerHTML = `<ol>${tripInstructions}</ol>`;
+
+                this.lengthRoad = Math.round(directions.distance);
+                this.timeToTravel = Math.round(directions.duration / 60)
+
+                if (map.getLayer('route')) {
+                    map.removeLayer('route');
                 }
-            })
+                if (map.getLayer('routeLine')) {
+                    map.removeLayer('routeLine');
+                }
+                if (map.getSource('route')) {
+                    map.removeSource('route');
+                }
 
-            const bounds = [
-                [Math.min(this.start[0], this.end[0]), Math.min(this.start[1], this.end[1])], // Southwest coordinates [lng, lat]
-                [Math.max(this.start[0], this.end[0]), Math.max(this.start[1], this.end[1])]  // Northeast coordinates [lng, lat]
-            ];
+                map.addSource('route', {
+                    'type': 'geojson',
+                    'data': {
+                        'type': 'Feature',
+                        'properties': {},
+                        'geometry': {
+                            'type': 'LineString',
+                            'coordinates': route
+                        }
+                    }
+                });
+                map.addLayer({
+                    'id': 'route',
+                    'type': 'line',
+                    'source': 'route',
+                    'layout': {
+                        'line-join': 'round',
+                        'line-cap': 'round'
+                    },
+                    'paint': {
+                        'line-color': 'blue',
+                        'line-width': 8
+                    }
+                })
 
-            map.fitBounds(bounds, {
-                padding: 100 // Optional padding around the bounding box
-            });
+                const bounds = [
+                    [Math.min(this.start[0], this.end[0]), Math.min(this.start[1], this.end[1])], // Southwest coordinates [lng, lat]
+                    [Math.max(this.start[0], this.end[0]), Math.max(this.start[1], this.end[1])]  // Northeast coordinates [lng, lat]
+                ];
 
-            // own data road
+                map.fitBounds(bounds, {
+                    padding: 100 // Optional padding around the bounding box
+                });
 
-            // var roads1 = await mapboxServices.getRoadNear(token, this.start[0], this.start[1])
-            // var roads2 = await mapboxServices.getRoadNear(token, this.end[0], this.end[1])
+            }
 
-            // var nearestRoad1 = roads1.roads[0].geometry.coordinates[0]
-            // var nearestRoad2 = roads2.roads[0].geometry.coordinates[0]
-
-            // var network = await mapboxServices.getRoadInsideBoundary(token, nearestRoad1[0], nearestRoad1[1], nearestRoad2[0], nearestRoad2[1])
-            // const pathFinder = new PathFinder({
-            //     "type": "FeatureCollection",
-            //     "features":
-            //         roads.roads
-            // }, {
-            //     weight: function (a, b, props) {
-            //         const dx = a[0] - b[0];
-            //         const dy = a[1] - b[1];
-            //         return Math.sqrt(dx * dx + dy * dy);
-            //     },
-            // });
-
-            // const pathFounded = pathFinder.findPath({
-            //     'type': 'Feature',
-            //     'geometry': {
-            //         'type': 'Point',
-            //         'coordinates': [nearestRoad1[0], nearestRoad1[1]]
-            //         // 'coordinates': [105.84368150000002, 21.046629699999983]
-            //     },
-            //     'properties': {
-            //         'title': 'Start'
-            //     }
-            // }, {
-            //     'type': 'Feature',
-            //     'geometry': {
-            //         'type': 'Point',
-            //         'coordinates': [nearestRoad2[0], nearestRoad2[1]]
-            //         // 'coordinates': [105.84368150000002, 21.046629699999983]
-            //     },
-            //     'properties': {
-            //         'title': 'Start'
-            //     }
-            // })
-
-            // // calculate length road
-            // const pathGeoJSONTurf = {
-            //     "type": "Feature",
-            //     "properties": {},
-            //     "geometry": {
-            //         "type": "LineString",
-            //         "coordinates": pathFounded.path
-            //     }
-            // };
-            // this.lengthRoad = Math.round(length(pathGeoJSONTurf, { units: 'meters' }));
-
-            // // calculate time
-            // this.timeToTravel = Math.round((this.lengthRoad * 0.001) / this.speed * 60)
-
-            // // find path line
-            // const pathLineString = pathToGeoJSON(pathFounded);
-
-            // this.checkClick = true
-            // const route = pathLineString.geometry;
-
-            // // get road name
-            // this.roadNames = [];
-
-            // for (let i = 0; i < pathFounded.path.length; i++) {
-
-            //     fetch(`https://api.mapbox.com/search/geocode/v6/reverse?longitude=${pathFounded.path[i][0]}&latitude=${pathFounded.path[i][1]}&access_token=${mapboxgl.accessToken}`)
-            //         .then(response => response.json())
-            //         .then(data => {
-
-            //             if (data.features.length > 0) {
-            //                 let address = data.features[0].properties.full_address;
-            //                 if (this.roadNames.indexOf(address) == -1) {
-            //                     this.roadNames.push(address)
-            //                 }
-            //             } else {
-            //                 console.error('No road name found for the coordinates');
-            //             }
-            //         })
-            //         .catch(error => {
-            //             console.error('Error fetching the road name', error);
-            //         });
-            // }
-
-            // // add path to map
-            // if (map.getSource('route')) {
-            //     map.getSource('route').setData(route);
-            // } else {
-            //     map.addLayer({
-            //         id: 'route',
-            //         type: 'line',
-            //         source: {
-            //             type: 'geojson',
-            //             data: route,
-            //         },
-            //         layout: {
-            //             'line-join': 'round',
-            //             'line-cap': 'round',
-            //         },
-            //         paint: {
-            //             'line-color': '#3887be',
-            //             'line-width': 5,
-            //             'line-opacity': 0.75,
-            //         },
-            //     });
-            // }
         },
 
 
@@ -648,7 +752,7 @@ export default {
         });
 
         // add bus data
-        let resp = await this.fetchJSON('https://dtplatform.netlify.app/export.geojson')
+        let resp = await this.fetchJSON('http://localhost:5173/export.geojson')
         this.dataBus = resp.features
 
         for (let i = 0; i < this.dataBus.length; i++) {
@@ -662,7 +766,7 @@ export default {
 
             let description = ''
             if (this.dataBus[i].properties.name != undefined)
-            description = `<div class="fw-bold">${this.dataBus[i].properties.name}</div>`
+                description = `<div class="fw-bold">${this.dataBus[i].properties.name}</div>`
             let markerBus = new mapboxgl.Marker(el)
                 .setLngLat([lng, lat])
                 .setPopup(new mapboxgl.Popup({ offset: 10 }).setHTML(description))
