@@ -1,11 +1,13 @@
 <template>
     <div class="d-flex flex-column w-100">
         <Header></Header>
-        <div id="banner">
-            <img src="@/assets/banner.webp" width="100%" alt="">
+        <div id="banner" class="d-flex justify-content-center">
+            <img src="@/assets/logo2.png" style="width: 20vw;">
+
+            <img src="@/assets/logo1.png" class="mleft" style="width: 20vw;" alt="">
         </div>
 
-        <h5 class="mleft mb-3 mt-2">Xin chào, admin!</h5>
+        <h5 class="mleft mb-3 mt-2">Xin chào!</h5>
         <div>
             <div class="container1" style="border-radius: 10px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
                 <div class="row">
@@ -119,7 +121,6 @@
                 </div>
             </div>
 
-            <img src="@/assets/banner2.jpg" width="94%" class="mleft" style="border-radius: 20px; box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;" alt="">
         </div>
 
         <Footer></Footer>
@@ -139,9 +140,11 @@ const router = useRouter()
 .mleft {
     margin-left: 50px;
 }
+
 .mright {
     margin-right: 50px;
 }
+
 a {
     color: black;
     text-decoration: none;
@@ -177,9 +180,11 @@ a {
     .mleft {
         margin-left: 10px;
     }
+
     .mright {
         margin-right: 10px;
     }
+
     .button-responsive {
         margin-left: 5px;
     }

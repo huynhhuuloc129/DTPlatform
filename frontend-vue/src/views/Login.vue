@@ -103,7 +103,7 @@ onMounted(() => {
     margin-top: 20px;
 }
 #section{
-    background-image: url('@/assets/banner1.jpg');
+    background-image: url('@/assets/banner1.png');
     background-size: 100vw 100vh;
 }
 @media only screen and (max-width: 500px) {
