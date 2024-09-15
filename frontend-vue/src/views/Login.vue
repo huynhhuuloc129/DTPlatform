@@ -9,27 +9,27 @@
 
                                 <div class=" mt-md-4 pb-5">
 
-                                    <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-                                    <p class="mb-5" style="">Please enter your username and password!</p>
+                                    <h2 class="fw-bold mb-2 text-uppercase">Đăng nhập</h2>
+                                    <p class="mb-5" style="">Nhập tài khoản và mật khẩu để đăng nhập</p>
                                     <form @submit="onLogin">
 
                                         <input v-model="inputFormLogin.username" type="text" id="typeEmailX"
-                                            class="form-control form-control-lg input-login" placeholder="Username"
+                                            class="form-control form-control-lg input-login" placeholder="Tài khoản"
                                             required />
 
                                         <input v-model="inputFormLogin.password" type="password" id="typePasswordX"
-                                            class="form-control form-control-lg input-login" placeholder="Password"
+                                            class="form-control form-control-lg input-login" placeholder="Mật khẩu"
                                             required />
 
                                         <button type="submit"
-                                            class="btn btn-outline-dark btn-lg px-5 input-login">Login</button>
+                                            class="btn btn-outline-dark btn-lg px-5 input-login">Đăng nhập</button>
                                     </form>
 
                                 </div>
 
                                 <div>
-                                    <p class="mb-0">Don't have an account? <a @click="router.push({ name: 'signup' })" href="#"
-                                            class="fw-bold">Sign Up</a>
+                                    <p class="mb-0">Chưa có tài khoản? <a @click="router.push({ name: 'signup' })" href="#"
+                                            class="fw-bold">Đăng ký</a>
                                     </p>
                                 </div>
 

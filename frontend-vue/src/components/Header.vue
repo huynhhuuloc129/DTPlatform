@@ -9,7 +9,7 @@
         </ul>
 
         <ul class="nav justify-content-center mb-md-0 ">
-          <li><a href="https://dtplatform.netlify.app/home" class="item-header px-2 text-dark inter-bold">Home</a></li>
+          <li><a href="https://dtplatform.netlify.app/home" class="item-header px-2 text-dark inter-bold">Trang chủ</a></li>
         </ul>
 
         <ul class="nav justify-content-center mb-md-0 ">
@@ -23,7 +23,7 @@
         </ul>
 
         <span class="text-end">
-          <button @click="signOut()" type="button" class="btn btn-dark">Log out</button>
+          <button @click="signOut()" type="button" class="btn btn-dark">Đăng xuất</button>
         </span>
       </div>
     </div>

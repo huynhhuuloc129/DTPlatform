@@ -9,33 +9,32 @@
 
                                 <div class="mt-md-4 pb-5">
 
-                                    <h2 class="fw-bold mb-2 text-uppercase">Signup now</h2>
-                                    <p class="mb-5">Please enter your username and password to create an
-                                        account!</p>
+                                    <h2 class="fw-bold mb-2 text-uppercase">Đăng ký</h2>
+                                    <p class="mb-5">Nhập tài khoản và mật khẩu để đăng ký</p>
                                     <form @submit="onRegister">
 
                                         <input v-model="inputFormRegister.username" type="text" id="typeEmailX"
-                                            class="form-control form-control-lg input-login" placeholder="Username"
+                                            class="form-control form-control-lg input-login" placeholder="Tài khoản"
                                             required />
 
                                         <input v-model="inputFormRegister.password" type="password" id="typePasswordX"
-                                            class="form-control form-control-lg input-login" placeholder="Password"
+                                            class="form-control form-control-lg input-login" placeholder="Mật khẩu"
                                             required />
 
                                         <input v-model="inputFormRegister.repeatPassword" type="password"
                                             class="form-control form-control-lg input-login"
-                                            placeholder="Repeat password" required />
+                                            placeholder="Nhập lại mật khẩu" required />
 
                                         <button class="btn btn-outline-dark btn-lg px-5 input-login"
-                                            type="submit">Signup</button>
+                                            type="submit">Đăng ký</button>
 
                                     </form>
 
                                 </div>
 
                                 <div>
-                                    <p class="mb-0">Already have an account? <a @click="router.push({ name: 'login' })"
-                                            href="#" class="fw-bold">Login</a>
+                                    <p class="mb-0">Đã có tài khoản? <a @click="router.push({ name: 'login' })"
+                                            href="#" class="fw-bold">Đăng nhập</a>
                                     </p>
                                 </div>
 
@@ -108,7 +107,7 @@ onMounted(() => {
 }
 
 #section {
-    background-image: url('@/assets/banner1.jpg');
+    background-image: url('@/assets/banner1.png');
     background-size: 100vw 100vh;
 }
 
